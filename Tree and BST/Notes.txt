@@ -1,0 +1,8 @@
+
+Height of Binary Search Tree
+1. Using Recursion
+2. Using Level Order Traversal
+
+Diameter of Binary Tree
+Recursive Approach - O(n^2)
+Try to reduce it to O(n)
