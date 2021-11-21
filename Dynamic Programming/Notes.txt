@@ -1,0 +1,13 @@
+
+Knapsack DP
+
+0/1
+Only one occurence of item is allowed.
+
+Unbounded Knapsack
+Multiple occurrences of same item is allowed.
+
+Target Sum
+Assign + or - to elements of array such that we arrive
+at the given sum. We have to find the number of ways to
+do that.
