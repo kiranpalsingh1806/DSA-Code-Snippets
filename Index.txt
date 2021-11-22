@@ -1,0 +1,14 @@
+Index
+
+1. Check if Linked List is circular
+2. Knapsack DP 0-1
+3. Unbounded Knapsack
+4. Cutting a rod
+5. Trapping Rain Water
+6. Position of Right Set Bit
+7. Height of Binary tree
+8. Diameter of Binary Tree
+9. Flattening a Linked List
+10. Check if linked List is palindrome
+11. Nth node from the end of Linked list
+12. Get minimum element from stack
