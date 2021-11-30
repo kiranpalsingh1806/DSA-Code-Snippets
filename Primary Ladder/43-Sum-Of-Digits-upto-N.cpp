@@ -28,8 +28,7 @@ int sumOfDigits(int n) {
 }
 
 int main() {
-    for(int i = 10; i < 50; i++) {
+    for(int i = 10; i < 50; i += 10) {
         cout << "Sum of digits in numbers from 1 to " << i << " is " << sumOfDigits(i) << "\n";
     }
-    
 }

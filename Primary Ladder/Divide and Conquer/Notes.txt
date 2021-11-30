@@ -1,5 +1,0 @@
-
-Elements occurs once in array (Other elements occurs twice in array)
-1. Using map in C++ and storing frequencies.
-2. Using XOR trick
-3. Binary Search

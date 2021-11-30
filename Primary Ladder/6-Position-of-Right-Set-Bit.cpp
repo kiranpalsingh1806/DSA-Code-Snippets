@@ -3,7 +3,7 @@ using namespace std;
 
 int main() {
     int n = 32;
-
-    cout << log2(n & -n) + 1 << "\n";
+    cout << "The position of right set bit is " << log2(n & -n) + 1 << "\n";
     return 0;
 }
+
