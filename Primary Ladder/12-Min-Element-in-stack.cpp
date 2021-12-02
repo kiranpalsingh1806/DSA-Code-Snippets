@@ -76,6 +76,5 @@ int main() {
     s.getMin();
     s.pop();
     s.peek();
-
     return 0;
 }
