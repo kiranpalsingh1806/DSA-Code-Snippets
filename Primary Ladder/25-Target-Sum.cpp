@@ -26,6 +26,8 @@ int countSubsets(vector<int>& nums, int n, int M) {
     return t[n][M];  
 }
 
+
+
 int findTargetSumWays(vector<int>& nums, int target) {
     target = abs(target);
     int n = nums.size();
@@ -48,3 +50,4 @@ int main() {
 
     cout << "The number of ways of getting target sum is " <<  findTargetSumWays(nums, S) << "\n";
 }
+

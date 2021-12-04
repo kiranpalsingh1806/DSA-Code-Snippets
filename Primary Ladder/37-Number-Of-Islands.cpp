@@ -30,7 +30,7 @@ int countIslands(int adj[][M]) {
     for(int i = 0; i < N; i++) {
         for(int j = 0; j < M; j++) {
             if(adj[i][j] && !vis[i][j]) {
-                dfs(adj, i, j, vis);
+                dfs(adj, i, j, vis);    
                 ++count;
             }
         }
