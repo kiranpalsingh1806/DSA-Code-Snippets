@@ -1,6 +1,11 @@
 
-## Topic Name
-[Name of Problem](https://github.com/kiranpalsingh1806/Data-Structures-and-Algorithms) (M) 
+## Bit Manipulation
+[AND and SUM](https://atcoder.jp/contests/abc238/tasks/abc238_d) 
+[Link](https://)
 
-## Topic Name
-[Name](https://) (M) 
+## BFS and DFS
+[Range Sums](https://atcoder.jp/contests/abc238/tasks/abc238_e)
+[Link](https://)
+
+## Other
+[Link](https://)
