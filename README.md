@@ -1,5 +1,5 @@
 Bit Manipulation
-### Check if ith bit is on
+### 1. Check if ith bit is on
 ```cpp
 for(int i = 0; i < 32; i++) {
     if(x & (1 << i)) {
@@ -7,7 +7,7 @@ for(int i = 0; i < 32; i++) {
     }
 }
 ```
-### Moving in four directions in grid
+### 2. Moving in four directions in grid
 
 ```cpp
 int dirs[4][2] = {{0,1},{0,-1},{1,0},{-1,0}};
@@ -18,7 +18,7 @@ for (auto &dir : dirs) {
 }
 ```
 
-### Can We Go From Source To Destination
+### 3. Can We Go From Source To Destination
 ```cpp
 vector<int> G[100];
 vector<bool>seen;
@@ -51,14 +51,14 @@ if (seen[t]) {
 
 }
 ```
-### Maximum Digit in Number
+### 4. Maximum Digit in Number
 ```cpp
 int maxDigitInNumber(int n) {
     if(n < 10) return n;
     return max( maxDigitInNumber(n / 10), n % 10);
 }
 ```
-### Print Euler Tour
+### 5. Print Euler Tour
 ```cpp
 
 vector<int> adj[1000]; 
@@ -89,7 +89,6 @@ void solve() {
 int n, m;
 cin >> n >> m;
 
-rep(i,1,m)
 for(int i = 0; i < m; i++) {
     int u, v;
     cin >> u >> v;
