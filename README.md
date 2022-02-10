@@ -1,4 +1,5 @@
-Bit Manipulation
+# DSA Code Snippets
+
 ### 1. Check if ith bit is on
 ```cpp
 for(int i = 0; i < 32; i++) {
@@ -32,22 +33,22 @@ void dfs(int v) {
 }
 
 void solve() { 
-int N, M,s,t; cin >> N >> M >> s >> t;
+    int N, M,s,t; cin >> N >> M >> s >> t;
 
-for (int i = 1; i <=M; ++i) {
-    int a, b;
-    cin >> a >> b;
-    G[a].push_back(b);
-}
+    for (int i = 1; i <=M; ++i) {
+        int a, b;
+        cin >> a >> b;
+        G[a].push_back(b);
+    }
 
-seen.assign(100, false);
-dfs(s);
+    seen.assign(100, false);
+    dfs(s);
 
-if (seen[t]) {
-    cout << "Yes" << endl;
-} else {
-    cout << "No" << endl;
-}
+    if (seen[t]) {
+        cout << "Yes" << endl;
+    } else {
+        cout << "No" << endl;
+    }
 
 }
 ```
@@ -86,17 +87,17 @@ void printEulerTour(int root, int N)
 }
 
 void solve() {
-int n, m;
-cin >> n >> m;
+    int n, m;
+    cin >> n >> m;
 
-for(int i = 0; i < m; i++) {
-    int u, v;
-    cin >> u >> v;
-    adj[u].push_back(v);
-    adj[v].push_back(u);
-}
+    for(int i = 0; i < m; i++) {
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
 
-printEulerTour(1, n);
+    printEulerTour(1, n);
 }
 ```
 ### Heading
