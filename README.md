@@ -1,6 +1,6 @@
 # DSA Code Snippets
 
-### 1. Check if ith bit is on
+### Check if ith bit is on
 ```cpp
 for(int i = 0; i < 32; i++) {
     if(x & (1 << i)) {
@@ -8,7 +8,7 @@ for(int i = 0; i < 32; i++) {
     }
 }
 ```
-### 2. Moving in four directions in grid
+### Moving in four directions in grid
 
 ```cpp
 int dirs[4][2] = {{0,1},{0,-1},{1,0},{-1,0}};
@@ -19,7 +19,7 @@ for (auto &dir : dirs) {
 }
 ```
 
-### 3. Can We Go From Source To Destination
+### Can We Go From Source To Destination
 ```cpp
 vector<int> G[100];
 vector<bool>seen;
@@ -52,14 +52,14 @@ void solve() {
 
 }
 ```
-### 4. Maximum Digit in Number
+### Maximum Digit in Number
 ```cpp
 int maxDigitInNumber(int n) {
     if(n < 10) return n;
     return max( maxDigitInNumber(n / 10), n % 10);
 }
 ```
-### 5. Print Euler Tour
+### Print Euler Tour
 ```cpp
 
 vector<int> adj[1000]; 
