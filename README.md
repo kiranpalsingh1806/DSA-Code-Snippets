@@ -1232,6 +1232,46 @@ int main(void) {
 long long a = numeric_limits<long long>::max();
 int b = numeric_limits<int>::max();
 ```
+### Count frequency of each character in string
+```cpp
+int cnt[26] = {0};
+for (char c : s) {
+  cnt[c - 'a']++;  
+} 
+
+```
+### Erase Duplicates in Vector
+```cpp
+unorder_set<int> s;
+for(int i : vec) {
+    s.insert(i);
+}
+
+vec.assign(s.begin(), s.end());
+sort(vec.begin(), vec.end());
+
+Another Method: Slower than the above method
+
+sort(vec.begin(), vec.end());
+vec.erase(unique(vec.begin(), vec.end()), vec.end());
+
+```
+### Heading
+```cpp
+Code here
+```
+### Heading
+```cpp
+Code here
+```
+### Heading
+```cpp
+Code here
+```
+### Heading
+```cpp
+Code here
+```
 ### Heading
 ```cpp
 Code here
