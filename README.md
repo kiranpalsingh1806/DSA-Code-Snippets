@@ -471,25 +471,766 @@ void solve()
     cout << count << endl;
 }
 ```
-### Heading
+### Euler Phi Function
 ```cpp
-Code here
+vector< int > euler_phi_table(int n) {
+  vector< int > euler(n + 1);
+  for(int i = 0; i <= n; i++) {
+    euler[i] = i;
+  }
+  for(int i = 2; i <= n; i++) {
+    if(euler[i] == i) {
+      for(int j = i; j <= n; j += i) {
+        euler[j] = euler[j] / i * (i - 1);
+      }
+    }
+  }
+  return euler;
+}
+
+template< typename T >
+T euler_phi(T n) {
+  T ret = n;
+  for(T i = 2; i * i <= n; i++) {
+    if(n % i == 0) {
+      ret -= ret / i;
+      while(n % i == 0) n /= i;
+    }
+  }
+  if(n > 1) ret -= ret / n;
+  return ret;
+}
+
+void EulerPhiDemo(int n) {
+  int countPhi = 0;
+  vector<int> whichNum;
+  for(int i = 0; i <= n; i++) {
+    if(gcd(i, n) == 1) {
+      whichNum.push_back(i);
+      countPhi++;
+    }
+  }
+  cout << "Euler Phi of " << n << " : " << countPhi << "\n";
+  cout << "The numbers are : ";
+  for(auto &a: whichNum){
+    cout << a << " ";
+  }
+  cout << "\n";
+}
+
+void solve()
+{
+	auto eulerTable = euler_phi_table(100);
+	for(auto &a: eulerTable) {
+		cout << a << " ";
+	}
+	cout << "\n";
+
+	auto eulerNumber = euler_phi(20);
+	cout << eulerNumber << "\n";
+
+  EulerPhiDemo(5);
+  EulerPhiDemo(11);
+  EulerPhiDemo(20);
+}
+
+// Output
+// Euler Phi Table
+// 0 1 1 2 2 4 2 6 4 6 4 10 4 12 6 8 8
+// 16 6 18 8 12 10 22 8 20 12 18 12 28
+// 8 30 16 20 16 24 12 36 18 24 16 40
+// 12 42 20 24 22 46 16 42 20 32 24 
+// 52 18 40 24 36 28 58 16 60 30 36
+// 32 48 20 66 32 44 24 70 24 72 36
+// 40 36 60 24 78 32 54 40 82 24 64
+// 42 56 40 88 24 72 44 60 46 72 32
+// 96 42 60 40 
+
+// Euler Phi Number
+// 8
+
+// Euler Phi Demo
+// Euler Phi of 5 : 4
+// The numbers are : 1 2 3 4 
+// Euler Phi of 11 : 10
+// The numbers are : 1 2 3 4 5 6 7 8 9 10 
+// Euler Phi of 20 : 8
+// The numbers are : 1 3 7 9 11 13 17 19 
 ```
-### Heading
+### Point Structure - Geometry
 ```cpp
-Code here
+typedef double T;
+struct pt {
+	T x, y;
+	pt operator+ (pt p) {
+		return {x + p.x, y + p.y};
+	}
+
+	pt operator- (pt p) {
+		return {x - p.x, y - p.y};
+	}
+
+	pt operator* (T d) {
+		return { x * d, y * d};
+	}
+
+	pt operator/ (T d) {
+		return {x/d, y/d};
+	}
+};
+
+bool operator==(pt a, pt b) {
+	return a.x == b.x && a.y == b.y;
+}
+
+bool operator!= (pt a, pt b) {
+	return !(a == b);
+}
+
+T sq(pt p) {
+	return p.x * p.x + p.y * p.y;
+}
+
+double abs(pt p) {
+	return sqrt(sq(p));
+}
+
+ostream& operator<< (ostream& os, pt p) {
+	return os << "(" << p.x << "," << p.y << ")";
+}
+
+void solve()
+{
+    pt a, b;
+    cin >> a.x >> a.y >> b.x >> b.y;
+    cout << a+b << " " << a-b << "\n"; 
+    cout << a*-1 << " " << b/2 << "\n"; 
+
+    pt c;
+    cin >> c.x >> c.y;
+    cout << abs(c) << "\n";
+}
+
+// Input
+// 3 4
+// 2 -1
+// -5 -10
+
+// Output
+// (5,3) (1,5)
+// (-3,-4) (1,-0.5)
+// 11.1803
+
 ```
-### Heading
+### Adding numbers in string
 ```cpp
-Code here
+string addStr(const string& a, const string& b) {
+	int as = (int)a.size() - 1;
+	int bs = (int)b.size() - 1;
+	string res;
+	int carry = 0;
+	for (int i = 0;; ++i) {
+		int v = carry;
+		carry = 0;
+		if (i <= as) v += a[as-i] - '0';
+		if (i <= bs) v += b[bs-i] - '0';
+		if (v >= 10) {
+			v -= 10;
+			carry = 1;
+		}
+		if (i > as && i > bs && v == 0) break;
+		res.push_back(v + '0');
+	}
+	reverse(res.begin(), res.end());
+	return res;
+}
+
+
+void solve()
+{
+	string a, b;
+	cin >> a >> b;
+
+	string ans = addStr(a, b);
+	cout << ans << "\n";
+}
+
+// Input
+// 5555
+// 4444
+
+// Output
+// 9999
 ```
-### Heading
+### Longest Prefix Suffix
 ```cpp
-Code here
+// Longest prefix which is also suffix
+// The prefix and suffix should not overlap
+vector<int> computeLPS(string t) {
+	int m = t.length();
+    vector<int> lps(m);
+ 
+    int i = 1, len = 0;
+    lps[0] = 0;
+ 
+    while (i < m) {
+        if (t[i] == t[len]) {
+            len++;
+            lps[i] = len;
+            i++;
+        }
+        else {
+            if (len != 0) {
+                len = lps[len - 1];
+            }
+            else {
+                lps[i] = 0;
+                i++;
+            }
+        }
+    }
+    return lps;
+}
+
+void solve()
+{
+	string a, b;
+    cin >> a >> b;  
+
+    auto A = computeLPS(a);
+    auto B = computeLPS(b);
+
+    for(auto &a: A) {
+        cout << a << " ";
+    }
+    cout << "\n";
+
+    for(auto &b: B) {
+        cout << b << " ";
+    }
+    cout << "\n";
+}
+
+// Input
+// abcdabcdabcd
+// abcdefabcdefabcdef
+// Output
+// 0 0 0 0 1 2 3 4 5 6 7 8 
+// 0 0 0 0 0 0 1 2 3 4 5 6 7 8 9 10 11 12 
+
 ```
-### Heading
+### Sorting String based on number of ones
 ```cpp
-Code here
+void solve()
+{
+	int n;
+	cin >> n;
+	vector<string> s(n);
+
+	for(int i = 0; i < n; i++) {
+		cin >> s[i];
+	}
+	sort(s.begin(), s.end(), [&](string x, string y) {
+        return count(x.begin(), x.end(), '1') < count(y.begin(), y.end(), '1');
+    });
+
+    for(int i = 0; i < n; i++) {
+    	cout << s[i] << "\n";
+    }
+}
+
+// Input
+// 5
+// 10101
+// 10000000
+// 010101
+// 00111111
+// 11000000000
+
+// Output
+// 10000000
+// 11000000000
+// 10101
+// 010101
+// 00111111
+```
+### Rabin Karp Algorithm
+```cpp
+string s,t;
+//t -> text s-> pattern
+
+vector<int> rabin_karp(string const& s, string const& t) {
+    const int p = 31; 
+    const int m = 1e9 + 9;
+    int S = s.size(), T = t.size();
+
+    vector<long long> p_pow(max(S, T)); 
+    p_pow[0] = 1; 
+    for (int i = 1; i < (int)p_pow.size(); i++) 
+        p_pow[i] = (p_pow[i-1] * p) % m;
+
+    vector<long long> h(T + 1, 0); 
+    for (int i = 0; i < T; i++)
+        h[i+1] = (h[i] + (t[i] - 'a' + 1) * p_pow[i]) % m; 
+    long long h_s = 0; 
+    for (int i = 0; i < S; i++) 
+        h_s = (h_s + (s[i] - 'a' + 1) * p_pow[i]) % m; 
+
+    vector<int> occurences;
+    for (int i = 0; i + S - 1 < T; i++) { 
+        long long cur_h = (h[i+S] + m - h[i]) % m; 
+        if (cur_h == h_s * p_pow[i] % m)
+            occurences.push_back(i);
+    }
+    return occurences;
+}
+
+void solve()
+{
+    cin >> t >> s;
+    ll n = s.length();
+
+    // Prints the vector of indices where pattern is matched in text.
+    auto a = rabin_karp(s, t);
+    for(auto &ele: a) {
+        cout << ele << " ";
+    }
+    cout << "\n";
+}
+
+//Input
+// abcdeaabcfgabc abc
+// Output
+// 0 6 11
+```
+### Z Function - Prefix Function
+```cpp
+vector<int> z_function(string s) {
+    int n = (int) s.length();
+    vector<int> z(n);
+    for (int i = 1, l = 0, r = 0; i < n; ++i) {
+        if (i <= r)
+            z[i] = min (r - i + 1, z[i - l]);
+        while (i + z[i] < n && s[z[i]] == s[i + z[i]])
+            ++z[i];
+        if (i + z[i] - 1 > r)
+            l = i, r = i + z[i] - 1;
+    }
+    return z;
+}
+```
+### Kadane Algorithm
+```cpp
+ll maxSumSubarray (vector<ll> A) {
+	ll n = A.size();
+	ll local_max = 0;
+	ll global_max = -inf;
+	for (ll i=0; i<n; i++) {
+			local_max = max(A[i], A[i] + local_max);
+
+			if (local_max > global_max){
+				global_max = local_max;
+			}	
+	}
+	return global_max;
+}
+
+
+void solve()
+{ 
+	int n;
+	cin >> n;
+	vector<ll> a(n);
+	for(int i = 0; i < n; i++) {
+		cin >> a[i];
+	}
+
+	ll mx = maxSumSubArray(a);
+	cout << mx << "\n";
+}
+```
+### Sorting by Comparator Function
+```cpp
+bool cmp(const pair<string, long> &p1, const pair<string, long> &p2)
+{
+    if(p1.second!=p2.second)
+        return p1.second < p2.second;
+    return p1.first < p2.first;
+}
+
+sort(vect.begin(), vect.end(), cmp);
+```
+### Structure Sorting Comparator
+```cpp
+struct city {
+	string name;
+	int score, index;
+};
+
+int n;
+
+bool comp(const city a, const city b) {
+	if(a.name != b.name) {
+		return a.name < b.name;
+	}
+	return a.score > b.score;
+}
+
+void solve() {
+	cin >> n;
+	vector<city> cities(n);
+	for(int i = 0; i < n; i++) {
+		cin >> cities[i].name >> cities[i].score;
+		cities[i].index = i + 1;
+	}	
+
+	sort(cities.begin(), cities.end(), comp);
+
+	for(int i = 0; i < n; i++) {
+		cout << cities[i].index << "\n";
+	}
+}
+
+// Input
+// 6
+// khabarovsk 20
+// moscow 10
+// kazan 50
+// kazan 35
+// moscow 60
+// khabarovsk 40
+
+// Output
+// 3
+// 4
+// 6
+// 1
+// 5
+// 2
+
+```
+### Max Heap and Min Heap
+```cpp
+// Minimum heap and Maximum heap
+void solve()
+{
+	priority_queue<int, vector<int>, greater<int> > minHeap;
+	priority_queue<int, vector<int> > maxHeap;
+
+	int n, x;
+	cin >> n;
+	for(int i = 0; i < n; i++) {
+		cin >> x;
+		minHeap.push(x);
+		maxHeap.push(x);
+	}
+
+	auto a = minHeap;
+	while(!a.empty()) {
+		cout << a.top() << " ";
+		a.pop();
+	}
+	cout << "\n";
+
+	auto b = maxHeap;
+	while(!b.empty()) {
+		cout << b.top() << " ";
+		b.pop();
+	}
+	cout << "\n";
+}
+
+// Input
+// 8
+// 1 5 2 19 23 9 7 33
+// Output
+// 1 2 5 7 9 19 23 33 
+// 33 23 19 9 7 5 2 1 
+```
+### Next Permutation
+```cpp
+void solve()
+{
+	string s;
+	cin >> s;
+	sort(s.begin(), s.end());
+
+	do {
+		cout << s << "\n";
+	} while(next_permutation(s.begin(), s.end()));
+}
+
+// Input
+// abcd
+
+// Ouput
+// abcd
+// abdc
+// acbd
+// acdb
+// adbc
+// adcb
+// bacd
+// badc
+// bcad
+// bcda
+// bdac
+// bdca
+// cabd
+// cadb
+// cbad
+// cbda
+// cdab
+// cdba
+// dabc
+// dacb
+// dbac
+// dbca
+// dcab
+// dcba
+```
+### Chicken McNugget Theorem
+```cpp
+/* The Chicken McNugget Theorem states that for any two relatively prime positive
+integers m and n, the greatest integer that cannot that cannot be written
+in the form a*m + b *n for non-negative integers a, b is mn - m - n.  */
+
+bool chickenMcNuggetTheorem(int m, int n, int number) {
+	for(int i = 0; i <= 10; i++) {
+		int y = number - i * n;
+		if(y >= 0 && y % m == 0) {
+			return true;
+		}	
+	}
+	return false;
+}
+
+bool chickenMcNuggetTheoremModified(int m, int n, int number) {
+	if(number >= n * (number % m)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+void solve()
+{
+	int t, n;
+	cin >> t;
+	while(t--) {
+		cin >> n;
+		if(chickenMcNuggetTheoremModified(11, 111, n)) {
+			cout << "YES" << "\n";
+		} else {
+			cout << "NO" << "\n";
+		}
+	}
+}
+
+// Input
+// 3
+// 33
+// 144
+// 69
+
+// Output
+// YES
+// YES
+// NO
+
+```
+### Sum of Two Numbers with Given Base
+```cpp
+// Returns sum of two numbers a and b with given base 
+int sumWithBase(string a, string b, int base)
+{
+    int len_a, len_b;
+ 
+    len_a = a.size(); len_b = b.size();
+ 
+    string sum, s;
+    s = "";
+    sum = "";
+ 
+    int diff;
+    diff = abs(len_a - len_b);
+ 
+    for (int i = 1; i <= diff; i++) s += "0";
+ 
+    if (len_a < len_b) a = s + a;
+    else b = s + b;
+ 
+    int curr, carry = 0;
+ 
+    for (int i = max(len_a, len_b) - 1; i > -1; i--) 
+    {
+        curr = carry + (a[i] - '0') + (b[i] - '0');
+        carry = curr / base;
+        curr = curr % base;
+        sum = (char)(curr + '0') + sum;
+    }
+
+    if (carry > 0) sum = (char)(carry + '0') + sum;
+    
+    int ans = stoi(sum);
+    return ans;
+}
+
+void solve()
+{
+    string a, b;
+    cin >> a >> b;
+    cout << sumABwithBase(a, b, 10);
+}
+
+// Input
+// 11 12
+// Output
+// 23
+```
+### Prime Numbers in Range
+```cpp
+const ll MAXN = 1e7;
+bool comp[MAXN + 10];
+vector<ll> primeVec;
+
+void sieveOfEratosthenes()
+{
+   for(int i = 2; i <= MAXN; i++){
+        if(comp[i]) continue;
+        primeVec.pb(i);        
+        for(int j = 2 * i; j <= MAXN; j += i){
+            comp[j] = true;
+        }
+    }
+}
+
+int L,R;
+
+void solve()
+{
+    // Implementation
+    sieveOfEratosthenes();
+    cin >> L >> R;
+    // For finding prime numbers in range L,R
+    ll rangeAns = (upper_bound(primeVec.begin(), primeVec.end(), R)
+                 - upper_bound(primeVec.begin(), primeVec.end(), L));
+
+    cout << rangeAns;
+}
+
+// Input - > 1 100
+// Output -> 25 (25 Prime numbers between 2 and 100 inclusive)
+```
+### Convert To Decimal From Base K
+```cpp
+
+int convertToDecimal(string s, int k) {
+  int ans = 0;
+  for(char x: s) {
+    ans *= k;
+    ans += x - '0';
+  } return ans;
+}
+
+int main(){
+    int k;
+    string a,b;
+    cin >> k >> a >> b;
+    int A = convertToDecimal(a, k);
+    int B = convertToDecimal(b, k);
+    cout << A*B << endl;
+    return 0;
+}
+```
+### Maximum GCD in range [L, R]
+```cpp
+// Finding maximum gcd of two numbers a and b in range [L, R]
+// in O(n) time instead of O(n ^ 2) time.
+	// cin >> L >> R;
+int maxGCD = -1e9;
+int operations = 0;
+
+for(int i = L; i <= R; i++) {
+	for(int j = i + 1; j <= R; j++) {
+		maxGCD = max(maxGCD, int(gcd(i, j)));
+		operations++;
+	}
+}
+
+cout << maxGCD << "\n";
+int modifiedOperations = 0;
+
+for(int c = R; c > 0; c--) {
+	modifiedOperations++;
+	if((L + c - 1) / c < R / c) {
+		cout << c << "\n";
+		goto end;
+	}
+}
+end:;
+
+cout << operations << "\n";
+cout << modifiedOperations << "\n";
+
+// Input
+// 100 279
+// Output
+// 139
+// 139
+// 16110
+// 141
+```
+### Prefix Sum 2D
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+constexpr int MAX_SIDE = 1000;
+int prefixSum2D[MAX_SIDE + 1][MAX_SIDE + 1];
+int array2D[MAX_SIDE + 1][MAX_SIDE + 1];
+
+void solve()
+{
+	int N;
+	int Q;
+	cin >> N >> Q;
+	// read the 2D array
+	for (int i = 1; i <= N; i++) {
+		for (int j = 1; j <= N; j++) {
+			cin >> array2D[i][j];
+		}
+	}
+
+	// build the prefix sum array
+	for (int i = 1; i <= N; i++) {
+		for (int j = 1; j <= N; j++) {
+			prefixSum2D[i][j] = array2D[i][j]
+						+ prefixSum2D[i - 1][j]
+						+ prefixSum2D[i][j - 1]
+						- prefixSum2D[i - 1][j - 1];
+		}
+	}
+
+	for (int q = 0; q < Q; q++) {
+		int x1, x2, y1, y2;
+		cin >> x1 >> y1 >> x2 >> y2;
+		cout << prefixSum2D[x2][y2]
+				- prefixSum2D[x1-1][y2]
+				- prefixSum2D[x2][y1-1]
+				+ prefixSum2D[x1-1][y1-1] << '\n';
+	}
+
+}
+
+int main(void) {
+	solve();
+}
+```
+### Numeric Limits
+```cpp
+long long a = numeric_limits<long long>::max();
+int b = numeric_limits<int>::max();
 ```
 ### Heading
 ```cpp
