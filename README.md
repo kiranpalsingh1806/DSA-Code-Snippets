@@ -18,6 +18,21 @@ for (auto &dir : dirs) {
     // Here x and y is our current location.
 }
 ```
+### Longest Increasing Subsequence - LIS DP
+
+```cpp
+int LIS(vector<int> &a) {
+    int n = a.size();
+    vector<int> dp(n, 1e9);
+
+    for(int i = 0; i < n; i++) {
+        auto it = lower_bound(dp.begin(), dp.end(), a[i]);
+        *it = a[i];
+    }
+
+    return lower_bound(dp.begin(), dp.end(), 1e9) - dp.begin();
+}
+```
 
 ### Can We Go From Source To Destination
 ```cpp
