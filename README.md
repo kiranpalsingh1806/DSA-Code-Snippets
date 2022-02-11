@@ -92,7 +92,7 @@ void solve() {
     cin >> n >> m;
 
     for(int i = 0; i < m; i++) {
-        int u, v;
+        int , v;
         cin >> u >> v;
         adj[u].push_back(v);
         adj[v].push_back(u);
