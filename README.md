@@ -75,6 +75,13 @@ int maxDigitInNumber(int n) {
     return max( maxDigitInNumber(n / 10), n % 10);
 }
 ```
+### Number of set bits in number
+```cpp
+int setbitsCnt = __builtin_popcount(x);
+long int setbitsCnt = __builtin_popcountl(x);
+long long setbitsCnt = __builtin_popcountll(x);
+```
+
 ### Print Euler Tour
 ```cpp
 
