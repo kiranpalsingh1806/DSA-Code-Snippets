@@ -75,6 +75,15 @@ int maxDigitInNumber(int n) {
     return max( maxDigitInNumber(n / 10), n % 10);
 }
 ```
+### Convert Vector to Unordered Set
+```cpp
+vector<string> V = {"One", "Two", "Three", "Four", "Five"};
+unordered_set<string> S(V.begin(), V.end());
+
+// Use Cases
+// -> To find any particular element : S.count("word");
+// -> To erase any particular element : S.erase("word");
+```
 ### Storing Frequencies of Elements in Vector
 ```cpp
 unordered_map<int, int> M;
