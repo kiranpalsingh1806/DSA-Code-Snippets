@@ -18,6 +18,19 @@ for (auto &dir : dirs) {
     // Here x and y is our current location.
 }
 ```
+### Rotate Array Left or right
+
+```cpp
+// Array - 1 2 3 4 5 6 7 8 9
+
+// Rotate array to left by 3 positions.
+// 4 5 6 7 8 9 1 2 3
+rotate(vec1.begin(), vec1.begin() + 3, vec1.end());
+
+// Rotate array to right by 3 positions.
+// 7 8 9 1 2 3 4 5 6
+rotate(vec1.begin(), vec1.begin() - 3, vec1.end());
+```
 ### Longest Increasing Subsequence - LIS DP
 
 ```cpp
