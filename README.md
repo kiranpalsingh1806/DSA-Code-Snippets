@@ -27,6 +27,12 @@ int M = (L + R) / 2;
 int M = L + (R - L) / 2
 // This will prevent overflowing.
 ```
+### Find element in vector and replace it
+```cpp
+auto it = find (V.begin(), V.end(), num);
+// it - V.begin() will given index of given num [0-indexed]
+V[it - V.begin()] = otherNum;
+```
 ### Rotate Array Left or right
 
 ```cpp
