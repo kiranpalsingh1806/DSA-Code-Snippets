@@ -33,7 +33,7 @@ auto it = find (V.begin(), V.end(), num);
 // it - V.begin() will given index of given num [0-indexed]
 V[it - V.begin()] = otherNum;
 ```
-### Find element in vector and replace it
+### Dummy Head Node and its pointer
 ```cpp
 // Creates a dummy head node and a pointer tail which points to dummy initially.
 ListNode dummy, *tail = &dummy;
