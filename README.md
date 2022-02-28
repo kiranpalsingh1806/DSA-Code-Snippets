@@ -18,6 +18,15 @@ for (auto &dir : dirs) {
     // Here x and y is our current location.
 }
 ```
+### Binary Search - When middle goes out of range
+
+```cpp
+int M = (L + R) / 2;
+// signed integer overflow: 1063376696 + 2126753390 cannot be represented in type 'int'
+
+int M = L + (R - L) / 2
+// This will prevent overflowing.
+```
 ### Rotate Array Left or right
 
 ```cpp
