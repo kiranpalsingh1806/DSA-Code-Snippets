@@ -37,9 +37,7 @@ V[it - V.begin()] = otherNum;
 ```cpp
 // Creates a dummy head node and a pointer tail which points to dummy initially.
 ListNode dummy, *tail = &dummy;
-// Adding values in dummy node 
 tail->next = new ListNode(val);
-// Moving forward
 tail = tail->next;
 ```
 ### Rotate Array Left or right
