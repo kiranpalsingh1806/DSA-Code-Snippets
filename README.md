@@ -39,6 +39,9 @@ V[it - V.begin()] = otherNum;
 ListNode dummy, *tail = &dummy;
 tail->next = new ListNode(val);
 tail = tail->next;
+
+// dummy is not a pointer but a ListNode so we must use dummy.next.
+return dummy.next;
 ```
 ### Rotate Array Left or right
 
