@@ -1390,29 +1390,4 @@ Another Method: Slower than the above method
 
 sort(vec.begin(), vec.end());
 vec.erase(unique(vec.begin(), vec.end()), vec.end());
-
-```
-### Heading
-```cpp
-Code here
-```
-### Heading
-```cpp
-Code here
-```
-### Heading
-```cpp
-Code here
-```
-### Heading
-```cpp
-Code here
-```
-### Heading
-```cpp
-Code here
-```
-### Heading
-```cpp
-Code here
 ```
