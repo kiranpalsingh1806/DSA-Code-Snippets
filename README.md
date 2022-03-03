@@ -139,6 +139,29 @@ int setbitsCnt = __builtin_popcount(x);
 long int setbitsCnt = __builtin_popcountl(x);
 long long setbitsCnt = __builtin_popcountll(x);
 ```
+### Lambda Function to Check if Vector is Permutation 
+```cpp
+int n = 6;
+auto isPermutation = [&](const vector<int> &A)->bool{
+    vector<int> vis(n + 1, false);
+    for(auto x : A){
+        if(x <= 0 || x > n || vis[x])
+            return false;
+        vis[x] = true;
+    }
+    return true;
+};
+
+vector<int> A = {1, 2, 3, 4, 5, 1};
+vector<int> B = {3, 4, 5, 6, 1, 2};
+
+if(isPermutation(A)) {
+    cout << "Vector A is permutation" << "\n";
+}
+if(isPermutation(B)) {
+    cout << "Vector B is permutation" << "\n";
+}
+```
 
 ### Print Euler Tour
 ```cpp
