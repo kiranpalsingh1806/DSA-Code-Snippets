@@ -18,6 +18,16 @@ for (auto &dir : dirs) {
     // Here x and y is our current location.
 }
 ```
+### Knight Moves in Chessboard
+
+```cpp
+int dirs[8][2] = {{-2,1}, {-1,2}, {1,2}, {2,1}, {2,-1}, {1,-2}, {-1,-2}, {-2,-1}};
+
+for (auto &dir : dirs) {
+    int a = x + dir[0], b = y + dir[1];
+    // Here x and y is our current location.
+}
+```
 ### Binary Search - When middle goes out of range
 
 ```cpp
@@ -122,35 +132,7 @@ unordered_set<string> S(V.begin(), V.end());
 // -> To find any particular element : S.count("word");
 // -> To erase any particular element : S.erase("word");
 ```
-### Storing Frequencies of Elements in Vector
-```cpp
-unordered_map<int, int> M;
 
-bool cmp(int a, int b) {
-	return M[a] < M[b] || (M[a] == M[b] && a < b);
-}
-
-void solve() {
-	int N, x;
-	cin >> N;
-	vector<int> V;
-	for(int i = 0; i < N; i++) {
-		cin >> x;
-		if(!count(V.begin(), V.end(), x)) {
-			V.push_back(x);
-		}
-		M[x]++;
-	}
-
-	sort(V.begin(), V.end(), cmp);
-}
-
-// Input
-// 10
-// 1 3 2 2 2 3 9 9 4 2
-// [V] = [[1 4 3 9 2]]
-// [M] = [[[4,1] [1,1] [3,2] [2,4] [9,2]]]
-```
 ### Number of set bits in number
 ```cpp
 int setbitsCnt = __builtin_popcount(x);
