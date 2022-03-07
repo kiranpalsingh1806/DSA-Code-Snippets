@@ -43,6 +43,13 @@ auto it = find (V.begin(), V.end(), num);
 // it - V.begin() will given index of given num [0-indexed]
 V[it - V.begin()] = otherNum;
 ```
+### Generating Random Numbers in Range
+```cpp
+mt19937 rng{random_device{}()};
+uniform_real_distribution<double> uni{0, 1};
+// It will generate the random numbers every time in given range
+// cout << uni(rng) << "\n";
+```
 ### Dummy Head Node and its pointer
 ```cpp
 // Creates a dummy head node and a pointer tail which points to dummy initially.
