@@ -765,6 +765,30 @@ void solve()
 // 11.1803
 
 ```
+
+### Finding if element inserted in set or not
+```cpp
+set<int> S;
+int N = 6;
+for(int i = 0; i < N; i++) {
+    int x; cin >> x;
+    if(S.insert(x).second) {
+        cout << "New Element is inserted :)" << "\n";
+    } else {
+        cout << "Element already exists  :(" << "\n";
+    }
+}
+
+// Input = 1 2 3 4 2 5
+// Output: 
+// New Element is inserted :)
+// New Element is inserted :)
+// New Element is inserted :)
+// New Element is inserted :)
+// Element already exists  :(
+// New Element is inserted :)
+```
+
 ### Adding numbers in string
 ```cpp
 string addStr(const string& a, const string& b) {
