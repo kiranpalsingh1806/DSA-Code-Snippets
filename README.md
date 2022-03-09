@@ -18,6 +18,17 @@ for (auto &dir : dirs) {
     // Here x and y is our current location.
 }
 ```
+### Finding Pivot Element in Vector
+
+```cpp
+int L = 0, R = nums.size() - 1, pivot;
+while (L < R) {
+    int M = L + (R - L) / 2;
+    if (nums[M] < nums[R]) R = M;
+    else L = M + 1;
+}
+pivot = L;
+```
 ### Knight Moves in Chessboard
 
 ```cpp
