@@ -997,6 +997,14 @@ vector<int> z_function(string s) {
     return z;
 }
 ```
+
+### Lambda Function Definition
+```cpp
+// Void Lambda Function
+function<void(int, int)> dfs = [&](int start, int goal) {
+    // Write your code here.          
+};
+```
 ### Kadane Algorithm
 ```cpp
 ll maxSumSubarray (vector<ll> A) {
