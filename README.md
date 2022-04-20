@@ -54,6 +54,18 @@ auto it = find (V.begin(), V.end(), num);
 // it - V.begin() will given index of given num [0-indexed]
 V[it - V.begin()] = otherNum;
 ```
+
+### Manipulation of head and tail in Linked List
+```cpp
+struct ListNode {
+
+};
+
+ListNode head, *tail = &head;
+// Manipulate tail node here
+return head.next;
+```
+
 ### Generating Random Numbers in Range
 ```cpp
 mt19937 rng{random_device{}()};
@@ -1441,3 +1453,5 @@ Another Method: Slower than the above method
 sort(vec.begin(), vec.end());
 vec.erase(unique(vec.begin(), vec.end()), vec.end());
 ```
+
+<p align="left"> <img src="https://komarev.com/ghpvc/?username=kiranpalsingh1806&label=Views&color=blue&style=plastic" alt="kiranpalsingh" /> </p>
