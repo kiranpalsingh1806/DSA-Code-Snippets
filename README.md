@@ -161,6 +161,8 @@ unordered_set<string> S(V.begin(), V.end());
 // Use Cases
 // -> To find any particular element : S.count("word");
 // -> To erase any particular element : S.erase("word");
+
+// 705 LeetCode - Design HashSet
 ```
 
 ### Number of set bits in number
