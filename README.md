@@ -64,8 +64,9 @@ struct ListNode {
 ListNode head, *tail = &head;
 // Manipulate tail node here
 return head.next;
+
+https://leetcode.com/problems/merge-nodes-in-between-zeros
 ```
-https://leetcode.com/problems/merge-nodes-in-between-zeros/submissions/
 
 ### Generating Random Numbers in Range
 ```cpp
