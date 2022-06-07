@@ -155,6 +155,23 @@ int maxDigitInNumber(int n) {
     return max( maxDigitInNumber(n / 10), n % 10);
 }
 ```
+
+### stringstream Implementation
+```cpp
+stringstream ss;
+ss << "Kiranpal Singh";
+
+cout << ss.str() << "\n";
+
+// We can also extract words from a string, perform some operation on each word 
+stringstream ss(sentence);
+string word, ans;
+while(ss >> word) {
+    ans += performOperation(word) + " ";
+}
+
+// https://leetcode.com/problems/apply-discount-to-prices/
+```
 ### Convert Vector to Unordered Set
 ```cpp
 vector<string> V = {"One", "Two", "Three", "Four", "Five"};
