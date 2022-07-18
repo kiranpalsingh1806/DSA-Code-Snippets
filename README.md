@@ -17,6 +17,13 @@ for (auto &dir : dirs) {
     int a = x + dir[0], b = y + dir[1];
     // Here x and y is our current location.
 }
+
+int dirs[8][2] = { {-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
+
+for (auto &dir : dirs) {
+     int a = x + dir[0];
+     int b = y + dir[1];
+}
 ```
 ### Finding Pivot Element in Vector
 
