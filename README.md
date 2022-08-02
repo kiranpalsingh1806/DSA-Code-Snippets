@@ -82,6 +82,25 @@ uniform_real_distribution<double> uni{0, 1};
 // It will generate the random numbers every time in given range
 // cout << uni(rng) << "\n";
 ```
+
+### Priority Queue with Comparator
+```cpp
+auto cmp = [&](int a, int b){ return cnt[a] > cnt[b]; };
+priority_queue<int, vector<int>, decltype(cmp)> pq(cmp);
+```
+
+### Using Tuples in Priority Queue
+```cpp
+typedef tuple <int, int, int> Item;
+
+priority_queue<Item, vector<Item>, greater<>> pq;
+
+// Getting items from tuple
+int ele = get<0>(pq.top());
+int a = get<1>(pq.top());
+int b = get<2>(pq.top());
+```
+	
 ### Dummy Head Node and its pointer
 ```cpp
 // Creates a dummy head node and a pointer tail which points to dummy initially.
