@@ -1,0 +1,3 @@
+- Make heap using vector of array<int, 3>
+- Bellman Ford Algorithm Code with examples
+- Merge Sort Algorithm (on Linked List)
