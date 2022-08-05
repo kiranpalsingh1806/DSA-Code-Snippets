@@ -330,6 +330,7 @@ int main() {
 ```
 ### Union Find - Disjoint Set Union
 ```cpp
+// Using Structure
 struct UnionFind{
     int num;
     vector<int> rs, parent;
@@ -363,6 +364,7 @@ struct UnionFind{
     }
 };
 
+// Using class
 class UnionFind {
     private:
         vector<int> id, rank;
@@ -394,6 +396,27 @@ class UnionFind {
             }
             --cnt;
         }
+};
+
+// Union Find that also return the vector of size of components.
+class UnionFind {
+    vector<int> id, size;
+public:
+    UnionFind(int n) : id(n), size(n, 1) {
+        for (int i = 0; i < n; ++i) id[i] = i;
+    }
+    void connect(int a, int b) {
+        int x = find(a), y = find(b);
+        if (x == y) return;
+        id[x] = y;
+        size[y] += size[x];
+    }
+    int find(int a) {
+        return id[a] == a ? a : (id[a] = find(id[a]));
+    }
+    vector<int> &getSizes() {
+        return size;
+    }
 };
 ```
 ### Breadth First Search
