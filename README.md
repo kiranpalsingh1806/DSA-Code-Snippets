@@ -1,4 +1,5 @@
-#DSA Code Snippets
+
+# DSA Code Snippets
 
 ### Check if ith bit is on
 ```cpp
