@@ -1,11 +1,4 @@
-##### Table of Contents  
-[Headers](#headers)  
-[Emphasis](#emphasis)  
-...snip...    
-<a name="headers"/>
-## Headers
-
-# DSA Code Snippets
+#DSA Code Snippets
 
 ### Check if ith bit is on
 ```cpp
