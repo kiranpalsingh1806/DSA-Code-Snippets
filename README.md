@@ -1,5 +1,5 @@
 
-# DSA Code Snippets- [DSA Code Snippets](#dsa-code-snippets)
+- [DSA Code Snippets](#dsa-code-snippets)
     - [Check if ith bit is on](#check-if-ith-bit-is-on)
     - [Moving in four directions in grid](#moving-in-four-directions-in-grid)
     - [Finding Pivot Element in Vector](#finding-pivot-element-in-vector)
@@ -51,6 +51,8 @@
     - [Numeric Limits](#numeric-limits)
     - [Count frequency of each character in string](#count-frequency-of-each-character-in-string)
     - [Erase Duplicates in Vector](#erase-duplicates-in-vector)
+
+# DSA Code Snippets
 
 ### Check if ith bit is on
 ```cpp
