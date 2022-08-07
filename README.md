@@ -6,12 +6,7 @@
 for(int i = 0; i < 32; i++) {
     if(x & (1 << i)) {
         // True if ith bit of x is set
-    }##### Table of Contents  
-[Headers](#headers)  
-[Emphasis](#emphasis)  
-...snip...    
-<a name="headers"/>
-## Headers
+    }
 }
 ```
 ### Moving in four directions in grid
