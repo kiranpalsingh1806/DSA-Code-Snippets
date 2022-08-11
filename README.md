@@ -1,23 +1,32 @@
 
 - [DSA Code Snippets](#dsa-code-snippets)
+  - [Bit Manipulation](#bit-manipulation)
     - [Check if ith bit is on](#check-if-ith-bit-is-on)
+    - [Number of set bits in number](#number-of-set-bits-in-number)
+  - [Grid Based](#grid-based)
     - [Moving in four directions in grid](#moving-in-four-directions-in-grid)
-    - [Finding Pivot Element in Vector](#finding-pivot-element-in-vector)
     - [Knight Moves in Chessboard](#knight-moves-in-chessboard)
+  - [Binary Search](#binary-search)
+    - [Finding Pivot Element in Vector](#finding-pivot-element-in-vector)
     - [Binary Search - When middle goes out of range](#binary-search---when-middle-goes-out-of-range)
     - [Find element in vector and replace it](#find-element-in-vector-and-replace-it)
+  - [Linked List](#linked-list)
     - [Manipulation of head and tail in Linked List](#manipulation-of-head-and-tail-in-linked-list)
     - [Generating Random Numbers in Range](#generating-random-numbers-in-range)
+  - [Priority Queue](#priority-queue)
     - [Priority Queue with Comparator](#priority-queue-with-comparator)
     - [Using Tuples in Priority Queue](#using-tuples-in-priority-queue)
     - [Dummy Head Node and its pointer](#dummy-head-node-and-its-pointer)
+  - [Vector](#vector)
     - [Rotate Array Left or right](#rotate-array-left-or-right)
+  - [Dynamic Programming](#dynamic-programming)
     - [Longest Increasing Subsequence - LIS DP](#longest-increasing-subsequence---lis-dp)
+  - [Graph](#graph)
     - [Can We Go From Source To Destination](#can-we-go-from-source-to-destination)
     - [Maximum Digit in Number](#maximum-digit-in-number)
+  - [String](#string)
     - [stringstream Implementation](#stringstream-implementation)
     - [Convert Vector to Unordered Set](#convert-vector-to-unordered-set)
-    - [Number of set bits in number](#number-of-set-bits-in-number)
     - [Lambda Function to Check if Vector is Permutation](#lambda-function-to-check-if-vector-is-permutation)
     - [Print Euler Tour](#print-euler-tour)
     - [Sorting Based on Another Vector](#sorting-based-on-another-vector)
@@ -34,18 +43,24 @@
     - [Adding numbers in string](#adding-numbers-in-string)
     - [Longest Prefix Suffix](#longest-prefix-suffix)
     - [Sorting String based on number of ones](#sorting-string-based-on-number-of-ones)
+  - [String Algorithm](#string-algorithm)
     - [Rabin Karp Algorithm](#rabin-karp-algorithm)
     - [Z Function - Prefix Function](#z-function---prefix-function)
     - [Lambda Function Definition](#lambda-function-definition)
     - [Kadane Algorithm](#kadane-algorithm)
+  - [Comparator](#comparator)
     - [Sorting by Comparator Function](#sorting-by-comparator-function)
     - [Structure Sorting Comparator](#structure-sorting-comparator)
     - [Max Heap and Min Heap](#max-heap-and-min-heap)
     - [Next Permutation](#next-permutation)
+  - [Math](#math)
     - [Chicken McNugget Theorem](#chicken-mcnugget-theorem)
     - [Sum of Two Numbers with Given Base](#sum-of-two-numbers-with-given-base)
+  - [Prime Numbers](#prime-numbers)
     - [Prime Numbers in Range](#prime-numbers-in-range)
+  - [Base Conversion](#base-conversion)
     - [Convert To Decimal From Base K](#convert-to-decimal-from-base-k)
+  - [GCD and LCM](#gcd-and-lcm)
     - [Maximum GCD in range [L, R]](#maximum-gcd-in-range-l-r)
     - [Prefix Sum 2D](#prefix-sum-2d)
     - [Numeric Limits](#numeric-limits)
@@ -53,6 +68,8 @@
     - [Erase Duplicates in Vector](#erase-duplicates-in-vector)
 
 # DSA Code Snippets
+
+## Bit Manipulation
 
 ### Check if ith bit is on
 ```cpp
@@ -62,6 +79,16 @@ for(int i = 0; i < 32; i++) {
     }
 }
 ```
+
+### Number of set bits in number
+```cpp
+int setbitsCnt = __builtin_popcount(x);
+long int setbitsCnt = __builtin_popcountl(x);
+long long setbitsCnt = __builtin_popcountll(x);
+```
+
+## Grid Based
+
 ### Moving in four directions in grid
 
 ```cpp
@@ -79,6 +106,20 @@ for (auto &dir : dirs) {
      int b = y + dir[1];
 }
 ```
+
+### Knight Moves in Chessboard
+
+```cpp
+int dirs[8][2] = {{-2,1}, {-1,2}, {1,2}, {2,1}, {2,-1}, {1,-2}, {-1,-2}, {-2,-1}};
+
+for (auto &dir : dirs) {
+    int a = x + dir[0], b = y + dir[1];
+    // Here x and y is our current location.
+}
+```
+
+## Binary Search
+
 ### Finding Pivot Element in Vector
 
 ```cpp
@@ -90,16 +131,7 @@ while (L < R) {
 }
 pivot = L;
 ```
-### Knight Moves in Chessboard
 
-```cpp
-int dirs[8][2] = {{-2,1}, {-1,2}, {1,2}, {2,1}, {2,-1}, {1,-2}, {-1,-2}, {-2,-1}};
-
-for (auto &dir : dirs) {
-    int a = x + dir[0], b = y + dir[1];
-    // Here x and y is our current location.
-}
-```
 ### Binary Search - When middle goes out of range
 
 ```cpp
@@ -115,6 +147,8 @@ auto it = find (V.begin(), V.end(), num);
 // it - V.begin() will given index of given num [0-indexed]
 V[it - V.begin()] = otherNum;
 ```
+
+## Linked List
 
 ### Manipulation of head and tail in Linked List
 ```cpp
@@ -136,6 +170,8 @@ uniform_real_distribution<double> uni{0, 1};
 // It will generate the random numbers every time in given range
 // cout << uni(rng) << "\n";
 ```
+
+## Priority Queue
 
 ### Priority Queue with Comparator
 ```cpp
@@ -165,6 +201,9 @@ tail = tail->next;
 // dummy is not a pointer but a ListNode so we must use dummy.next.
 return dummy.next;
 ```
+
+## Vector
+
 ### Rotate Array Left or right
 
 ```cpp
@@ -178,6 +217,9 @@ rotate(vec1.begin(), vec1.begin() + 3, vec1.end());
 // 7 8 9 1 2 3 4 5 6
 rotate(vec1.begin(), vec1.begin() - 3, vec1.end());
 ```
+
+## Dynamic Programming
+
 ### Longest Increasing Subsequence - LIS DP
 
 ```cpp
@@ -193,6 +235,8 @@ int LIS(vector<int> &a) {
     return lower_bound(dp.begin(), dp.end(), 1e9) - dp.begin();
 }
 ```
+
+## Graph
 
 ### Can We Go From Source To Destination
 ```cpp
@@ -236,6 +280,8 @@ int maxDigitInNumber(int n) {
 }
 ```
 
+## String
+
 ### stringstream Implementation
 ```cpp
 stringstream ss;
@@ -252,6 +298,7 @@ while(ss >> word) {
 
 // https://leetcode.com/problems/apply-discount-to-prices/
 ```
+
 ### Convert Vector to Unordered Set
 ```cpp
 vector<string> V = {"One", "Two", "Three", "Four", "Five"};
@@ -264,12 +311,6 @@ unordered_set<string> S(V.begin(), V.end());
 // 705 LeetCode - Design HashSet
 ```
 
-### Number of set bits in number
-```cpp
-int setbitsCnt = __builtin_popcount(x);
-long int setbitsCnt = __builtin_popcountl(x);
-long long setbitsCnt = __builtin_popcountll(x);
-```
 ### Lambda Function to Check if Vector is Permutation 
 ```cpp
 int n = 6;
@@ -1068,6 +1109,8 @@ void solve()
 // 010101
 // 00111111
 ```
+## String Algorithm
+
 ### Rabin Karp Algorithm
 ```cpp
 string s,t;
@@ -1171,6 +1214,9 @@ void solve()
 	cout << mx << "\n";
 }
 ```
+
+## Comparator
+
 ### Sorting by Comparator Function
 ```cpp
 bool cmp(const pair<string, long> &p1, const pair<string, long> &p2)
@@ -1311,6 +1357,9 @@ void solve()
 // dcab
 // dcba
 ```
+
+## Math
+
 ### Chicken McNugget Theorem
 ```cpp
 /* The Chicken McNugget Theorem states that for any two relatively prime positive
@@ -1410,6 +1459,8 @@ void solve()
 // Output
 // 23
 ```
+## Prime Numbers
+
 ### Prime Numbers in Range
 ```cpp
 const ll MAXN = 1e7;
@@ -1444,6 +1495,8 @@ void solve()
 // Input - > 1 100
 // Output -> 25 (25 Prime numbers between 2 and 100 inclusive)
 ```
+## Base Conversion
+
 ### Convert To Decimal From Base K
 ```cpp
 
@@ -1465,6 +1518,9 @@ int main(){
     return 0;
 }
 ```
+
+## GCD and LCM
+
 ### Maximum GCD in range [L, R]
 ```cpp
 // Finding maximum gcd of two numbers a and b in range [L, R]
