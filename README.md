@@ -11,48 +11,54 @@
   - [Find element in vector and replace it](#find-element-in-vector-and-replace-it)
 - [Linked List](#linked-list)
   - [Manipulation of head and tail in Linked List](#manipulation-of-head-and-tail-in-linked-list)
+  - [Reverse Linked List](#reverse-linked-list)
   - [Generating Random Numbers in Range](#generating-random-numbers-in-range)
 - [Priority Queue](#priority-queue)
   - [Priority Queue with Comparator](#priority-queue-with-comparator)
   - [Using Tuples in Priority Queue](#using-tuples-in-priority-queue)
-  - [Dummy Head Node and its pointer](#dummy-head-node-and-its-pointer)
 - [Vector](#vector)
-  - [Rotate Array Left or right](#rotate-array-left-or-right)
+  - [Rotate Vector Left or right](#rotate-vector-left-or-right)
+  - [Slicing of Vector in C++](#slicing-of-vector-in-c)
+  - [Erase Duplicates in Vector](#erase-duplicates-in-vector)
+  - [Common Elements in Vector](#common-elements-in-vector)
 - [Dynamic Programming](#dynamic-programming)
   - [Longest Increasing Subsequence - LIS DP](#longest-increasing-subsequence---lis-dp)
 - [Graph](#graph)
   - [Can We Go From Source To Destination](#can-we-go-from-source-to-destination)
-  - [Maximum Digit in Number](#maximum-digit-in-number)
-- [String](#string)
-  - [stringstream Implementation](#stringstream-implementation)
-  - [Convert Vector to Unordered Set](#convert-vector-to-unordered-set)
-  - [Lambda Function to Check if Vector is Permutation](#lambda-function-to-check-if-vector-is-permutation)
   - [Print Euler Tour](#print-euler-tour)
-  - [Sorting Based on Another Vector](#sorting-based-on-another-vector)
-  - [Common Elements in Vector](#common-elements-in-vector)
   - [Union Find - Disjoint Set Union](#union-find---disjoint-set-union)
   - [Breadth First Search](#breadth-first-search)
   - [DFS - First and Last Order](#dfs---first-and-last-order)
   - [Dijkstra's Algorithm](#dijkstras-algorithm)
   - [Lowest Common Ancestor](#lowest-common-ancestor)
   - [Number of Connected Components](#number-of-connected-components)
+- [Recursion](#recursion)
+  - [Maximum Digit in Number](#maximum-digit-in-number)
+- [String](#string)
+  - [stringstream Implementation](#stringstream-implementation)
+  - [Convert Vector to Unordered Set](#convert-vector-to-unordered-set)
   - [Euler Phi Function](#euler-phi-function)
   - [Point Structure - Geometry](#point-structure---geometry)
   - [Finding if element inserted in set or not](#finding-if-element-inserted-in-set-or-not)
   - [Adding numbers in string](#adding-numbers-in-string)
   - [Longest Prefix Suffix](#longest-prefix-suffix)
-  - [Sorting String based on number of ones](#sorting-string-based-on-number-of-ones)
 - [String Algorithm](#string-algorithm)
   - [Rabin Karp Algorithm](#rabin-karp-algorithm)
   - [Z Function - Prefix Function](#z-function---prefix-function)
-  - [Lambda Function Definition](#lambda-function-definition)
+- [Lambda Function](#lambda-function)
+  - [Definition of Lambda Function](#definition-of-lambda-function)
+  - [Lambda Function to Check if Vector is Permutation](#lambda-function-to-check-if-vector-is-permutation)
   - [Kadane Algorithm](#kadane-algorithm)
-- [Comparator](#comparator)
+- [Custom Comparator](#custom-comparator)
   - [Sorting by Comparator Function](#sorting-by-comparator-function)
+  - [Sorting String based on number of ones - Comparator](#sorting-string-based-on-number-of-ones---comparator)
   - [Structure Sorting Comparator](#structure-sorting-comparator)
+  - [Sorting Vector Based on Another Vector](#sorting-vector-based-on-another-vector)
+- [Heaps](#heaps)
   - [Max Heap and Min Heap](#max-heap-and-min-heap)
+- [Permutations](#permutations)
   - [Next Permutation](#next-permutation)
-- [Math](#math)
+- [Mathematics](#mathematics)
   - [Chicken McNugget Theorem](#chicken-mcnugget-theorem)
   - [Sum of Two Numbers with Given Base](#sum-of-two-numbers-with-given-base)
 - [Prime Numbers](#prime-numbers)
@@ -63,8 +69,8 @@
   - [Maximum GCD in range [L, R]](#maximum-gcd-in-range-l-r)
   - [Prefix Sum 2D](#prefix-sum-2d)
   - [Numeric Limits](#numeric-limits)
-  - [Count frequency of each character in string](#count-frequency-of-each-character-in-string)
-  - [Erase Duplicates in Vector](#erase-duplicates-in-vector)
+  - [Median of an array](#median-of-an-array)
+  - [Find x and y in a.x + b.y = N](#find-x-and-y-in-ax--by--n)
 
 ## Bit Manipulation
 
@@ -156,8 +162,25 @@ struct ListNode {
 ListNode head, *tail = &head;
 // Manipulate tail node here
 return head.next;
-
 https://leetcode.com/problems/merge-nodes-in-between-zeros
+```
+
+### Reverse Linked List
+
+```cpp
+ListNode* reverseList(ListNode* head) {
+    ListNode *prev = new ListNode();
+    
+    
+    while(head) {
+        auto node = head;
+        head = head->next;
+        node->next = prev->next;
+        prev->next = node;
+    }
+    
+    return prev->next;
+}
 ```
 
 ### Generating Random Numbers in Range
@@ -187,21 +210,10 @@ int ele = get<0>(pq.top());
 int a = get<1>(pq.top());
 int b = get<2>(pq.top());
 ```
-	
-### Dummy Head Node and its pointer
-```cpp
-// Creates a dummy head node and a pointer tail which points to dummy initially.
-ListNode dummy, *tail = &dummy;
-tail->next = new ListNode(val);
-tail = tail->next;
-
-// dummy is not a pointer but a ListNode so we must use dummy.next.
-return dummy.next;
-```
 
 ## Vector
 
-### Rotate Array Left or right
+### Rotate Vector Left or right
 
 ```cpp
 // Array - 1 2 3 4 5 6 7 8 9
@@ -213,6 +225,60 @@ rotate(vec1.begin(), vec1.begin() + 3, vec1.end());
 // Rotate array to right by 3 positions.
 // 7 8 9 1 2 3 4 5 6
 rotate(vec1.begin(), vec1.begin() - 3, vec1.end());
+```
+
+### Slicing of Vector in C++
+
+```cpp
+vector<int> slicing(vector<int>& arr, int X, int Y){
+    auto start = arr.begin() + X;
+    auto end = arr.begin() + Y + 1;
+    vector<int> result(Y - X + 1);
+ 
+    copy(start, end, result.begin());
+    return result;
+}
+```
+
+### Erase Duplicates in Vector
+```cpp
+unorder_set<int> s;
+for(int i : vec) {
+    s.insert(i);
+}
+
+vec.assign(s.begin(), s.end());
+sort(vec.begin(), vec.end());
+
+Another Method: Slower than the above method
+
+sort(vec.begin(), vec.end());
+vec.erase(unique(vec.begin(), vec.end()), vec.end());
+```
+
+### Common Elements in Vector
+```cpp
+int main() {
+	int countCommon = 0;
+	int n = 6;
+	vector<int> vec1 = {1, 3, 5, 7, 8, 9};
+	int m = 7;
+	vector<int> vec2 = {1, 2, 3, 7, 9, 4, 8};
+
+	sort(vec1.begin(), vec1.end());
+	sort(vec2.begin(), vec2.end());
+
+	vector<int> v(vec1.size() + vec2.size());
+
+	auto it = set_intersection(vec1.begin(), vec1.end(),vec2.begin(), vec2.end(),v.begin());
+
+	cout << "Common Elements : " << it - v.begin() << "\n";
+	cout << "The elements are : ";
+
+	for ( auto st = v.begin(); st != it; ++st) {
+		cout << *(st) << " ";
+	}
+}
 ```
 
 ## Dynamic Programming
@@ -269,68 +335,6 @@ void solve() {
 
 }
 ```
-### Maximum Digit in Number
-```cpp
-int maxDigitInNumber(int n) {
-    if(n < 10) return n;
-    return max( maxDigitInNumber(n / 10), n % 10);
-}
-```
-
-## String
-
-### stringstream Implementation
-```cpp
-stringstream ss;
-ss << "Kiranpal Singh";
-
-cout << ss.str() << "\n";
-
-// We can also extract words from a string, perform some operation on each word 
-stringstream ss(sentence);
-string word, ans;
-while(ss >> word) {
-    ans += performOperation(word) + " ";
-}
-
-// https://leetcode.com/problems/apply-discount-to-prices/
-```
-
-### Convert Vector to Unordered Set
-```cpp
-vector<string> V = {"One", "Two", "Three", "Four", "Five"};
-unordered_set<string> S(V.begin(), V.end());
-
-// Use Cases
-// -> To find any particular element : S.count("word");
-// -> To erase any particular element : S.erase("word");
-
-// 705 LeetCode - Design HashSet
-```
-
-### Lambda Function to Check if Vector is Permutation 
-```cpp
-int n = 6;
-auto isPermutation = [&](const vector<int> &A)->bool{
-    vector<int> vis(n + 1, false);
-    for(auto x : A){
-        if(x <= 0 || x > n || vis[x])
-            return false;
-        vis[x] = true;
-    }
-    return true;
-};
-
-vector<int> A = {1, 2, 3, 4, 5, 1};
-vector<int> B = {3, 4, 5, 6, 1, 2};
-
-if(isPermutation(A)) {
-    cout << "Vector A is permutation" << "\n";
-}
-if(isPermutation(B)) {
-    cout << "Vector B is permutation" << "\n";
-}
-```
 
 ### Print Euler Tour
 ```cpp
@@ -373,53 +377,7 @@ void solve() {
     printEulerTour(1, n);
 }
 ```
-### Sorting Based on Another Vector
-```cpp
-int main() {
-    int n = 7;
-    vector<int> a = {4, 8, 1, 3, 2, 9, 11};
-    
-    vector<int> ind(n);
-    iota(ind.begin(), ind.end(), 0);
-    for(auto a: ind) {
-        cout << a << " ";
-    }
-    cout << "\n";
-    
-    sort(ind.begin(), ind.end(), [&](int i, int j) {
-        return a[i] > a[j];
-    });
 
-    for(auto a: ind) {
-        cout << a << " ";
-    }
-    cout << "\n";
-}
-```
-### Common Elements in Vector
-```cpp
-int main() {
-	int countCommon = 0;
-	int n = 6;
-	vector<int> vec1 = {1, 3, 5, 7, 8, 9};
-	int m = 7;
-	vector<int> vec2 = {1, 2, 3, 7, 9, 4, 8};
-
-	sort(vec1.begin(), vec1.end());
-	sort(vec2.begin(), vec2.end());
-
-	vector<int> v(vec1.size() + vec2.size());
-
-	auto it = set_intersection(vec1.begin(), vec1.end(),vec2.begin(), vec2.end(),v.begin());
-
-	cout << "Common Elements : " << it - v.begin() << "\n";
-	cout << "The elements are : ";
-
-	for ( auto st = v.begin(); st != it; ++st) {
-		cout << *(st) << " ";
-	}
-}
-```
 ### Union Find - Disjoint Set Union
 ```cpp
 // Using Structure
@@ -802,6 +760,47 @@ void solve()
     cout << count << endl;
 }
 ```
+## Recursion
+
+### Maximum Digit in Number
+```cpp
+int maxDigitInNumber(int n) {
+    if(n < 10) return n;
+    return max( maxDigitInNumber(n / 10), n % 10);
+}
+```
+
+## String
+
+### stringstream Implementation
+```cpp
+stringstream ss;
+ss << "Kiranpal Singh";
+
+cout << ss.str() << "\n";
+
+// We can also extract words from a string, perform some operation on each word 
+stringstream ss(sentence);
+string word, ans;
+while(ss >> word) {
+    ans += performOperation(word) + " ";
+}
+
+// https://leetcode.com/problems/apply-discount-to-prices/
+```
+
+### Convert Vector to Unordered Set
+```cpp
+vector<string> V = {"One", "Two", "Three", "Four", "Five"};
+unordered_set<string> S(V.begin(), V.end());
+
+// Use Cases
+// -> To find any particular element : S.count("word");
+// -> To erase any particular element : S.erase("word");
+
+// 705 LeetCode - Design HashSet
+```
+
 ### Euler Phi Function
 ```cpp
 vector< int > euler_phi_table(int n) {
@@ -1074,41 +1073,6 @@ void solve()
 // 0 0 0 0 0 0 1 2 3 4 5 6 7 8 9 10 11 12 
 
 ```
-### Sorting String based on number of ones
-```cpp
-void solve()
-{
-	int n;
-	cin >> n;
-	vector<string> s(n);
-
-	for(int i = 0; i < n; i++) {
-		cin >> s[i];
-	}
-	sort(s.begin(), s.end(), [&](string x, string y) {
-        return count(x.begin(), x.end(), '1') < count(y.begin(), y.end(), '1');
-    });
-
-    for(int i = 0; i < n; i++) {
-    	cout << s[i] << "\n";
-    }
-}
-
-// Input
-// 5
-// 10101
-// 10000000
-// 010101
-// 00111111
-// 11000000000
-
-// Output
-// 10000000
-// 11000000000
-// 10101
-// 010101
-// 00111111
-```
 ## String Algorithm
 
 ### Rabin Karp Algorithm
@@ -1177,13 +1141,40 @@ vector<int> z_function(string s) {
 }
 ```
 
-### Lambda Function Definition
+## Lambda Function
+
+### Definition of Lambda Function
 ```cpp
 // Void Lambda Function
 function<void(int, int)> dfs = [&](int start, int goal) {
     // Write your code here.          
 };
 ```
+
+### Lambda Function to Check if Vector is Permutation 
+```cpp
+int n = 6;
+auto isPermutation = [&](const vector<int> &A)->bool{
+    vector<int> vis(n + 1, false);
+    for(auto x : A){
+        if(x <= 0 || x > n || vis[x])
+            return false;
+        vis[x] = true;
+    }
+    return true;
+};
+
+vector<int> A = {1, 2, 3, 4, 5, 1};
+vector<int> B = {3, 4, 5, 6, 1, 2};
+
+if(isPermutation(A)) {
+    cout << "Vector A is permutation" << "\n";
+}
+if(isPermutation(B)) {
+    cout << "Vector B is permutation" << "\n";
+}
+```
+
 ### Kadane Algorithm
 ```cpp
 ll maxSumSubarray (vector<ll> A) {
@@ -1215,7 +1206,7 @@ void solve()
 }
 ```
 
-## Comparator
+## Custom Comparator
 
 ### Sorting by Comparator Function
 ```cpp
@@ -1228,6 +1219,43 @@ bool cmp(const pair<string, long> &p1, const pair<string, long> &p2)
 
 sort(vect.begin(), vect.end(), cmp);
 ```
+
+### Sorting String based on number of ones - Comparator
+```cpp
+void solve()
+{
+	int n;
+	cin >> n;
+	vector<string> s(n);
+
+	for(int i = 0; i < n; i++) {
+		cin >> s[i];
+	}
+	sort(s.begin(), s.end(), [&](string x, string y) {
+        return count(x.begin(), x.end(), '1') < count(y.begin(), y.end(), '1');
+    });
+
+    for(int i = 0; i < n; i++) {
+    	cout << s[i] << "\n";
+    }
+}
+
+// Input
+// 5
+// 10101
+// 10000000
+// 010101
+// 00111111
+// 11000000000
+
+// Output
+// 10000000
+// 11000000000
+// 10101
+// 010101
+// 00111111
+```
+
 ### Structure Sorting Comparator
 ```cpp
 struct city {
@@ -1277,6 +1305,33 @@ void solve() {
 // 2
 
 ```
+
+### Sorting Vector Based on Another Vector
+```cpp
+int main() {
+    int n = 7;
+    vector<int> a = {4, 8, 1, 3, 2, 9, 11};
+    
+    vector<int> ind(n);
+    iota(ind.begin(), ind.end(), 0);
+    for(auto a: ind) {
+        cout << a << " ";
+    }
+    cout << "\n";
+    
+    sort(ind.begin(), ind.end(), [&](int i, int j) {
+        return a[i] > a[j];
+    });
+
+    for(auto a: ind) {
+        cout << a << " ";
+    }
+    cout << "\n";
+}
+```
+
+## Heaps
+
 ### Max Heap and Min Heap
 ```cpp
 // Minimum heap and Maximum heap
@@ -1315,6 +1370,9 @@ void solve()
 // 1 2 5 7 9 19 23 33 
 // 33 23 19 9 7 5 2 1 
 ```
+
+## Permutations
+
 ### Next Permutation
 ```cpp
 void solve()
@@ -1358,7 +1416,7 @@ void solve()
 // dcba
 ```
 
-## Math
+## Mathematics
 
 ### Chicken McNugget Theorem
 ```cpp
@@ -1559,6 +1617,7 @@ cout << modifiedOperations << "\n";
 // 16110
 // 141
 ```
+
 ### Prefix Sum 2D
 ```cpp
 #include<bits/stdc++.h>
@@ -1605,33 +1664,47 @@ int main(void) {
 	solve();
 }
 ```
+
 ### Numeric Limits
 ```cpp
 long long a = numeric_limits<long long>::max();
 int b = numeric_limits<int>::max();
 ```
-### Count frequency of each character in string
-```cpp
-int cnt[26] = {0};
-for (char c : s) {
-  cnt[c - 'a']++;  
-} 
 
-```
-### Erase Duplicates in Vector
+### Median of an array
+
 ```cpp
-unorder_set<int> s;
-for(int i : vec) {
-    s.insert(i);
+int median(vector<int> &A) {
+	sort(A.begin(), A.end());
+	int N = A.size();
+
+	cout << "Size : " << N << "\n"; 
+
+	for(auto a : A) {
+			cout << a << " ";
+	}
+	cout << "\n";
+
+	if(N % 2 == 0) {
+		return A[(N - 2) / 2];
+	}
+
+	return A[(N - 1) / 2];
 }
+```
 
-vec.assign(s.begin(), s.end());
-sort(vec.begin(), vec.end());
+### Find x and y in a.x + b.y = N
 
-Another Method: Slower than the above method
-
-sort(vec.begin(), vec.end());
-vec.erase(unique(vec.begin(), vec.end()), vec.end());
+```cpp
+void equation(int a, int b, int n) {
+    for (int i = 0; i * a <= n; i++) {
+        if ((n - (i * a)) % b == 0) {
+            cout << "x = " << i << ", y = " << (n - (i * a)) / b;
+            return;
+        }
+    }
+    cout << "No solution exists." << "\n";
+}
 ```
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=kiranpalsingh1806&label=Views&color=blue&style=plastic" alt="kiranpalsingh" /> </p>
