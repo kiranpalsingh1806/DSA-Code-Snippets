@@ -23,6 +23,7 @@
   - [Reverse Linked List](#reverse-linked-list)
 - [Priority Queue](#priority-queue)
   - [Priority Queue with Comparator](#priority-queue-with-comparator)
+  - [Priority Queue with Class Comparator](#priority-queue-with-class-comparator)
   - [Using Tuples in Priority Queue](#using-tuples-in-priority-queue)
 - [Vector](#vector)
   - [Rotate Vector Left or right](#rotate-vector-left-or-right)
@@ -32,6 +33,7 @@
   - [Common Elements in Vector](#common-elements-in-vector)
 - [Dynamic Programming](#dynamic-programming)
   - [Longest Increasing Subsequence - LIS DP](#longest-increasing-subsequence---lis-dp)
+  - [Partial Sum](#partial-sum)
 - [Graph](#graph)
   - [Can We Go From Source To Destination](#can-we-go-from-source-to-destination)
   - [Print Euler Tour](#print-euler-tour)
@@ -40,6 +42,9 @@
   - [Dijkstra's Algorithm](#dijkstras-algorithm)
   - [Lowest Common Ancestor](#lowest-common-ancestor)
   - [Number of Connected Components](#number-of-connected-components)
+  - [Euler path - Heirholzer Algorithm](#euler-path---heirholzer-algorithm)
+  - [Bipartite Graph](#bipartite-graph)
+  - [Bellman Ford Algorithm](#bellman-ford-algorithm)
 - [Recursion](#recursion)
   - [Maximum Digit in Number](#maximum-digit-in-number)
 - [String](#string)
@@ -55,6 +60,8 @@
 - [Lambda Function](#lambda-function)
   - [Definition of Lambda Function](#definition-of-lambda-function)
   - [Lambda Function to Check if Vector is Permutation](#lambda-function-to-check-if-vector-is-permutation)
+- [Array](#array)
+  - [Find Kth Largest Element in Array](#find-kth-largest-element-in-array)
   - [Kadane Algorithm](#kadane-algorithm)
 - [Custom Comparator](#custom-comparator)
   - [Sorting by Comparator](#sorting-by-comparator)
@@ -476,6 +483,18 @@ auto cmp = [&](int a, int b){ return cnt[a] > cnt[b]; };
 priority_queue<int, vector<int>, decltype(cmp)> pq(cmp);
 ```
 
+### Priority Queue with Class Comparator
+```cpp
+class Cmp {
+public:
+    bool operator() (const pair<int, int>& a, const pair<int, int>& b) const {
+        return a.second < b.second;
+    }
+};
+
+priority_queue<pair<int, int>, vector<pair<int, int>>, Cmp> q(m.begin(), m.end()); // Assume there is an `m` storing pairs of `value, frequency`.
+```
+
 ### Using Tuples in Priority Queue
 ```cpp
 typedef tuple <int, int, int> Item;
@@ -581,6 +600,17 @@ int LIS(vector<int> &a) {
 
     return lower_bound(dp.begin(), dp.end(), 1e9) - dp.begin();
 }
+```
+
+### Partial Sum
+```cpp
+
+int N = A.size();
+vector<int> pre(N + 1);
+partial_sum(begin(A), end(A), begin(pre) + 1);
+// Or simply
+for (int i = 0; i < N; ++i) pre[i + 1] = pre[i] + A[i];
+
 ```
 
 ## Graph
@@ -953,6 +983,82 @@ void solve()
     cout << count << endl;
 }
 ```
+
+### Euler path - Heirholzer Algorithm 
+```cpp
+// LeetCode Problem - Valid Arrangement of Pairs
+vector<vector<int>> validArrangement(vector<vector<int>>& E) {
+    int N = E.size();
+    unordered_map<int, vector<int>> G;
+    unordered_map<int, int> indegree, outdegree;
+    G.reserve(N);
+    indegree.reserve(N);
+    outdegree.reserve(N);
+    for (auto &e : E) {
+        int u = e[0], v = e[1];
+        outdegree[u]++;
+        indegree[v]++;
+        G[u].push_back(v);
+    }
+    int start = -1;
+    for (auto &[u, vs] : G) {
+        if (outdegree[u] - indegree[u] == 1) {
+            start = u; // If there exists one node `u` that `outdegree[u] = indegree[u] + 1`, use `u` as the start node.
+            break;
+        }
+    }
+    if (start == -1) start = E[0][0]; // If there doesn't exist such node `u`, use any node as the start node
+    vector<vector<int>> ans;
+    function<void(int)> euler = [&](int u) {
+        auto &vs = G[u];
+        while (vs.size()) {
+            int v = vs.back();
+            vs.pop_back();
+            euler(v);
+            ans.push_back({ u, v }); // Post-order DFS. The edge is added after node `v` is exhausted
+        }
+    };
+    euler(start);
+    reverse(begin(ans), end(ans)); // Need to reverse the answer array in the end.
+    return ans;
+}
+```
+
+### Bipartite Graph
+```cpp
+bool isBipartite(vector<vector<int>>& G) {
+    vector<int> id(G.size());
+    function<bool(int, int)> dfs = [&](int u, int prev) {
+        if (id[u]) return id[u] != prev; // This node's part should be the same as the part of the previous part
+        id[u] = -prev; // Assign nodes to one of the two parts, -1 or 1
+        for (int v : G[u]) {
+            if (!dfs(v, id[u])) return false;
+        }
+        return true;
+    };
+    for (int i = 0; i < G.size(); ++i) {
+        if (id[i]) continue; // This node is already assigned to a part
+        if (!dfs(i, 1)) return false;
+    }
+    return true;
+}
+```
+
+### Bellman Ford Algorithm
+```cpp
+vector<int> bellmanFord(vector<vector<int>>& edges, int V, int src) {
+    vector<int> dist(N, INT_MAX);
+    dist[src] = 0;
+    for (int i = 1; i < V; ++i) { // try to use all the edges to relax for V-1 times.
+        for (auto &e : edges) {
+            int u = e[0], v = e[1], w = e[2];
+            if (dist[u] == INT_MAX) continue;
+            dist[v] = min(dist[v], dist[u] + w); // Try to use this edge to relax the cost of `v`.
+        }
+    }
+    return dist;
+}
+```
 ## Recursion
 
 ### Maximum Digit in Number
@@ -1301,6 +1407,17 @@ if(isPermutation(A)) {
 }
 if(isPermutation(B)) {
     cout << "Vector B is permutation" << "\n";
+}
+```
+
+## Array
+
+### Find Kth Largest Element in Array
+
+```cpp
+int findKthLargest(vector<int>& A, int k) {
+    nth_element(begin(A), begin(A) + k - 1, end(A), greater<int>());
+    return A[k - 1];
 }
 ```
 
