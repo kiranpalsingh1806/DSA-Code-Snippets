@@ -10,6 +10,9 @@
   - [Knight Moves in Chessboard](#knight-moves-in-chessboard)
   - [Diagonals of Matrix (Top Left to Bottom Right)](#diagonals-of-matrix-top-left-to-bottom-right)
   - [Sudoku Box Pattern](#sudoku-box-pattern)
+- [Data Structures](#data-structures)
+  - [Prefix Sum 2D](#prefix-sum-2d)
+  - [Union Find - Disjoint Set Union](#union-find---disjoint-set-union)
 - [Binary Search](#binary-search)
   - [Finding Pivot Element in Vector](#finding-pivot-element-in-vector)
   - [Binary Search - When middle goes out of range](#binary-search---when-middle-goes-out-of-range)
@@ -31,7 +34,6 @@
 - [Graph](#graph)
   - [Can We Go From Source To Destination](#can-we-go-from-source-to-destination)
   - [Print Euler Tour](#print-euler-tour)
-  - [Union Find - Disjoint Set Union](#union-find---disjoint-set-union)
   - [Breadth First Search](#breadth-first-search)
   - [DFS - First and Last Order](#dfs---first-and-last-order)
   - [Dijkstra's Algorithm](#dijkstras-algorithm)
@@ -45,11 +47,11 @@
   - [Euler Phi Function](#euler-phi-function)
   - [Point Structure - Geometry](#point-structure---geometry)
   - [Finding if element inserted in set or not](#finding-if-element-inserted-in-set-or-not)
-  - [Adding numbers in string](#adding-numbers-in-string)
-  - [Longest Prefix Suffix](#longest-prefix-suffix)
 - [String Algorithm](#string-algorithm)
   - [Rabin Karp Algorithm](#rabin-karp-algorithm)
   - [Z Function - Prefix Function](#z-function---prefix-function)
+  - [Adding numbers in string](#adding-numbers-in-string)
+  - [Longest Prefix Suffix](#longest-prefix-suffix)
 - [Lambda Function](#lambda-function)
   - [Definition of Lambda Function](#definition-of-lambda-function)
   - [Lambda Function to Check if Vector is Permutation](#lambda-function-to-check-if-vector-is-permutation)
@@ -72,7 +74,7 @@
   - [Convert To Decimal From Base K](#convert-to-decimal-from-base-k)
 - [GCD and LCM](#gcd-and-lcm)
   - [Maximum GCD in range [L, R]](#maximum-gcd-in-range-l-r)
-  - [Prefix Sum 2D](#prefix-sum-2d)
+- [Miscellaneous](#miscellaneous)
   - [Numeric Limits](#numeric-limits)
   - [Median of an array](#median-of-an-array)
   - [Reverse a number](#reverse-a-number)
@@ -174,7 +176,7 @@ for (auto &dir : dirs) {
 ### Diagonals of Matrix (Top Left to Bottom Right)
 ```cpp
 int M = 5, N = 3;
-cout << "Lower Traingle Diagonals" << "\n";
+cout << "Lower Triangle Diagonals" << "\n";
 for (int i = 0; i < M; ++i) {
     cout << "------\n";
     for (int x = i, y = 0; x < M && y < N; ++x, ++y) {
@@ -219,6 +221,148 @@ for(int i = 0; i < 9; i++) {
 // 6 6 6 7 7 7 8 8 8 
 // 6 6 6 7 7 7 8 8 8 
 // 6 6 6 7 7 7 8 8 8
+```
+
+## Data Structures
+
+
+### Prefix Sum 2D
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+
+constexpr int MAX_SIDE = 1000;
+int prefixSum2D[MAX_SIDE + 1][MAX_SIDE + 1];
+int array2D[MAX_SIDE + 1][MAX_SIDE + 1];
+
+void solve()
+{
+	int N;
+	int Q;
+	cin >> N >> Q;
+	// read the 2D array
+	for (int i = 1; i <= N; i++) {
+		for (int j = 1; j <= N; j++) {
+			cin >> array2D[i][j];
+		}
+	}
+
+	// build the prefix sum array
+	for (int i = 1; i <= N; i++) {
+		for (int j = 1; j <= N; j++) {
+			prefixSum2D[i][j] = array2D[i][j]
+						+ prefixSum2D[i - 1][j]
+						+ prefixSum2D[i][j - 1]
+						- prefixSum2D[i - 1][j - 1];
+		}
+	}
+
+	for (int q = 0; q < Q; q++) {
+		int x1, x2, y1, y2;
+		cin >> x1 >> y1 >> x2 >> y2;
+		cout << prefixSum2D[x2][y2]
+				- prefixSum2D[x1-1][y2]
+				- prefixSum2D[x2][y1-1]
+				+ prefixSum2D[x1-1][y1-1] << '\n';
+	}
+
+}
+
+int main(void) {
+	solve();
+}
+```
+
+### Union Find - Disjoint Set Union
+```cpp
+// Using Structure
+struct UnionFind{
+    int num;
+    vector<int> rs, parent;
+    UnionFind(int n): num(n), rs(n, 1), parent(n, 0) {
+        iota(parent.begin(), parent.end(), 0);
+    }
+
+    int find(int x) {
+        return (x == parent[x] ? x : parent[x] = find(parent[x]));
+    }
+
+    bool same(int x, int y) {
+        return find(x) == find(y);
+    }
+
+    void unite(int x, int y) {
+        x = find(x); y = find(y);
+        if (x == y) return;
+        if (rs[x] < rs[y]) swap(x, y);
+        rs[x] += rs[y];
+        parent[y] = x;
+        num--;
+    }
+
+    int size(int x) {
+        return rs[find(x)];
+    }
+
+    int countSets() const {
+        return num;
+    }
+};
+
+// Using class
+class UnionFind {
+    private:
+        vector<int> id, rank;
+        int cnt;
+    public:
+        UnionFind(int cnt) : cnt(cnt) {
+            id = vector<int>(cnt);
+            rank = vector<int>(cnt, 0);
+            for (int i = 0; i < cnt; ++i) id[i] = i;
+        }
+        int find(int p) {
+            if (id[p] == p) return p;
+            return id[p] = find(id[p]);
+        }
+        int getCount() { 
+            return cnt; 
+        }
+        bool connected(int p, int q) { 
+            return find(p) == find(q); 
+        }
+        void connect(int p, int q) {
+            int i = find(p), j = find(q);
+            if (i == j) return;
+            if (rank[i] < rank[j]) {
+                id[i] = j;  
+            } else {
+                id[j] = i;
+                if (rank[i] == rank[j]) rank[j]++;
+            }
+            --cnt;
+        }
+};
+
+// Union Find that also return the vector of size of components.
+class UnionFind {
+    vector<int> id, size;
+public:
+    UnionFind(int n) : id(n), size(n, 1) {
+        for (int i = 0; i < n; ++i) id[i] = i;
+    }
+    void connect(int a, int b) {
+        int x = find(a), y = find(b);
+        if (x == y) return;
+        id[x] = y;
+        size[y] += size[x];
+    }
+    int find(int a) {
+        return id[a] == a ? a : (id[a] = find(id[a]));
+    }
+    vector<int> &getSizes() {
+        return size;
+    }
+};
 ```
 
 ## Binary Search
@@ -478,97 +622,6 @@ void solve() {
 }
 ```
 
-### Union Find - Disjoint Set Union
-```cpp
-// Using Structure
-struct UnionFind{
-    int num;
-    vector<int> rs, parent;
-    UnionFind(int n): num(n), rs(n, 1), parent(n, 0) {
-        iota(parent.begin(), parent.end(), 0);
-    }
-
-    int find(int x) {
-        return (x == parent[x] ? x : parent[x] = find(parent[x]));
-    }
-
-    bool same(int x, int y) {
-        return find(x) == find(y);
-    }
-
-    void unite(int x, int y) {
-        x = find(x); y = find(y);
-        if (x == y) return;
-        if (rs[x] < rs[y]) swap(x, y);
-        rs[x] += rs[y];
-        parent[y] = x;
-        num--;
-    }
-
-    int size(int x) {
-        return rs[find(x)];
-    }
-
-    int countSets() const {
-        return num;
-    }
-};
-
-// Using class
-class UnionFind {
-    private:
-        vector<int> id, rank;
-        int cnt;
-    public:
-        UnionFind(int cnt) : cnt(cnt) {
-            id = vector<int>(cnt);
-            rank = vector<int>(cnt, 0);
-            for (int i = 0; i < cnt; ++i) id[i] = i;
-        }
-        int find(int p) {
-            if (id[p] == p) return p;
-            return id[p] = find(id[p]);
-        }
-        int getCount() { 
-            return cnt; 
-        }
-        bool connected(int p, int q) { 
-            return find(p) == find(q); 
-        }
-        void connect(int p, int q) {
-            int i = find(p), j = find(q);
-            if (i == j) return;
-            if (rank[i] < rank[j]) {
-                id[i] = j;  
-            } else {
-                id[j] = i;
-                if (rank[i] == rank[j]) rank[j]++;
-            }
-            --cnt;
-        }
-};
-
-// Union Find that also return the vector of size of components.
-class UnionFind {
-    vector<int> id, size;
-public:
-    UnionFind(int n) : id(n), size(n, 1) {
-        for (int i = 0; i < n; ++i) id[i] = i;
-    }
-    void connect(int a, int b) {
-        int x = find(a), y = find(b);
-        if (x == y) return;
-        id[x] = y;
-        size[y] += size[x];
-    }
-    int find(int a) {
-        return id[a] == a ? a : (id[a] = find(id[a]));
-    }
-    vector<int> &getSizes() {
-        return size;
-    }
-};
-```
 ### Breadth First Search
 ```cpp
 void bfs()
@@ -1076,6 +1129,74 @@ for(int i = 0; i < N; i++) {
 // New Element is inserted :)
 ```
 
+## String Algorithm
+
+### Rabin Karp Algorithm
+```cpp
+string s,t;
+//t -> text s-> pattern
+
+vector<int> rabin_karp(string const& s, string const& t) {
+    const int p = 31; 
+    const int m = 1e9 + 9;
+    int S = s.size(), T = t.size();
+
+    vector<long long> p_pow(max(S, T)); 
+    p_pow[0] = 1; 
+    for (int i = 1; i < (int)p_pow.size(); i++) 
+        p_pow[i] = (p_pow[i-1] * p) % m;
+
+    vector<long long> h(T + 1, 0); 
+    for (int i = 0; i < T; i++)
+        h[i+1] = (h[i] + (t[i] - 'a' + 1) * p_pow[i]) % m; 
+    long long h_s = 0; 
+    for (int i = 0; i < S; i++) 
+        h_s = (h_s + (s[i] - 'a' + 1) * p_pow[i]) % m; 
+
+    vector<int> occurences;
+    for (int i = 0; i + S - 1 < T; i++) { 
+        long long cur_h = (h[i+S] + m - h[i]) % m; 
+        if (cur_h == h_s * p_pow[i] % m)
+            occurences.push_back(i);
+    }
+    return occurences;
+}
+
+void solve()
+{
+    cin >> t >> s;
+    ll n = s.length();
+
+    // Prints the vector of indices where pattern is matched in text.
+    auto a = rabin_karp(s, t);
+    for(auto &ele: a) {
+        cout << ele << " ";
+    }
+    cout << "\n";
+}
+
+//Input
+// abcdeaabcfgabc abc
+// Output
+// 0 6 11
+```
+### Z Function - Prefix Function
+```cpp
+vector<int> z_function(string s) {
+    int n = (int) s.length();
+    vector<int> z(n);
+    for (int i = 1, l = 0, r = 0; i < n; ++i) {
+        if (i <= r)
+            z[i] = min (r - i + 1, z[i - l]);
+        while (i + z[i] < n && s[z[i]] == s[i + z[i]])
+            ++z[i];
+        if (i + z[i] - 1 > r)
+            l = i, r = i + z[i] - 1;
+    }
+    return z;
+}
+```
+
 ### Adding numbers in string
 ```cpp
 string addStr(const string& a, const string& b) {
@@ -1172,73 +1293,6 @@ void solve()
 // 0 0 0 0 1 2 3 4 5 6 7 8 
 // 0 0 0 0 0 0 1 2 3 4 5 6 7 8 9 10 11 12 
 
-```
-## String Algorithm
-
-### Rabin Karp Algorithm
-```cpp
-string s,t;
-//t -> text s-> pattern
-
-vector<int> rabin_karp(string const& s, string const& t) {
-    const int p = 31; 
-    const int m = 1e9 + 9;
-    int S = s.size(), T = t.size();
-
-    vector<long long> p_pow(max(S, T)); 
-    p_pow[0] = 1; 
-    for (int i = 1; i < (int)p_pow.size(); i++) 
-        p_pow[i] = (p_pow[i-1] * p) % m;
-
-    vector<long long> h(T + 1, 0); 
-    for (int i = 0; i < T; i++)
-        h[i+1] = (h[i] + (t[i] - 'a' + 1) * p_pow[i]) % m; 
-    long long h_s = 0; 
-    for (int i = 0; i < S; i++) 
-        h_s = (h_s + (s[i] - 'a' + 1) * p_pow[i]) % m; 
-
-    vector<int> occurences;
-    for (int i = 0; i + S - 1 < T; i++) { 
-        long long cur_h = (h[i+S] + m - h[i]) % m; 
-        if (cur_h == h_s * p_pow[i] % m)
-            occurences.push_back(i);
-    }
-    return occurences;
-}
-
-void solve()
-{
-    cin >> t >> s;
-    ll n = s.length();
-
-    // Prints the vector of indices where pattern is matched in text.
-    auto a = rabin_karp(s, t);
-    for(auto &ele: a) {
-        cout << ele << " ";
-    }
-    cout << "\n";
-}
-
-//Input
-// abcdeaabcfgabc abc
-// Output
-// 0 6 11
-```
-### Z Function - Prefix Function
-```cpp
-vector<int> z_function(string s) {
-    int n = (int) s.length();
-    vector<int> z(n);
-    for (int i = 1, l = 0, r = 0; i < n; ++i) {
-        if (i <= r)
-            z[i] = min (r - i + 1, z[i - l]);
-        while (i + z[i] < n && s[z[i]] == s[i + z[i]])
-            ++z[i];
-        if (i + z[i] - 1 > r)
-            l = i, r = i + z[i] - 1;
-    }
-    return z;
-}
 ```
 
 ## Lambda Function
@@ -1718,52 +1772,7 @@ cout << modifiedOperations << "\n";
 // 141
 ```
 
-### Prefix Sum 2D
-```cpp
-#include<bits/stdc++.h>
-using namespace std;
-
-constexpr int MAX_SIDE = 1000;
-int prefixSum2D[MAX_SIDE + 1][MAX_SIDE + 1];
-int array2D[MAX_SIDE + 1][MAX_SIDE + 1];
-
-void solve()
-{
-	int N;
-	int Q;
-	cin >> N >> Q;
-	// read the 2D array
-	for (int i = 1; i <= N; i++) {
-		for (int j = 1; j <= N; j++) {
-			cin >> array2D[i][j];
-		}
-	}
-
-	// build the prefix sum array
-	for (int i = 1; i <= N; i++) {
-		for (int j = 1; j <= N; j++) {
-			prefixSum2D[i][j] = array2D[i][j]
-						+ prefixSum2D[i - 1][j]
-						+ prefixSum2D[i][j - 1]
-						- prefixSum2D[i - 1][j - 1];
-		}
-	}
-
-	for (int q = 0; q < Q; q++) {
-		int x1, x2, y1, y2;
-		cin >> x1 >> y1 >> x2 >> y2;
-		cout << prefixSum2D[x2][y2]
-				- prefixSum2D[x1-1][y2]
-				- prefixSum2D[x2][y1-1]
-				+ prefixSum2D[x1-1][y1-1] << '\n';
-	}
-
-}
-
-int main(void) {
-	solve();
-}
-```
+## Miscellaneous
 
 ### Numeric Limits
 ```cpp
