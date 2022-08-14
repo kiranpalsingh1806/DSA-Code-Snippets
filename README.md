@@ -13,19 +13,20 @@
 - [Data Structures](#data-structures)
   - [Prefix Sum 2D](#prefix-sum-2d)
   - [Union Find - Disjoint Set Union](#union-find---disjoint-set-union)
+- [Sorting](#sorting)
+  - [Merge Sort in Linked List](#merge-sort-in-linked-list)
 - [Binary Search](#binary-search)
   - [Finding Pivot Element in Vector](#finding-pivot-element-in-vector)
   - [Binary Search - When middle goes out of range](#binary-search---when-middle-goes-out-of-range)
-  - [Find element in vector and replace it](#find-element-in-vector-and-replace-it)
 - [Linked List](#linked-list)
   - [Manipulation of head and tail in Linked List](#manipulation-of-head-and-tail-in-linked-list)
   - [Reverse Linked List](#reverse-linked-list)
-  - [Generating Random Numbers in Range](#generating-random-numbers-in-range)
 - [Priority Queue](#priority-queue)
   - [Priority Queue with Comparator](#priority-queue-with-comparator)
   - [Using Tuples in Priority Queue](#using-tuples-in-priority-queue)
 - [Vector](#vector)
   - [Rotate Vector Left or right](#rotate-vector-left-or-right)
+  - [Find element in vector and replace it](#find-element-in-vector-and-replace-it)
   - [Slicing of Vector in C++](#slicing-of-vector-in-c)
   - [Erase Duplicates in Vector](#erase-duplicates-in-vector)
   - [Common Elements in Vector](#common-elements-in-vector)
@@ -45,7 +46,6 @@
   - [stringstream Implementation](#stringstream-implementation)
   - [Convert Vector to Unordered Set](#convert-vector-to-unordered-set)
   - [Euler Phi Function](#euler-phi-function)
-  - [Point Structure - Geometry](#point-structure---geometry)
   - [Finding if element inserted in set or not](#finding-if-element-inserted-in-set-or-not)
 - [String Algorithm](#string-algorithm)
   - [Rabin Karp Algorithm](#rabin-karp-algorithm)
@@ -57,13 +57,13 @@
   - [Lambda Function to Check if Vector is Permutation](#lambda-function-to-check-if-vector-is-permutation)
   - [Kadane Algorithm](#kadane-algorithm)
 - [Custom Comparator](#custom-comparator)
-  - [Sorting by Comparator Function](#sorting-by-comparator-function)
-  - [Sorting String based on number of ones - Comparator](#sorting-string-based-on-number-of-ones---comparator)
-  - [Structure Sorting Comparator](#structure-sorting-comparator)
+  - [Sorting by Comparator](#sorting-by-comparator)
+  - [Sorting vector of strings based on number of ones - Comparator](#sorting-vector-of-strings-based-on-number-of-ones---comparator)
+  - [Sorting Structure using Comparator](#sorting-structure-using-comparator)
   - [Sorting Vector Based on Another Vector](#sorting-vector-based-on-another-vector)
 - [Heaps](#heaps)
   - [Max Heap and Min Heap](#max-heap-and-min-heap)
-- [Permutations](#permutations)
+- [Permutation](#permutation)
   - [Next Permutation](#next-permutation)
 - [Mathematics](#mathematics)
   - [Chicken McNugget Theorem](#chicken-mcnugget-theorem)
@@ -74,11 +74,15 @@
   - [Convert To Decimal From Base K](#convert-to-decimal-from-base-k)
 - [GCD and LCM](#gcd-and-lcm)
   - [Maximum GCD in range [L, R]](#maximum-gcd-in-range-l-r)
+- [Geometry](#geometry)
+  - [Point Structure in Geometry](#point-structure-in-geometry)
+- [Mathematical Equations](#mathematical-equations)
+  - [Find x and y in a.x + b.y = N](#find-x-and-y-in-ax--by--n)
 - [Miscellaneous](#miscellaneous)
   - [Numeric Limits](#numeric-limits)
   - [Median of an array](#median-of-an-array)
   - [Reverse a number](#reverse-a-number)
-  - [Find x and y in a.x + b.y = N](#find-x-and-y-in-ax--by--n)
+  - [Generating Random Numbers in Range](#generating-random-numbers-in-range)
 
 ## Bit Manipulation
 
@@ -365,6 +369,49 @@ public:
 };
 ```
 
+## Sorting
+
+### Merge Sort in Linked List
+```cpp
+class Solution {
+    ListNode* splitList(ListNode *head) {
+        ListNode dummy, *p = &dummy, *q = &dummy;
+        dummy.next = head;
+        while (q && q->next) {
+            q = q->next->next;
+            p = p->next;
+        }
+        auto next = p->next;
+        p->next = NULL;
+        return next;
+    }
+    ListNode *mergeList(ListNode *a, ListNode *b) {
+        ListNode head, *tail = &head;
+        while (a && b) {
+            ListNode *node;
+            if (a->val <= b->val) {
+                node = a;
+                a = a->next;
+            } else {
+                node = b;
+                b = b->next;
+            }
+            tail->next = node;
+            tail = node;
+        }
+        if (a) tail->next = a;
+        if (b) tail->next = b;
+        return head.next;
+    }
+public:
+    ListNode* sortList(ListNode* head) {
+        if (!head || !head->next) return head;
+        auto b = splitList(head);
+        return mergeList(sortList(head), sortList(b));
+    }
+};
+```
+
 ## Binary Search
 
 ### Finding Pivot Element in Vector
@@ -387,12 +434,6 @@ int M = (L + R) / 2;
 
 int M = L + (R - L) / 2
 // This will prevent overflowing.
-```
-### Find element in vector and replace it
-```cpp
-auto it = find (V.begin(), V.end(), num);
-// it - V.begin() will given index of given num [0-indexed]
-V[it - V.begin()] = otherNum;
 ```
 
 ## Linked List
@@ -425,14 +466,6 @@ ListNode* reverseList(ListNode* head) {
     
     return prev->next;
 }
-```
-
-### Generating Random Numbers in Range
-```cpp
-mt19937 rng{random_device{}()};
-uniform_real_distribution<double> uni{0, 1};
-// It will generate the random numbers every time in given range
-// cout << uni(rng) << "\n";
 ```
 
 ## Priority Queue
@@ -469,6 +502,13 @@ rotate(vec1.begin(), vec1.begin() + 3, vec1.end());
 // Rotate array to right by 3 positions.
 // 7 8 9 1 2 3 4 5 6
 rotate(vec1.begin(), vec1.begin() - 3, vec1.end());
+```
+
+### Find element in vector and replace it
+```cpp
+auto it = find (V.begin(), V.end(), num);
+// it - V.begin() will given index of given num [0-indexed]
+V[it - V.begin()] = otherNum;
 ```
 
 ### Slicing of Vector in C++
@@ -1040,71 +1080,6 @@ void solve()
 // Euler Phi of 20 : 8
 // The numbers are : 1 3 7 9 11 13 17 19 
 ```
-### Point Structure - Geometry
-```cpp
-typedef double T;
-struct pt {
-	T x, y;
-	pt operator+ (pt p) {
-		return {x + p.x, y + p.y};
-	}
-
-	pt operator- (pt p) {
-		return {x - p.x, y - p.y};
-	}
-
-	pt operator* (T d) {
-		return { x * d, y * d};
-	}
-
-	pt operator/ (T d) {
-		return {x/d, y/d};
-	}
-};
-
-bool operator==(pt a, pt b) {
-	return a.x == b.x && a.y == b.y;
-}
-
-bool operator!= (pt a, pt b) {
-	return !(a == b);
-}
-
-T sq(pt p) {
-	return p.x * p.x + p.y * p.y;
-}
-
-double abs(pt p) {
-	return sqrt(sq(p));
-}
-
-ostream& operator<< (ostream& os, pt p) {
-	return os << "(" << p.x << "," << p.y << ")";
-}
-
-void solve()
-{
-    pt a, b;
-    cin >> a.x >> a.y >> b.x >> b.y;
-    cout << a+b << " " << a-b << "\n"; 
-    cout << a*-1 << " " << b/2 << "\n"; 
-
-    pt c;
-    cin >> c.x >> c.y;
-    cout << abs(c) << "\n";
-}
-
-// Input
-// 3 4
-// 2 -1
-// -5 -10
-
-// Output
-// (5,3) (1,5)
-// (-3,-4) (1,-0.5)
-// 11.1803
-
-```
 
 ### Finding if element inserted in set or not
 ```cpp
@@ -1362,7 +1337,7 @@ void solve()
 
 ## Custom Comparator
 
-### Sorting by Comparator Function
+### Sorting by Comparator 
 ```cpp
 bool cmp(const pair<string, long> &p1, const pair<string, long> &p2)
 {
@@ -1374,7 +1349,7 @@ bool cmp(const pair<string, long> &p1, const pair<string, long> &p2)
 sort(vect.begin(), vect.end(), cmp);
 ```
 
-### Sorting String based on number of ones - Comparator
+### Sorting vector of strings based on number of ones - Comparator
 ```cpp
 void solve()
 {
@@ -1410,7 +1385,7 @@ void solve()
 // 00111111
 ```
 
-### Structure Sorting Comparator
+### Sorting Structure using Comparator
 ```cpp
 struct city {
 	string name;
@@ -1525,7 +1500,7 @@ void solve()
 // 33 23 19 9 7 5 2 1 
 ```
 
-## Permutations
+## Permutation
 
 ### Next Permutation
 ```cpp
@@ -1772,6 +1747,90 @@ cout << modifiedOperations << "\n";
 // 141
 ```
 
+## Geometry
+
+### Point Structure in Geometry
+```cpp
+typedef double T;
+struct pt {
+	T x, y;
+	pt operator+ (pt p) {
+		return {x + p.x, y + p.y};
+	}
+
+	pt operator- (pt p) {
+		return {x - p.x, y - p.y};
+	}
+
+	pt operator* (T d) {
+		return { x * d, y * d};
+	}
+
+	pt operator/ (T d) {
+		return {x/d, y/d};
+	}
+};
+
+bool operator==(pt a, pt b) {
+	return a.x == b.x && a.y == b.y;
+}
+
+bool operator!= (pt a, pt b) {
+	return !(a == b);
+}
+
+T sq(pt p) {
+	return p.x * p.x + p.y * p.y;
+}
+
+double abs(pt p) {
+	return sqrt(sq(p));
+}
+
+ostream& operator<< (ostream& os, pt p) {
+	return os << "(" << p.x << "," << p.y << ")";
+}
+
+void solve()
+{
+    pt a, b;
+    cin >> a.x >> a.y >> b.x >> b.y;
+    cout << a+b << " " << a-b << "\n"; 
+    cout << a*-1 << " " << b/2 << "\n"; 
+
+    pt c;
+    cin >> c.x >> c.y;
+    cout << abs(c) << "\n";
+}
+
+// Input
+// 3 4
+// 2 -1
+// -5 -10
+
+// Output
+// (5,3) (1,5)
+// (-3,-4) (1,-0.5)
+// 11.1803
+
+```
+
+## Mathematical Equations
+
+### Find x and y in a.x + b.y = N
+
+```cpp
+void equation(int a, int b, int n) {
+    for (int i = 0; i * a <= n; i++) {
+        if ((n - (i * a)) % b == 0) {
+            cout << "x = " << i << ", y = " << (n - (i * a)) / b;
+            return;
+        }
+    }
+    cout << "No solution exists." << "\n";
+}
+```
+
 ## Miscellaneous
 
 ### Numeric Limits
@@ -1831,18 +1890,12 @@ int main()
 }
 ```
 
-### Find x and y in a.x + b.y = N
-
+### Generating Random Numbers in Range
 ```cpp
-void equation(int a, int b, int n) {
-    for (int i = 0; i * a <= n; i++) {
-        if ((n - (i * a)) % b == 0) {
-            cout << "x = " << i << ", y = " << (n - (i * a)) / b;
-            return;
-        }
-    }
-    cout << "No solution exists." << "\n";
-}
+mt19937 rng{random_device{}()};
+uniform_real_distribution<double> uni{0, 1};
+// It will generate the random numbers every time in given range
+// cout << uni(rng) << "\n";
 ```
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=kiranpalsingh1806&label=Views&color=blue&style=plastic" alt="kiranpalsingh" /> </p>
