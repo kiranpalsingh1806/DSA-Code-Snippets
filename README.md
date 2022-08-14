@@ -2,9 +2,14 @@
 - [Bit Manipulation](#bit-manipulation)
   - [Check if ith bit is on](#check-if-ith-bit-is-on)
   - [Number of set bits in number](#number-of-set-bits-in-number)
-- [Grid Based](#grid-based)
+  - [Unset the ith bit in number](#unset-the-ith-bit-in-number)
+  - [Lexicographical next bit permutation](#lexicographical-next-bit-permutation)
+  - [Round number to next highest power of 2](#round-number-to-next-highest-power-of-2)
+- [Grid / Matrix](#grid--matrix)
   - [Moving in four directions in grid](#moving-in-four-directions-in-grid)
   - [Knight Moves in Chessboard](#knight-moves-in-chessboard)
+  - [Diagonals of Matrix (Top Left to Bottom Right)](#diagonals-of-matrix-top-left-to-bottom-right)
+  - [Sudoku Box Pattern](#sudoku-box-pattern)
 - [Binary Search](#binary-search)
   - [Finding Pivot Element in Vector](#finding-pivot-element-in-vector)
   - [Binary Search - When middle goes out of range](#binary-search---when-middle-goes-out-of-range)
@@ -70,6 +75,7 @@
   - [Prefix Sum 2D](#prefix-sum-2d)
   - [Numeric Limits](#numeric-limits)
   - [Median of an array](#median-of-an-array)
+  - [Reverse a number](#reverse-a-number)
   - [Find x and y in a.x + b.y = N](#find-x-and-y-in-ax--by--n)
 
 ## Bit Manipulation
@@ -90,7 +96,51 @@ long int setbitsCnt = __builtin_popcountl(x);
 long long setbitsCnt = __builtin_popcountll(x);
 ```
 
-## Grid Based
+### Unset the ith bit in number
+
+```cpp
+int num = 104;
+// Unset the 6th bit (bits start from 0 index)
+int pos = 6;
+cout << "Before : " << bitset<8>(num) << "\n";
+num &= (~(1 << pos));
+cout << "After :: " << bitset<8>(num) << "\n";
+```
+
+### Lexicographical next bit permutation
+
+```cpp
+// Current permutation of bits
+  unsigned int v = 11;
+  
+  // Next permutation of bits
+  unsigned int w;
+  
+  unsigned int t = (v | (v - 1)) + 1;  
+  w = t | ((((t & -t) / (v & -v)) >> 1) - 1);
+  
+  
+  cout << "v : " << bitset<8>(v) << "\n";
+  cout << "w : " << bitset<8>(w) << "\n";
+```
+
+### Round number to next highest power of 2
+```cpp
+
+unsigned int v = 43;
+v--;
+v |= v >> 1;
+v |= v >> 2;
+v |= v >> 4;
+v |= v >> 8;
+v |= v >> 16;
+v++;
+
+cout << v << "\n";
+// Output - 64 (which is power of 2).
+```
+
+## Grid / Matrix 
 
 ### Moving in four directions in grid
 
@@ -119,6 +169,56 @@ for (auto &dir : dirs) {
     int a = x + dir[0], b = y + dir[1];
     // Here x and y is our current location.
 }
+```
+
+### Diagonals of Matrix (Top Left to Bottom Right)
+```cpp
+int M = 5, N = 3;
+cout << "Lower Traingle Diagonals" << "\n";
+for (int i = 0; i < M; ++i) {
+    cout << "------\n";
+    for (int x = i, y = 0; x < M && y < N; ++x, ++y) {
+    cout << x << " " << y << "\n";
+    }
+}
+
+cout << "-------\n";
+cout << "Upper Triangle Diagonals" << "\n";
+for (int j = 1; j < N; ++j) {
+    vector<int> v;
+    cout << "------\n";
+    for(int x = 0, y = j; x < M && y < N; ++x, ++y) {
+    cout << x << " " << y << "\n";
+    }
+}
+```
+
+### Sudoku Box Pattern
+```cpp
+int box[9][9] = {};
+for(int i = 0; i < 9; i++) {
+    for(int j = 0; j < 9; j++) {
+    box[i][j] = (i / 3 ) * 3+ (j / 3);
+    }
+}
+
+for(int i = 0; i < 9; i++) {
+    for(int j = 0;j < 9; j++) {
+    cout << box[i][j] << " ";
+    }
+    cout << "\n";
+}
+
+// Output
+// 0 0 0 1 1 1 2 2 2 
+// 0 0 0 1 1 1 2 2 2 
+// 0 0 0 1 1 1 2 2 2 
+// 3 3 3 4 4 4 5 5 5 
+// 3 3 3 4 4 4 5 5 5 
+// 3 3 3 4 4 4 5 5 5 
+// 6 6 6 7 7 7 8 8 8 
+// 6 6 6 7 7 7 8 8 8 
+// 6 6 6 7 7 7 8 8 8
 ```
 
 ## Binary Search
@@ -1690,6 +1790,35 @@ int median(vector<int> &A) {
 	}
 
 	return A[(N - 1) / 2];
+}
+```
+
+### Reverse a number
+
+```cpp
+int rev(int n) {
+  string s = to_string(n);
+  reverse(s.begin(), s.end());
+  
+  return stoi(s);
+}
+
+int rev2(int x) {
+    int b = 0;
+    while (a > 0) {
+        b = b * 10 + (a % 10);
+        a /= 10;
+    }
+    return b;
+}
+
+int main() 
+{
+    int n = 988;
+    int m = 930;
+    
+    cout << rev(n) << "\n";
+    cout << rev(m) << "\n";
 }
 ```
 
