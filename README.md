@@ -5,6 +5,7 @@
   - [Unset the ith bit in number](#unset-the-ith-bit-in-number)
   - [Lexicographical next bit permutation](#lexicographical-next-bit-permutation)
   - [Round number to next highest power of 2](#round-number-to-next-highest-power-of-2)
+  - [Bitwise OR of Vector using STL](#bitwise-or-of-vector-using-stl)
 - [Grid / Matrix](#grid--matrix)
   - [Moving in four directions in grid](#moving-in-four-directions-in-grid)
   - [Knight Moves in Chessboard](#knight-moves-in-chessboard)
@@ -151,6 +152,11 @@ v++;
 
 cout << v << "\n";
 // Output - 64 (which is power of 2).
+```
+
+### Bitwise OR of Vector using STL
+```cpp
+int result = reduce(nums.begin(), nums.end(), 0, bit_or());
 ```
 
 ## Grid / Matrix 
