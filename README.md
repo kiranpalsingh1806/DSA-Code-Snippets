@@ -19,6 +19,7 @@
   - [Prefix Sum 2D](#prefix-sum-2d)
   - [Union Find - Disjoint Set Union](#union-find---disjoint-set-union)
   - [Policy Based Data Structure - Ordered Set](#policy-based-data-structure---ordered-set)
+    - [Problems](#problems)
 - [Grid and Matrix](#grid-and-matrix)
   - [Moving in four directions in grid](#moving-in-four-directions-in-grid)
   - [Knight Moves in Chessboard](#knight-moves-in-chessboard)
@@ -532,13 +533,13 @@ int main()
  
     return 0;
 }
+```
 
-Problems
+#### Problems
 1. [Maximum Possible Sweetness](https://www.codechef.com/START7B/problems/MAXSWT)
 2. [Number of Pairs](https://codeforces.com/contest/1538/problem/C)
 3. [Nested Segments](https://codeforces.com/contest/652/problem/D)
 4. [Optimal Subsequences](https://codeforces.com/contest/1262/problem/D2)
-```
 
 ## Grid and Matrix 
 
