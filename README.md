@@ -9,6 +9,7 @@
   - [Lexicographical next bit permutation](#lexicographical-next-bit-permutation)
   - [Round number to next highest power of 2](#round-number-to-next-highest-power-of-2)
   - [Bitwise OR of Vector using STL](#bitwise-or-of-vector-using-stl)
+  - [Masks and Submasks Enumeration](#masks-and-submasks-enumeration)
 - [Custom Comparator](#custom-comparator)
   - [Sorting by Comparator](#sorting-by-comparator)
   - [Sorting vector of strings based on number of ones - Comparator](#sorting-vector-of-strings-based-on-number-of-ones---comparator)
@@ -17,10 +18,11 @@
 - [Data Structures](#data-structures)
   - [Prefix Sum 2D](#prefix-sum-2d)
   - [Union Find - Disjoint Set Union](#union-find---disjoint-set-union)
-- [Grid / Matrix](#grid--matrix)
+- [Grid and Matrix](#grid-and-matrix)
   - [Moving in four directions in grid](#moving-in-four-directions-in-grid)
   - [Knight Moves in Chessboard](#knight-moves-in-chessboard)
   - [Diagonals of Matrix (Top Left to Bottom Right)](#diagonals-of-matrix-top-left-to-bottom-right)
+  - [Largest Square in Matrix With Only Ones](#largest-square-in-matrix-with-only-ones)
   - [Sudoku Box Pattern](#sudoku-box-pattern)
 - [Sorting](#sorting)
   - [Merge Sort in Linked List](#merge-sort-in-linked-list)
@@ -203,6 +205,34 @@ cout << v << "\n";
 int result = reduce(nums.begin(), nums.end(), 0, bit_or());
 ```
 
+### Masks and Submasks Enumeration
+
+```cpp
+void bitmasks() {
+	int n = 5;
+	vector<vector<int>> masks(1 << n, vector<int>()); // 32 ( 2 ^ 5)
+
+	// Traverse all masks
+	for(int mask = 0; mask < (1 << n); mask++) {
+		for(int i = 0; i < n; i++) {
+			if(mask & (1 << i)) {
+				masks[mask].push_back(i);
+				cout << mask << " mask has this bit on => " << i << "\n";
+			}
+		}
+	}
+
+	vector<vector<int>> submasks(1 << n, vector<int>()); 
+
+	// Traverse all submasks of masks
+	for(int mask = 1; mask < (1 << n); mask++) {
+		for(int submask = mask; submask; submask = (submask - 1) & mask) {
+			submasks[mask].push_back(submask);
+			cout << mask << " mask has this submask => " << submask << "\n";
+		}
+	}
+}
+```
 
 ## Custom Comparator
 
@@ -470,7 +500,7 @@ public:
 };
 ```
 
-## Grid / Matrix 
+## Grid and Matrix 
 
 ### Moving in four directions in grid
 
@@ -520,6 +550,41 @@ for (int j = 1; j < N; ++j) {
     for(int x = 0, y = j; x < M && y < N; ++x, ++y) {
     cout << x << " " << y << "\n";
     }
+}
+```
+
+### Largest Square in Matrix With Only Ones
+
+```cpp
+int maximalSquare(vector<vector<char>>& matrix) {
+    int M = matrix.size();
+    int N = matrix[0].size();
+    
+    int ans = 0;
+    
+    vector<vector<int>> mat(M, vector<int>(N));
+    
+    for(int i = 0; i < M; i++) {
+        for(int j = 0; j < N; j++) {
+            mat[i][j] = matrix[i][j] - '0';
+        }
+    }
+    
+    for(int i = 0; i < M; i++) {
+        for(int j = 0; j < N; j++) {
+            if(i > 0 && j > 0 && mat[i][j] != 0) {
+                mat[i][j] = min({mat[i][j - 1], mat[i - 1][j], mat[i - 1][j - 1]}) + 1;
+            }
+            
+            ans = max(ans, mat[i][j]);
+        }
+    }
+    
+    // For side of largest square
+    // return ans
+
+    // For area of largest square
+    return ans * ans; 
 }
 ```
 
