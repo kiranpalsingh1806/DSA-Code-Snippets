@@ -47,7 +47,7 @@
 - [Dynamic Programming](#dynamic-programming)
   - [Longest Increasing Subsequence - LIS DP](#longest-increasing-subsequence---lis-dp)
   - [Partial Sum](#partial-sum)
-- [Graph](#graph)
+- [Graphs](#graphs)
   - [Can We Go From Source To Destination](#can-we-go-from-source-to-destination)
   - [Print Euler Tour](#print-euler-tour)
   - [Breadth First Search](#breadth-first-search)
@@ -55,6 +55,7 @@
   - [Dijkstra's Algorithm](#dijkstras-algorithm)
   - [Lowest Common Ancestor](#lowest-common-ancestor)
   - [Number of Connected Components](#number-of-connected-components)
+  - [Kruskal Algorithm - Minimum Spanning Tree](#kruskal-algorithm---minimum-spanning-tree)
   - [Euler path - Heirholzer Algorithm](#euler-path---heirholzer-algorithm)
   - [Bipartite Graph](#bipartite-graph)
   - [Bellman Ford Algorithm](#bellman-ford-algorithm)
@@ -932,7 +933,7 @@ for (int i = 0; i < N; ++i) pre[i + 1] = pre[i] + A[i];
 
 ```
 
-## Graph
+## Graphs
 
 ### Can We Go From Source To Destination
 ```cpp
@@ -1302,6 +1303,57 @@ void solve()
     cout << count << endl;
 }
 ```
+
+### Kruskal Algorithm - Minimum Spanning Tree
+
+```cpp
+class UnionFind {
+    vector<int> id;
+    int size;
+public:
+    UnionFind(int N) : id(N), size(N) {
+        iota(begin(id), end(id), 0);
+    }
+    int find(int a) {
+        return id[a] == a ? a : (id[a] = find(id[a]));
+    }
+    void connect(int a, int b) {
+        int p = find(a), q = find(b);
+        if (p == q) return;
+        id[p] = q;
+        --size;
+    }
+    bool connected(int a, int b) {
+        return find(a) == find(b);
+    }
+    int getSize() { return size; }
+};
+class Solution {
+public:
+    int minCostConnectPoints(vector<vector<int>>& A) {
+        int N = A.size(), ans = 0;
+        vector<array<int, 3>> E;
+        for (int i = 0; i < N; ++i) {
+            for (int j = i + 1; j < N; ++j) E.push_back({ abs(A[i][0] - A[j][0]) + abs(A[i][1] - A[j][1]), i, j });
+        }
+        make_heap(begin(E), end(E), greater<array<int, 3>>());
+        UnionFind uf(N);
+        while (uf.getSize() > 1) {
+            pop_heap(begin(E), end(E), greater<array<int, 3>>());
+            auto [w, u, v] = E.back();
+            E.pop_back();
+            if (uf.connected(u, v)) continue;
+            uf.connect(u, v);
+            ans += w;
+        } 
+        return ans;
+    }
+};
+```
+
+Problems
+1. [Min Cost To Connect All Pairs](https://leetcode.com/problems/min-cost-to-connect-all-points/)
+2. [Connecting Cities With Minimum Cost](https://leetcode.com/problems/connecting-cities-with-minimum-cost/)
 
 ### Euler path - Heirholzer Algorithm 
 ```cpp
