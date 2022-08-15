@@ -17,9 +17,9 @@
   - [Sorting Vector Based on Another Vector](#sorting-vector-based-on-another-vector)
 - [Data Structures](#data-structures)
   - [Prefix Sum 2D](#prefix-sum-2d)
+  - [Fenwick Tree - Binary Indexed Tree](#fenwick-tree---binary-indexed-tree)
   - [Union Find - Disjoint Set Union](#union-find---disjoint-set-union)
   - [Policy Based Data Structure - Ordered Set](#policy-based-data-structure---ordered-set)
-    - [Problems](#problems)
 - [Grid and Matrix](#grid-and-matrix)
   - [Moving in four directions in grid](#moving-in-four-directions-in-grid)
   - [Knight Moves in Chessboard](#knight-moves-in-chessboard)
@@ -362,7 +362,6 @@ int main() {
 
 ## Data Structures
 
-
 ### Prefix Sum 2D
 ```cpp
 #include<bits/stdc++.h>
@@ -409,6 +408,40 @@ int main(void) {
 	solve();
 }
 ```
+
+### Fenwick Tree - Binary Indexed Tree
+
+```cpp
+struct FenwickTree {
+	vector<int> bit;  // binary indexed tree
+	int n;
+
+	FenwickTree(int n) {
+		this->n = n + 1;
+		bit.assign(n + 1, 0ll);
+	}
+
+	void add(int idx, int val) {
+		for (++idx; idx < n; idx += idx & -idx)
+			bit[idx] += val;
+	}
+
+	void range_add(int l, int r, int val) {
+		add(l, val);
+		add(r + 1, -val);
+	}
+
+	int get(int idx) { //
+		int ret = 0;
+		for (++idx; idx > 0ll; idx -= idx & -idx)
+			ret += bit[idx];
+		return ret;
+	}
+};
+```
+
+Problems
+[Chef and Queries](https://www.codechef.com/START5B/problems/CHEFQUER)
 
 ### Union Find - Disjoint Set Union
 ```cpp
@@ -535,7 +568,7 @@ int main()
 }
 ```
 
-#### Problems
+Problems
 1. [Maximum Possible Sweetness](https://www.codechef.com/START7B/problems/MAXSWT)
 2. [Number of Pairs](https://codeforces.com/contest/1538/problem/C)
 3. [Nested Segments](https://codeforces.com/contest/652/problem/D)
