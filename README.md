@@ -61,6 +61,8 @@
   - [Bellman Ford Algorithm](#bellman-ford-algorithm)
 - [Recursion](#recursion)
   - [Maximum Digit in Number](#maximum-digit-in-number)
+- [Binary Trees](#binary-trees)
+  - [Find Path From Root To Target Node](#find-path-from-root-to-target-node)
 - [String](#string)
   - [stringstream Implementation](#stringstream-implementation)
   - [Convert Vector to Unordered Set](#convert-vector-to-unordered-set)
@@ -1437,6 +1439,22 @@ vector<int> bellmanFord(vector<vector<int>>& edges, int V, int src) {
 int maxDigitInNumber(int n) {
     if(n < 10) return n;
     return max( maxDigitInNumber(n / 10), n % 10);
+}
+```
+
+## Binary Trees
+
+### Find Path From Root To Target Node
+
+```cpp
+// It will store the path in vector passed to this function.
+bool findPath(TreeNode *node, TreeNode *target, vector<TreeNode*> &path) {
+    if (!node) return false;
+    path.push_back(node);
+    if (node == target) return true;
+    if (findPath(node->left, target, path) || findPath(node->right, target, path)) return true;
+    path.pop_back();
+    return false;
 }
 ```
 
