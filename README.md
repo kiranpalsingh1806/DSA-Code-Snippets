@@ -1,4 +1,7 @@
 
+- [Array](#array)
+  - [Find Kth Largest Element in Array](#find-kth-largest-element-in-array)
+  - [Kadane Algorithm](#kadane-algorithm)
 - [Bit Manipulation](#bit-manipulation)
   - [Check if ith bit is on](#check-if-ith-bit-is-on)
   - [Number of set bits in number](#number-of-set-bits-in-number)
@@ -6,14 +9,19 @@
   - [Lexicographical next bit permutation](#lexicographical-next-bit-permutation)
   - [Round number to next highest power of 2](#round-number-to-next-highest-power-of-2)
   - [Bitwise OR of Vector using STL](#bitwise-or-of-vector-using-stl)
+- [Custom Comparator](#custom-comparator)
+  - [Sorting by Comparator](#sorting-by-comparator)
+  - [Sorting vector of strings based on number of ones - Comparator](#sorting-vector-of-strings-based-on-number-of-ones---comparator)
+  - [Sorting Structure using Comparator](#sorting-structure-using-comparator)
+  - [Sorting Vector Based on Another Vector](#sorting-vector-based-on-another-vector)
+- [Data Structures](#data-structures)
+  - [Prefix Sum 2D](#prefix-sum-2d)
+  - [Union Find - Disjoint Set Union](#union-find---disjoint-set-union)
 - [Grid / Matrix](#grid--matrix)
   - [Moving in four directions in grid](#moving-in-four-directions-in-grid)
   - [Knight Moves in Chessboard](#knight-moves-in-chessboard)
   - [Diagonals of Matrix (Top Left to Bottom Right)](#diagonals-of-matrix-top-left-to-bottom-right)
   - [Sudoku Box Pattern](#sudoku-box-pattern)
-- [Data Structures](#data-structures)
-  - [Prefix Sum 2D](#prefix-sum-2d)
-  - [Union Find - Disjoint Set Union](#union-find---disjoint-set-union)
 - [Sorting](#sorting)
   - [Merge Sort in Linked List](#merge-sort-in-linked-list)
 - [Binary Search](#binary-search)
@@ -61,14 +69,6 @@
 - [Lambda Function](#lambda-function)
   - [Definition of Lambda Function](#definition-of-lambda-function)
   - [Lambda Function to Check if Vector is Permutation](#lambda-function-to-check-if-vector-is-permutation)
-- [Array](#array)
-  - [Find Kth Largest Element in Array](#find-kth-largest-element-in-array)
-  - [Kadane Algorithm](#kadane-algorithm)
-- [Custom Comparator](#custom-comparator)
-  - [Sorting by Comparator](#sorting-by-comparator)
-  - [Sorting vector of strings based on number of ones - Comparator](#sorting-vector-of-strings-based-on-number-of-ones---comparator)
-  - [Sorting Structure using Comparator](#sorting-structure-using-comparator)
-  - [Sorting Vector Based on Another Vector](#sorting-vector-based-on-another-vector)
 - [Heaps](#heaps)
   - [Max Heap and Min Heap](#max-heap-and-min-heap)
 - [Permutation](#permutation)
@@ -82,6 +82,8 @@
   - [Convert To Decimal From Base K](#convert-to-decimal-from-base-k)
 - [GCD and LCM](#gcd-and-lcm)
   - [Maximum GCD in range [L, R]](#maximum-gcd-in-range-l-r)
+  - [Dirichlet's Convolution](#dirichlets-convolution)
+  - [Euler Totient Function](#euler-totient-function)
 - [Geometry](#geometry)
   - [Point Structure in Geometry](#point-structure-in-geometry)
 - [Mathematical Equations](#mathematical-equations)
@@ -91,6 +93,48 @@
   - [Median of an array](#median-of-an-array)
   - [Reverse a number](#reverse-a-number)
   - [Generating Random Numbers in Range](#generating-random-numbers-in-range)
+
+## Array
+
+### Find Kth Largest Element in Array
+
+```cpp
+int findKthLargest(vector<int>& A, int k) {
+    nth_element(begin(A), begin(A) + k - 1, end(A), greater<int>());
+    return A[k - 1];
+}
+```
+
+### Kadane Algorithm
+```cpp
+int maxSumSubarray (vector<int> A) {
+	int n = A.size();
+	int local_max = 0;
+	int global_max = -1e9;
+    for(int i = 0; i < n; i++) {
+        local_max = max(A[i], A[i] + local_max);
+
+        if(local_max > global_max) {
+            global_max = local_max;
+        }
+    }
+    return global_max;
+}
+
+
+void solve()
+{ 
+	int n;
+	cin >> n;
+	vector<ll> a(n);
+	for(int i = 0; i < n; i++) {
+		cin >> a[i];
+	}
+
+	ll mx = maxSumSubArray(a);
+	cout << mx << "\n";
+}
+```
 
 ## Bit Manipulation
 
@@ -159,85 +203,129 @@ cout << v << "\n";
 int result = reduce(nums.begin(), nums.end(), 0, bit_or());
 ```
 
-## Grid / Matrix 
 
-### Moving in four directions in grid
+## Custom Comparator
 
+### Sorting by Comparator 
 ```cpp
-int dirs[4][2] = {{0,1},{0,-1},{1,0},{-1,0}};
-
-for (auto &dir : dirs) {
-    int a = x + dir[0], b = y + dir[1];
-    // Here x and y is our current location.
+bool cmp(const pair<string, long> &p1, const pair<string, long> &p2)
+{
+    if(p1.second!=p2.second)
+        return p1.second < p2.second;
+    return p1.first < p2.first;
 }
 
-int dirs[8][2] = { {-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
-
-for (auto &dir : dirs) {
-     int a = x + dir[0];
-     int b = y + dir[1];
-}
+sort(vect.begin(), vect.end(), cmp);
 ```
 
-### Knight Moves in Chessboard
-
+### Sorting vector of strings based on number of ones - Comparator
 ```cpp
-int dirs[8][2] = {{-2,1}, {-1,2}, {1,2}, {2,1}, {2,-1}, {1,-2}, {-1,-2}, {-2,-1}};
+void solve()
+{
+	int n;
+	cin >> n;
+	vector<string> s(n);
 
-for (auto &dir : dirs) {
-    int a = x + dir[0], b = y + dir[1];
-    // Here x and y is our current location.
-}
-```
+	for(int i = 0; i < n; i++) {
+		cin >> s[i];
+	}
+	sort(s.begin(), s.end(), [&](string x, string y) {
+        return count(x.begin(), x.end(), '1') < count(y.begin(), y.end(), '1');
+    });
 
-### Diagonals of Matrix (Top Left to Bottom Right)
-```cpp
-int M = 5, N = 3;
-cout << "Lower Triangle Diagonals" << "\n";
-for (int i = 0; i < M; ++i) {
-    cout << "------\n";
-    for (int x = i, y = 0; x < M && y < N; ++x, ++y) {
-    cout << x << " " << y << "\n";
+    for(int i = 0; i < n; i++) {
+    	cout << s[i] << "\n";
     }
 }
 
-cout << "-------\n";
-cout << "Upper Triangle Diagonals" << "\n";
-for (int j = 1; j < N; ++j) {
-    vector<int> v;
-    cout << "------\n";
-    for(int x = 0, y = j; x < M && y < N; ++x, ++y) {
-    cout << x << " " << y << "\n";
-    }
-}
+// Input
+// 5
+// 10101
+// 10000000
+// 010101
+// 00111111
+// 11000000000
+
+// Output
+// 10000000
+// 11000000000
+// 10101
+// 010101
+// 00111111
 ```
 
-### Sudoku Box Pattern
+### Sorting Structure using Comparator
 ```cpp
-int box[9][9] = {};
-for(int i = 0; i < 9; i++) {
-    for(int j = 0; j < 9; j++) {
-    box[i][j] = (i / 3 ) * 3+ (j / 3);
-    }
+struct city {
+	string name;
+	int score, index;
+};
+
+int n;
+
+bool comp(const city a, const city b) {
+	if(a.name != b.name) {
+		return a.name < b.name;
+	}
+	return a.score > b.score;
 }
 
-for(int i = 0; i < 9; i++) {
-    for(int j = 0;j < 9; j++) {
-    cout << box[i][j] << " ";
+void solve() {
+	cin >> n;
+	vector<city> cities(n);
+	for(int i = 0; i < n; i++) {
+		cin >> cities[i].name >> cities[i].score;
+		cities[i].index = i + 1;
+	}	
+
+	sort(cities.begin(), cities.end(), comp);
+
+	for(int i = 0; i < n; i++) {
+		cout << cities[i].index << "\n";
+	}
+}
+
+// Input
+// 6
+// khabarovsk 20
+// moscow 10
+// kazan 50
+// kazan 35
+// moscow 60
+// khabarovsk 40
+
+// Output
+// 3
+// 4
+// 6
+// 1
+// 5
+// 2
+
+```
+
+### Sorting Vector Based on Another Vector
+```cpp
+int main() {
+    int n = 7;
+    vector<int> a = {4, 8, 1, 3, 2, 9, 11};
+    
+    vector<int> ind(n);
+    iota(ind.begin(), ind.end(), 0);
+    for(auto a: ind) {
+        cout << a << " ";
+    }
+    cout << "\n";
+    
+    sort(ind.begin(), ind.end(), [&](int i, int j) {
+        return a[i] > a[j];
+    });
+
+    for(auto a: ind) {
+        cout << a << " ";
     }
     cout << "\n";
 }
-
-// Output
-// 0 0 0 1 1 1 2 2 2 
-// 0 0 0 1 1 1 2 2 2 
-// 0 0 0 1 1 1 2 2 2 
-// 3 3 3 4 4 4 5 5 5 
-// 3 3 3 4 4 4 5 5 5 
-// 3 3 3 4 4 4 5 5 5 
-// 6 6 6 7 7 7 8 8 8 
-// 6 6 6 7 7 7 8 8 8 
-// 6 6 6 7 7 7 8 8 8
 ```
 
 ## Data Structures
@@ -380,6 +468,87 @@ public:
         return size;
     }
 };
+```
+
+## Grid / Matrix 
+
+### Moving in four directions in grid
+
+```cpp
+int dirs[4][2] = {{0,1},{0,-1},{1,0},{-1,0}};
+
+for (auto &dir : dirs) {
+    int a = x + dir[0], b = y + dir[1];
+    // Here x and y is our current location.
+}
+
+int dirs[8][2] = { {-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
+
+for (auto &dir : dirs) {
+     int a = x + dir[0];
+     int b = y + dir[1];
+}
+```
+
+### Knight Moves in Chessboard
+
+```cpp
+int dirs[8][2] = {{-2,1}, {-1,2}, {1,2}, {2,1}, {2,-1}, {1,-2}, {-1,-2}, {-2,-1}};
+
+for (auto &dir : dirs) {
+    int a = x + dir[0], b = y + dir[1];
+    // Here x and y is our current location.
+}
+```
+
+### Diagonals of Matrix (Top Left to Bottom Right)
+```cpp
+int M = 5, N = 3;
+cout << "Lower Triangle Diagonals" << "\n";
+for (int i = 0; i < M; ++i) {
+    cout << "------\n";
+    for (int x = i, y = 0; x < M && y < N; ++x, ++y) {
+    cout << x << " " << y << "\n";
+    }
+}
+
+cout << "-------\n";
+cout << "Upper Triangle Diagonals" << "\n";
+for (int j = 1; j < N; ++j) {
+    vector<int> v;
+    cout << "------\n";
+    for(int x = 0, y = j; x < M && y < N; ++x, ++y) {
+    cout << x << " " << y << "\n";
+    }
+}
+```
+
+### Sudoku Box Pattern
+```cpp
+int box[9][9] = {};
+for(int i = 0; i < 9; i++) {
+    for(int j = 0; j < 9; j++) {
+    box[i][j] = (i / 3 ) * 3+ (j / 3);
+    }
+}
+
+for(int i = 0; i < 9; i++) {
+    for(int j = 0;j < 9; j++) {
+    cout << box[i][j] << " ";
+    }
+    cout << "\n";
+}
+
+// Output
+// 0 0 0 1 1 1 2 2 2 
+// 0 0 0 1 1 1 2 2 2 
+// 0 0 0 1 1 1 2 2 2 
+// 3 3 3 4 4 4 5 5 5 
+// 3 3 3 4 4 4 5 5 5 
+// 3 3 3 4 4 4 5 5 5 
+// 6 6 6 7 7 7 8 8 8 
+// 6 6 6 7 7 7 8 8 8 
+// 6 6 6 7 7 7 8 8 8
 ```
 
 ## Sorting
@@ -1416,172 +1585,6 @@ if(isPermutation(B)) {
 }
 ```
 
-## Array
-
-### Find Kth Largest Element in Array
-
-```cpp
-int findKthLargest(vector<int>& A, int k) {
-    nth_element(begin(A), begin(A) + k - 1, end(A), greater<int>());
-    return A[k - 1];
-}
-```
-
-### Kadane Algorithm
-```cpp
-ll maxSumSubarray (vector<ll> A) {
-	ll n = A.size();
-	ll local_max = 0;
-	ll global_max = -inf;
-	for (ll i=0; i<n; i++) {
-			local_max = max(A[i], A[i] + local_max);
-
-			if (local_max > global_max){
-				global_max = local_max;
-			}	
-	}
-	return global_max;
-}
-
-
-void solve()
-{ 
-	int n;
-	cin >> n;
-	vector<ll> a(n);
-	for(int i = 0; i < n; i++) {
-		cin >> a[i];
-	}
-
-	ll mx = maxSumSubArray(a);
-	cout << mx << "\n";
-}
-```
-
-## Custom Comparator
-
-### Sorting by Comparator 
-```cpp
-bool cmp(const pair<string, long> &p1, const pair<string, long> &p2)
-{
-    if(p1.second!=p2.second)
-        return p1.second < p2.second;
-    return p1.first < p2.first;
-}
-
-sort(vect.begin(), vect.end(), cmp);
-```
-
-### Sorting vector of strings based on number of ones - Comparator
-```cpp
-void solve()
-{
-	int n;
-	cin >> n;
-	vector<string> s(n);
-
-	for(int i = 0; i < n; i++) {
-		cin >> s[i];
-	}
-	sort(s.begin(), s.end(), [&](string x, string y) {
-        return count(x.begin(), x.end(), '1') < count(y.begin(), y.end(), '1');
-    });
-
-    for(int i = 0; i < n; i++) {
-    	cout << s[i] << "\n";
-    }
-}
-
-// Input
-// 5
-// 10101
-// 10000000
-// 010101
-// 00111111
-// 11000000000
-
-// Output
-// 10000000
-// 11000000000
-// 10101
-// 010101
-// 00111111
-```
-
-### Sorting Structure using Comparator
-```cpp
-struct city {
-	string name;
-	int score, index;
-};
-
-int n;
-
-bool comp(const city a, const city b) {
-	if(a.name != b.name) {
-		return a.name < b.name;
-	}
-	return a.score > b.score;
-}
-
-void solve() {
-	cin >> n;
-	vector<city> cities(n);
-	for(int i = 0; i < n; i++) {
-		cin >> cities[i].name >> cities[i].score;
-		cities[i].index = i + 1;
-	}	
-
-	sort(cities.begin(), cities.end(), comp);
-
-	for(int i = 0; i < n; i++) {
-		cout << cities[i].index << "\n";
-	}
-}
-
-// Input
-// 6
-// khabarovsk 20
-// moscow 10
-// kazan 50
-// kazan 35
-// moscow 60
-// khabarovsk 40
-
-// Output
-// 3
-// 4
-// 6
-// 1
-// 5
-// 2
-
-```
-
-### Sorting Vector Based on Another Vector
-```cpp
-int main() {
-    int n = 7;
-    vector<int> a = {4, 8, 1, 3, 2, 9, 11};
-    
-    vector<int> ind(n);
-    iota(ind.begin(), ind.end(), 0);
-    for(auto a: ind) {
-        cout << a << " ";
-    }
-    cout << "\n";
-    
-    sort(ind.begin(), ind.end(), [&](int i, int j) {
-        return a[i] > a[j];
-    });
-
-    for(auto a: ind) {
-        cout << a << " ";
-    }
-    cout << "\n";
-}
-```
-
 ## Heaps
 
 ### Max Heap and Min Heap
@@ -1868,6 +1871,116 @@ cout << modifiedOperations << "\n";
 // 139
 // 16110
 // 141
+```
+
+### Dirichlet's Convolution
+
+```cpp
+namespace Dirichlet {
+  const int T = 1e6 + 9;
+  long long phi[T];
+  gp_hash_table<long long, long long> mp;
+  long long dp[T], inv;
+  int sz, spf[T], prime[T];
+  void init() {
+      memset(spf, 0, sizeof spf);
+      phi[1] = 1; sz = 0;
+      for (int i = 2; i < T; i++) {
+          if (spf[i] == 0) phi[i] = i - 1, spf[i] = i, prime[sz++] = i;
+          for (int j = 0; j < sz && i * prime[j] < T && prime[j] <= spf[i]; j++) {
+              spf[i * prime[j]] = prime[j];
+              if (i % prime[j] == 0) phi[i * prime[j]] = phi[i] * prime[j];
+              else phi[i * prime[j]] = phi[i] * (prime[j] - 1);
+          }
+      }
+      dp[0] = 0;
+      for(int i = 1; i < T; i++) dp[i] = dp[i - 1] + phi[i];
+      inv = 1; // g(1)
+  }
+  long long p_c(long long n) {
+      if (n % 2 == 0) return n / 2 * ((n + 1));
+      return (n + 1) / 2 * (n);
+  }
+  long long p_g(long long n) {
+      return n;
+  }
+  long long solve (long long x) {
+      if (x < T) return dp[x];
+      if (mp.find(x) != mp.end()) return mp[x];
+      long long ans = 0;
+      for (long long i = 2, last; i <= x; i = last + 1) {
+          last = x / (x / i);
+          ans += solve (x / i) * (p_g(last) - p_g(i - 1));
+      }
+      ans = p_c(x) - ans;
+      ans /= inv;
+      return mp[x] = ans;
+  }
+}
+
+// Find number of pairs (a, b) such that a <= b <= N and gcd(a, B) = X
+
+int main() {
+    int n, x; cin >> n >> x;
+    cout << solve(n / x) << '\n';
+}
+```
+
+### Euler Totient Function
+
+```cpp
+#define int long long
+#define maxn 1500001
+int phi[maxn];
+int s_phi[maxn];
+void pre()
+{
+    int i,j;
+    for(i=1;i<maxn;i++)
+        phi[i] = i;
+    s_phi[1] = 1;
+    for(i=2;i<maxn;i++)
+    {
+        if(phi[i] == i)
+        {
+            for(j=i;j<maxn;j=j+i)
+                phi[j] = (phi[j]/i)*(i-1);
+        }
+        s_phi[i] = s_phi[i-1] + phi[i];    
+    }
+}
+int func(int n)
+{
+    if(n < maxn)
+       return s_phi[n]; 
+    int g;
+    int x = sqrt(n);
+    int sum = 0;
+    for(g=2;g<=x;g++)
+    {
+        sum = sum + func(n/g);
+    }
+    x = n/(x+1);
+    for(g=1;g<=x;g++)
+        sum = sum + s_phi[g]*(n/g - n/(g+1));
+    sum = n*(n+1)/2 - sum;
+    return sum;    
+}
+
+// Find number of pairs (a, b) such that a <= b <= N and gcd(a, B) = X
+
+signed main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    int t = 1;
+    pre();
+    //cin >> t;
+    while(t--){
+        int N, X;
+        cin >> N >> X;
+        cout << func(N/X);
+    }
+}
 ```
 
 ## Geometry
