@@ -629,7 +629,8 @@ struct ListNode {
 ListNode head, *tail = &head;
 // Manipulate tail node here
 return head.next;
-https://leetcode.com/problems/merge-nodes-in-between-zeros
+
+// LeetCode - Merge Nodes In Between Zeros
 ```
 
 ### Reverse Linked List
