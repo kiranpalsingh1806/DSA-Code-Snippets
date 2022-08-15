@@ -656,6 +656,9 @@ ListNode* reverseList(ListNode* head) {
 ```cpp
 auto cmp = [&](int a, int b){ return cnt[a] > cnt[b]; };
 priority_queue<int, vector<int>, decltype(cmp)> pq(cmp);
+
+// LeetCode - Merge K Sorted Lists
+// LeetCode - Sort Characters By Frequency
 ```
 
 ### Priority Queue with Class Comparator
