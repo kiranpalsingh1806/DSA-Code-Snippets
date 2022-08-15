@@ -75,6 +75,7 @@
   - [Lambda Function to Check if Vector is Permutation](#lambda-function-to-check-if-vector-is-permutation)
 - [Heaps](#heaps)
   - [Max Heap and Min Heap](#max-heap-and-min-heap)
+  - [Convert Vector to Heaps in C++](#convert-vector-to-heaps-in-c)
 - [Permutation](#permutation)
   - [Next Permutation](#next-permutation)
 - [Mathematics](#mathematics)
@@ -1768,6 +1769,22 @@ void solve()
 // 1 2 5 7 9 19 23 33 
 // 33 23 19 9 7 5 2 1 
 ```
+
+### Convert Vector to Heaps in C++
+
+```cpp
+vector<array<int, 3>> E;
+
+make_heap(begin(E), end(E), greater<array<int, 3>>());
+pop_heap(begin(E), end(E), greater<array<int, 3>>());
+
+// Now the smallest element in Heap is at the back of vector E.
+auto [w, u, v] = E.back();
+E.pop_back()
+```
+
+Problems
+1. [Min Cost To Connect All Pairs](https://leetcode.com/problems/min-cost-to-connect-all-points/)
 
 ## Permutation
 
