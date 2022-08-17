@@ -1529,11 +1529,12 @@ public:
         return ans;
     }
 };
-```
 
 Problems
-1. [Min Cost To Connect All Pairs](https://leetcode.com/problems/min-cost-to-connect-all-points/)
-2. [Connecting Cities With Minimum Cost](https://leetcode.com/problems/connecting-cities-with-minimum-cost/)
+// LeetCode - Min Cost To Connect All Pairs
+// LeetCode - Connecting Cities With Minimum Cost
+// LeetCode - K Closest Points To Origin
+```
 
 ### Euler path - Heirholzer Algorithm 
 ```cpp
