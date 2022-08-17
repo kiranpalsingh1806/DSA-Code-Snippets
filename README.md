@@ -976,8 +976,11 @@ ListNode* reverseList(ListNode* head) {
 auto cmp = [&](int a, int b){ return cnt[a] > cnt[b]; };
 priority_queue<int, vector<int>, decltype(cmp)> pq(cmp);
 
+// LeetCode - Sort Array By Increasing Frequency
 // LeetCode - Merge K Sorted Lists
 // LeetCode - Sort Characters By Frequency
+// LeetCode - Top K Frequent Elements
+// LeetCode - Top K Frequent Words
 ```
 
 ### Priority Queue with Class Comparator
