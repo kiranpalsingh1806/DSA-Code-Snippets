@@ -45,8 +45,9 @@
   - [Slicing of Vector in C++](#slicing-of-vector-in-c)
   - [Erase Duplicates in Vector](#erase-duplicates-in-vector)
   - [Common Elements in Vector](#common-elements-in-vector)
+  - [Convert Vector to Unordered Set](#convert-vector-to-unordered-set)
 - [Dynamic Programming](#dynamic-programming)
-  - [Longest Increasing Subsequence - LIS DP](#longest-increasing-subsequence---lis-dp)
+  - [Longest Increasing Subsequence - LIS](#longest-increasing-subsequence---lis)
   - [Partial Sum](#partial-sum)
 - [Graphs](#graphs)
   - [Can We Go From Source To Destination](#can-we-go-from-source-to-destination)
@@ -66,14 +67,14 @@
   - [Find Path From Root To Target Node](#find-path-from-root-to-target-node)
 - [String](#string)
   - [stringstream Implementation](#stringstream-implementation)
-  - [Convert Vector to Unordered Set](#convert-vector-to-unordered-set)
-  - [Euler Phi Function](#euler-phi-function)
-  - [Finding if element inserted in set or not](#finding-if-element-inserted-in-set-or-not)
-- [String Algorithm](#string-algorithm)
   - [Rabin Karp Algorithm](#rabin-karp-algorithm)
+  - [Reverse binary string using XOR operator](#reverse-binary-string-using-xor-operator)
   - [Z Function - Prefix Function](#z-function---prefix-function)
   - [Adding numbers in string](#adding-numbers-in-string)
   - [Longest Prefix Suffix](#longest-prefix-suffix)
+  - [Euler Phi Function](#euler-phi-function)
+- [STL](#stl)
+  - [Finding if element inserted in set or not](#finding-if-element-inserted-in-set-or-not)
 - [Lambda Function](#lambda-function)
   - [Definition of Lambda Function](#definition-of-lambda-function)
   - [Lambda Function to Check if Vector is Permutation](#lambda-function-to-check-if-vector-is-permutation)
@@ -1087,6 +1088,18 @@ int main() {
 }
 ```
 
+### Convert Vector to Unordered Set
+```cpp
+vector<string> V = {"One", "Two", "Three", "Four", "Five"};
+unordered_set<string> S(V.begin(), V.end());
+
+// Use Cases
+// -> To find any particular element : S.count("word");
+// -> To erase any particular element : S.erase("word");
+
+// 705 LeetCode - Design HashSet
+```
+
 ## Dynamic Programming
 
 ### Longest Increasing Subsequence - LIS
@@ -1659,130 +1672,6 @@ while(ss >> word) {
 // https://leetcode.com/problems/apply-discount-to-prices/
 ```
 
-### Convert Vector to Unordered Set
-```cpp
-vector<string> V = {"One", "Two", "Three", "Four", "Five"};
-unordered_set<string> S(V.begin(), V.end());
-
-// Use Cases
-// -> To find any particular element : S.count("word");
-// -> To erase any particular element : S.erase("word");
-
-// 705 LeetCode - Design HashSet
-```
-
-### Euler Phi Function
-```cpp
-vector< int > euler_phi_table(int n) {
-  vector< int > euler(n + 1);
-  for(int i = 0; i <= n; i++) {
-    euler[i] = i;
-  }
-  for(int i = 2; i <= n; i++) {
-    if(euler[i] == i) {
-      for(int j = i; j <= n; j += i) {
-        euler[j] = euler[j] / i * (i - 1);
-      }
-    }
-  }
-  return euler;
-}
-
-template< typename T >
-T euler_phi(T n) {
-  T ret = n;
-  for(T i = 2; i * i <= n; i++) {
-    if(n % i == 0) {
-      ret -= ret / i;
-      while(n % i == 0) n /= i;
-    }
-  }
-  if(n > 1) ret -= ret / n;
-  return ret;
-}
-
-void EulerPhiDemo(int n) {
-  int countPhi = 0;
-  vector<int> whichNum;
-  for(int i = 0; i <= n; i++) {
-    if(gcd(i, n) == 1) {
-      whichNum.push_back(i);
-      countPhi++;
-    }
-  }
-  cout << "Euler Phi of " << n << " : " << countPhi << "\n";
-  cout << "The numbers are : ";
-  for(auto &a: whichNum){
-    cout << a << " ";
-  }
-  cout << "\n";
-}
-
-void solve()
-{
-	auto eulerTable = euler_phi_table(100);
-	for(auto &a: eulerTable) {
-		cout << a << " ";
-	}
-	cout << "\n";
-
-	auto eulerNumber = euler_phi(20);
-	cout << eulerNumber << "\n";
-
-  EulerPhiDemo(5);
-  EulerPhiDemo(11);
-  EulerPhiDemo(20);
-}
-
-// Output
-// Euler Phi Table
-// 0 1 1 2 2 4 2 6 4 6 4 10 4 12 6 8 8
-// 16 6 18 8 12 10 22 8 20 12 18 12 28
-// 8 30 16 20 16 24 12 36 18 24 16 40
-// 12 42 20 24 22 46 16 42 20 32 24 
-// 52 18 40 24 36 28 58 16 60 30 36
-// 32 48 20 66 32 44 24 70 24 72 36
-// 40 36 60 24 78 32 54 40 82 24 64
-// 42 56 40 88 24 72 44 60 46 72 32
-// 96 42 60 40 
-
-// Euler Phi Number
-// 8
-
-// Euler Phi Demo
-// Euler Phi of 5 : 4
-// The numbers are : 1 2 3 4 
-// Euler Phi of 11 : 10
-// The numbers are : 1 2 3 4 5 6 7 8 9 10 
-// Euler Phi of 20 : 8
-// The numbers are : 1 3 7 9 11 13 17 19 
-```
-
-### Finding if element inserted in set or not
-```cpp
-set<int> S;
-int N = 6;
-for(int i = 0; i < N; i++) {
-    int x; cin >> x;
-    if(S.insert(x).second) {
-        cout << "New Element is inserted :)" << "\n";
-    } else {
-        cout << "Element already exists  :(" << "\n";
-    }
-}
-
-// Input = 1 2 3 4 2 5
-// Output: 
-// New Element is inserted :)
-// New Element is inserted :)
-// New Element is inserted :)
-// New Element is inserted :)
-// Element already exists  :(
-// New Element is inserted :)
-```
-
-## String Algorithm
-
 ### Rabin Karp Algorithm
 ```cpp
 string s,t;
@@ -1832,6 +1721,22 @@ void solve()
 // Output
 // 0 6 11
 ```
+
+### Reverse binary string using XOR operator
+
+```cpp
+string s = "01010011";  
+for(char &c : s) {
+    c ^= '0' ^ '1';
+}
+
+cout << "s: " << s << "\n";
+// s: 10101100
+
+// Problems
+// CodeChef - K Flip (KLIP)
+```
+
 ### Z Function - Prefix Function
 ```cpp
 vector<int> z_function(string s) {
@@ -1945,6 +1850,118 @@ void solve()
 // 0 0 0 0 1 2 3 4 5 6 7 8 
 // 0 0 0 0 0 0 1 2 3 4 5 6 7 8 9 10 11 12 
 
+```
+
+### Euler Phi Function
+```cpp
+vector< int > euler_phi_table(int n) {
+  vector< int > euler(n + 1);
+  for(int i = 0; i <= n; i++) {
+    euler[i] = i;
+  }
+  for(int i = 2; i <= n; i++) {
+    if(euler[i] == i) {
+      for(int j = i; j <= n; j += i) {
+        euler[j] = euler[j] / i * (i - 1);
+      }
+    }
+  }
+  return euler;
+}
+
+template< typename T >
+T euler_phi(T n) {
+  T ret = n;
+  for(T i = 2; i * i <= n; i++) {
+    if(n % i == 0) {
+      ret -= ret / i;
+      while(n % i == 0) n /= i;
+    }
+  }
+  if(n > 1) ret -= ret / n;
+  return ret;
+}
+
+void EulerPhiDemo(int n) {
+  int countPhi = 0;
+  vector<int> whichNum;
+  for(int i = 0; i <= n; i++) {
+    if(gcd(i, n) == 1) {
+      whichNum.push_back(i);
+      countPhi++;
+    }
+  }
+  cout << "Euler Phi of " << n << " : " << countPhi << "\n";
+  cout << "The numbers are : ";
+  for(auto &a: whichNum){
+    cout << a << " ";
+  }
+  cout << "\n";
+}
+
+void solve()
+{
+	auto eulerTable = euler_phi_table(100);
+	for(auto &a: eulerTable) {
+		cout << a << " ";
+	}
+	cout << "\n";
+
+	auto eulerNumber = euler_phi(20);
+	cout << eulerNumber << "\n";
+
+  EulerPhiDemo(5);
+  EulerPhiDemo(11);
+  EulerPhiDemo(20);
+}
+
+// Output
+// Euler Phi Table
+// 0 1 1 2 2 4 2 6 4 6 4 10 4 12 6 8 8
+// 16 6 18 8 12 10 22 8 20 12 18 12 28
+// 8 30 16 20 16 24 12 36 18 24 16 40
+// 12 42 20 24 22 46 16 42 20 32 24 
+// 52 18 40 24 36 28 58 16 60 30 36
+// 32 48 20 66 32 44 24 70 24 72 36
+// 40 36 60 24 78 32 54 40 82 24 64
+// 42 56 40 88 24 72 44 60 46 72 32
+// 96 42 60 40 
+
+// Euler Phi Number
+// 8
+
+// Euler Phi Demo
+// Euler Phi of 5 : 4
+// The numbers are : 1 2 3 4 
+// Euler Phi of 11 : 10
+// The numbers are : 1 2 3 4 5 6 7 8 9 10 
+// Euler Phi of 20 : 8
+// The numbers are : 1 3 7 9 11 13 17 19 
+```
+
+## STL
+
+### Finding if element inserted in set or not
+```cpp
+set<int> S;
+int N = 6;
+for(int i = 0; i < N; i++) {
+    int x; cin >> x;
+    if(S.insert(x).second) {
+        cout << "New Element is inserted :)" << "\n";
+    } else {
+        cout << "Element already exists  :(" << "\n";
+    }
+}
+
+// Input = 1 2 3 4 2 5
+// Output: 
+// New Element is inserted :)
+// New Element is inserted :)
+// New Element is inserted :)
+// New Element is inserted :)
+// Element already exists  :(
+// New Element is inserted :)
 ```
 
 ## Lambda Function
