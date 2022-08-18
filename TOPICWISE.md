@@ -23,6 +23,7 @@ This list contains topicwise problems for Competititve Programming from CodeChef
 
 ## Binary Search
 |Platform|Problem|Solution|
+| ---- | ----------- | ---- |
 |AtCoder|[Rectangles](https://atcoder.jp/contests/abc218/tasks/abc218_d)|[Solution](https://onecompiler.com/cpp/3ydbnqdsu)|
 |Codeforces|[ K-th Not Divisible By n](https://codeforces.com/contest/1352/problem/C)| Solution|
 
