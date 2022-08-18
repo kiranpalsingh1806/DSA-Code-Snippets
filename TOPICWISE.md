@@ -19,9 +19,12 @@ This list contains topicwise problems for Competititve Programming from CodeChef
   - [Permutation](#permutation)
   - [String](#string)
 
+
+
 ## Binary Search
-1. [AtCoder - Rectangles](https://atcoder.jp/contests/abc218/tasks/abc218_d)
-2. Codeforces - [ K-th Not Divisible By n](https://codeforces.com/contest/1352/problem/C) Solution [Link](https://onecompiler.com/cpp/3ydbnqdsu)
+|Platform|Problem|Solution|
+|AtCoder|[Rectangles](https://atcoder.jp/contests/abc218/tasks/abc218_d)|[Solution](https://onecompiler.com/cpp/3ydbnqdsu)|
+|Codeforces|[ K-th Not Divisible By n](https://codeforces.com/contest/1352/problem/C)| Solution|
 
 ## Binary String
 1. [CodeChef - K Flip](https://www.codechef.com/submit/KLIP)
