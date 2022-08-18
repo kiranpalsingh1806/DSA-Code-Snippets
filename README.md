@@ -976,11 +976,14 @@ ListNode* reverseList(ListNode* head) {
 auto cmp = [&](int a, int b){ return cnt[a] > cnt[b]; };
 priority_queue<int, vector<int>, decltype(cmp)> pq(cmp);
 
+// Here cnt stores the frequency of elements given in vector.
+
 // LeetCode - Sort Array By Increasing Frequency
 // LeetCode - Merge K Sorted Lists
 // LeetCode - Sort Characters By Frequency
 // LeetCode - Top K Frequent Elements
 // LeetCode - Top K Frequent Words
+// LeetCode - Reduce Array Size To Half
 ```
 
 ### Priority Queue with Class Comparator
@@ -1086,7 +1089,7 @@ int main() {
 
 ## Dynamic Programming
 
-### Longest Increasing Subsequence - LIS DP
+### Longest Increasing Subsequence - LIS
 
 ```cpp
 int LIS(vector<int> &a) {
