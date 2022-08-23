@@ -17,6 +17,7 @@
   - [Sorting Vector Based on Another Vector](#sorting-vector-based-on-another-vector)
 - [Data Structures](#data-structures)
   - [Prefix Sum 2D](#prefix-sum-2d)
+  - [Difference Array](#difference-array)
   - [Fenwick Tree - Binary Indexed Tree](#fenwick-tree---binary-indexed-tree)
   - [Union Find - Disjoint Set Union](#union-find---disjoint-set-union)
   - [Policy Based Data Structure - Ordered Set](#policy-based-data-structure---ordered-set)
@@ -34,6 +35,7 @@
   - [Binary Search - When middle goes out of range](#binary-search---when-middle-goes-out-of-range)
 - [Linked List](#linked-list)
   - [Manipulation of head and tail in Linked List](#manipulation-of-head-and-tail-in-linked-list)
+  - [Length of Linked List](#length-of-linked-list)
   - [Reverse Linked List](#reverse-linked-list)
 - [Priority Queue](#priority-queue)
   - [Priority Queue with Comparator](#priority-queue-with-comparator)
@@ -413,6 +415,40 @@ void solve()
 int main(void) {
 	solve();
 }
+```
+
+### Difference Array
+```cpp
+vector<int> initializeDiffArray(vector<int>& A){
+    int n = A.size();
+    vector<int> D(n + 1);
+    
+    D[0] = A[0], D[n] = 0;
+    for (int i = 1; i < n; i++)
+        D[i] = A[i] - A[i - 1];
+    return D;
+}
+
+void update(vector<int>& D, int l, int r, int x) {
+    D[l] += x;
+    D[r + 1] -= x;
+}
+    
+vector<int> getArray(vector<int>& A, vector<int>& D) {
+    vector<int> ans;
+    for (int i = 0; i < A.size(); i++) {
+        if (i == 0) {
+            A[i] = D[i];
+        }
+        else {
+            A[i] = D[i] + A[i - 1];
+        }
+        ans.push_back(A[i]);
+    }
+    return ans;
+}
+
+// LeetCode - Shifting Letters II
 ```
 
 ### Fenwick Tree - Binary Indexed Tree
@@ -950,6 +986,16 @@ ListNode head, *tail = &head;
 return head.next;
 
 // LeetCode - Merge Nodes In Between Zeros
+```
+
+### Length of Linked List
+
+```cpp
+int getLength(ListNode* head) {
+    int length = 0;
+    for(; head; head = head->next, length++);
+    return length;
+}
 ```
 
 ### Reverse Linked List
