@@ -65,6 +65,7 @@
     - [12.9. Euler path - Heirholzer Algorithm](#129-euler-path---heirholzer-algorithm)
     - [12.10. Bipartite Graph](#1210-bipartite-graph)
     - [12.11. Bellman Ford Algorithm](#1211-bellman-ford-algorithm)
+    - [12.12 Topological Sort](#1212-topological-sort)
   - [13. Recursion](#13-recursion)
     - [13.1. Maximum Digit in Number](#131-maximum-digit-in-number)
   - [14. Binary Trees](#14-binary-trees)
@@ -1717,6 +1718,52 @@ vector<int> bellmanFord(vector<vector<int>>& edges, int V, int src) {
     return dist;
 }
 ```
+
+### 12.12 Topological Sort
+
+<details>
+<summary>Code</summary>
+
+```cpp
+vector<int> topologicalSort(int k, vector<vector<int>> &A) {
+    vector<int> deg(k, 0), order; // Degree
+    vector<vector<int>> G(k, vector<int>(0));// Creation of graph
+    
+    for(auto &c : A) {
+        int u = c[0], v = c[1];
+        G[u - 1].push_back(v - 1);
+        deg[v - 1]++;
+    }
+    
+    queue<int> q;
+
+    for(int i = 0; i < k; i++) {
+        if(deg[i] == 0) {
+            q.push(i);// Push node with indegree zero.
+        }
+    }
+    
+    while(q.size()) {
+        int x = q.front();
+        q.pop();
+        
+        order.push_back(x + 1);
+        
+        for(int &u : G[x]) {
+            if(--deg[u] == 0) {
+                q.push(u);
+            }
+        }
+    }
+    
+    return order;
+}
+```
+
+</details>
+
+<br>[⬆ Back to top](#dsa-code-snippets)
+
 ## 13. Recursion
 
 ### 13.1. Maximum Digit in Number
@@ -2672,4 +2719,22 @@ uniform_real_distribution<double> uni{0, 1};
 // cout << uni(rng) << "\n";
 ```
 
+<details>
+<summary>Template</summary>
+
+```cpp
+```
+
+</details>
+
+<br>[⬆ Back to top](#dsa-code-snippets)
+
+<details>
+<summary>About Me</summary>
+
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=kiranpalsingh1806&label=Views&color=blue&style=plastic" alt="kiranpalsingh" /> </p>
+
+</details>
+
+<br>[⬆ Back to top](#dsa-code-snippets)
+
