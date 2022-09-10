@@ -3,6 +3,12 @@
   - [1. Array](#1-array)
     - [1.1. Find Kth Largest Element in Array](#11-find-kth-largest-element-in-array)
     - [1.2. Kadane Algorithm](#12-kadane-algorithm)
+    - [1.3. Rotate Vector Left or right](#13-rotate-vector-left-or-right)
+    - [1.4. Find element in vector and replace it](#14-find-element-in-vector-and-replace-it)
+    - [1.5. Slicing of Vector in C++](#15-slicing-of-vector-in-c)
+    - [1.6. Erase Duplicates in Vector](#16-erase-duplicates-in-vector)
+    - [1.7. Common Elements in Vector](#17-common-elements-in-vector)
+    - [1.8. Convert Vector to Unordered Set](#18-convert-vector-to-unordered-set)
   - [2. Bit Manipulation](#2-bit-manipulation)
     - [2.1. Check if ith bit is on](#21-check-if-ith-bit-is-on)
     - [2.2. Number of set bits in number](#22-number-of-set-bits-in-number)
@@ -24,6 +30,7 @@
     - [4.5. Policy Based Data Structure - Ordered Set](#45-policy-based-data-structure---ordered-set)
     - [4.6. Wavelet Matrix](#46-wavelet-matrix)
     - [4.7. Segment Tree](#47-segment-tree)
+    - [4.8. Trie - Prefix Tree](#48-trie---prefix-tree)
   - [5. Grid and Matrix](#5-grid-and-matrix)
     - [5.1. Moving in four directions in grid](#51-moving-in-four-directions-in-grid)
     - [5.2. Knight Moves in Chessboard](#52-knight-moves-in-chessboard)
@@ -43,72 +50,65 @@
     - [9.1. Priority Queue with Comparator](#91-priority-queue-with-comparator)
     - [9.2. Priority Queue with Class Comparator](#92-priority-queue-with-class-comparator)
     - [9.3. Using Tuples in Priority Queue](#93-using-tuples-in-priority-queue)
-  - [10. Vector](#10-vector)
-    - [10.1. Rotate Vector Left or right](#101-rotate-vector-left-or-right)
-    - [10.2. Find element in vector and replace it](#102-find-element-in-vector-and-replace-it)
-    - [10.3. Slicing of Vector in C++](#103-slicing-of-vector-in-c)
-    - [10.4. Erase Duplicates in Vector](#104-erase-duplicates-in-vector)
-    - [10.5. Common Elements in Vector](#105-common-elements-in-vector)
-    - [10.6. Convert Vector to Unordered Set](#106-convert-vector-to-unordered-set)
-  - [11. Dynamic Programming](#11-dynamic-programming)
-    - [11.1. Longest Increasing Subsequence - LIS](#111-longest-increasing-subsequence---lis)
-    - [11.2. Partial Sum](#112-partial-sum)
-  - [12. Graphs](#12-graphs)
-    - [12.1. Can We Go From Source To Destination](#121-can-we-go-from-source-to-destination)
-    - [12.2. Print Euler Tour](#122-print-euler-tour)
-    - [12.3. Breadth First Search](#123-breadth-first-search)
-    - [12.4. DFS - First and Last Order](#124-dfs---first-and-last-order)
-    - [12.5. Dijkstra's Algorithm](#125-dijkstras-algorithm)
-    - [12.6. Lowest Common Ancestor](#126-lowest-common-ancestor)
-    - [12.7. Number of Connected Components](#127-number-of-connected-components)
-    - [12.8. Kruskal Algorithm - Minimum Spanning Tree](#128-kruskal-algorithm---minimum-spanning-tree)
-    - [12.9. Euler path - Heirholzer Algorithm](#129-euler-path---heirholzer-algorithm)
-    - [12.10. Bipartite Graph](#1210-bipartite-graph)
-    - [12.11. Bellman Ford Algorithm](#1211-bellman-ford-algorithm)
-    - [12.12 Topological Sort](#1212-topological-sort)
-  - [13. Recursion](#13-recursion)
-    - [13.1. Maximum Digit in Number](#131-maximum-digit-in-number)
-  - [14. Binary Trees](#14-binary-trees)
-    - [14.1. Find Path From Root To Target Node](#141-find-path-from-root-to-target-node)
-  - [15. String](#15-string)
-    - [15.1. stringstream Implementation](#151-stringstream-implementation)
-    - [15.2. Rabin Karp Algorithm](#152-rabin-karp-algorithm)
-    - [15.3. Reverse binary string using XOR operator](#153-reverse-binary-string-using-xor-operator)
-    - [15.4. Z Function - Prefix Function](#154-z-function---prefix-function)
-    - [15.5. Adding numbers in string](#155-adding-numbers-in-string)
-    - [15.6. Longest Prefix Suffix](#156-longest-prefix-suffix)
-    - [15.7. Euler Phi Function](#157-euler-phi-function)
-  - [16. STL](#16-stl)
-    - [16.1. Finding if element inserted in set or not](#161-finding-if-element-inserted-in-set-or-not)
-  - [17. Lambda Function](#17-lambda-function)
-    - [17.1. Definition of Lambda Function](#171-definition-of-lambda-function)
-    - [17.2. Lambda Function to Check if Vector is Permutation](#172-lambda-function-to-check-if-vector-is-permutation)
-  - [18. Heaps](#18-heaps)
-    - [18.1. Max Heap and Min Heap](#181-max-heap-and-min-heap)
-    - [18.2. Convert Vector to Heaps in C++](#182-convert-vector-to-heaps-in-c)
-  - [19. Permutation](#19-permutation)
-    - [19.1. Next Permutation](#191-next-permutation)
-  - [20. Mathematics](#20-mathematics)
-    - [20.1. Chicken McNugget Theorem](#201-chicken-mcnugget-theorem)
-    - [20.2. Sum of Two Numbers with Given Base](#202-sum-of-two-numbers-with-given-base)
-    - [20.3. Check if number N if power of X](#203-check-if-number-n-if-power-of-x)
-  - [21. Prime Numbers](#21-prime-numbers)
-    - [21.1. Prime Numbers in Range](#211-prime-numbers-in-range)
-  - [22. Base Conversion](#22-base-conversion)
-    - [22.1. Convert To Decimal From Base K](#221-convert-to-decimal-from-base-k)
-  - [23. GCD and LCM](#23-gcd-and-lcm)
-    - [23.1. Maximum GCD in range [L, R]](#231-maximum-gcd-in-range-l-r)
-    - [23.2. Dirichlet's Convolution](#232-dirichlets-convolution)
-    - [23.3. Euler Totient Function](#233-euler-totient-function)
-  - [24. Geometry](#24-geometry)
-    - [24.1. Point Structure in Geometry](#241-point-structure-in-geometry)
-  - [25. Mathematical Equations](#25-mathematical-equations)
-    - [25.1. Find x and y in a.x + b.y = N](#251-find-x-and-y-in-ax--by--n)
-  - [26. Miscellaneous](#26-miscellaneous)
-    - [26.1. Numeric Limits](#261-numeric-limits)
-    - [26.2. Median of an array](#262-median-of-an-array)
-    - [26.3. Reverse a number](#263-reverse-a-number)
-    - [26.4. Generating Random Numbers in Range](#264-generating-random-numbers-in-range)
+  - [10. Dynamic Programming](#10-dynamic-programming)
+    - [10.1. Longest Increasing Subsequence - LIS](#101-longest-increasing-subsequence---lis)
+    - [10.2. Partial Sum](#102-partial-sum)
+  - [11. Graphs](#11-graphs)
+    - [11.1. Can We Go From Source To Destination](#111-can-we-go-from-source-to-destination)
+    - [11.2. Print Euler Tour](#112-print-euler-tour)
+    - [11.3. Breadth First Search](#113-breadth-first-search)
+    - [11.4. DFS - First and Last Order](#114-dfs---first-and-last-order)
+    - [11.5. Dijkstra's Algorithm](#115-dijkstras-algorithm)
+    - [11.6. Lowest Common Ancestor](#116-lowest-common-ancestor)
+    - [11.7. Number of Connected Components](#117-number-of-connected-components)
+    - [11.8. Kruskal Algorithm - Minimum Spanning Tree](#118-kruskal-algorithm---minimum-spanning-tree)
+    - [11.9. Euler path - Heirholzer Algorithm](#119-euler-path---heirholzer-algorithm)
+    - [11.10. Bipartite Graph](#1110-bipartite-graph)
+    - [11.11. Bellman Ford Algorithm](#1111-bellman-ford-algorithm)
+    - [11.12. 12.12 Topological Sort](#1112-1212-topological-sort)
+  - [12. Recursion](#12-recursion)
+    - [12.1. Maximum Digit in Number](#121-maximum-digit-in-number)
+  - [13. Binary Trees](#13-binary-trees)
+    - [13.1. Find Path From Root To Target Node](#131-find-path-from-root-to-target-node)
+  - [14. String](#14-string)
+    - [14.1. stringstream Implementation](#141-stringstream-implementation)
+    - [14.2. Rabin Karp Algorithm](#142-rabin-karp-algorithm)
+    - [14.3. Reverse binary string using XOR operator](#143-reverse-binary-string-using-xor-operator)
+    - [14.4. Z Function - Prefix Function](#144-z-function---prefix-function)
+    - [14.5. Adding numbers in string](#145-adding-numbers-in-string)
+    - [14.6. Longest Prefix Suffix](#146-longest-prefix-suffix)
+    - [14.7. Euler Phi Function](#147-euler-phi-function)
+  - [15. STL](#15-stl)
+    - [15.1. Finding if element inserted in set or not](#151-finding-if-element-inserted-in-set-or-not)
+  - [16. Lambda Function](#16-lambda-function)
+    - [16.1. Definition of Lambda Function](#161-definition-of-lambda-function)
+    - [16.2. Lambda Function to Check if Vector is Permutation](#162-lambda-function-to-check-if-vector-is-permutation)
+  - [17. Heaps](#17-heaps)
+    - [17.1. Max Heap and Min Heap](#171-max-heap-and-min-heap)
+    - [17.2. Convert Vector to Heaps in C++](#172-convert-vector-to-heaps-in-c)
+  - [18. Permutation](#18-permutation)
+    - [18.1. Next Permutation](#181-next-permutation)
+  - [19. Mathematics](#19-mathematics)
+    - [19.1. Chicken McNugget Theorem](#191-chicken-mcnugget-theorem)
+    - [19.2. Sum of Two Numbers with Given Base](#192-sum-of-two-numbers-with-given-base)
+    - [19.3. Check if number N if power of X](#193-check-if-number-n-if-power-of-x)
+  - [20. Prime Numbers](#20-prime-numbers)
+    - [20.1. Prime Numbers in Range](#201-prime-numbers-in-range)
+  - [21. Base Conversion](#21-base-conversion)
+    - [21.1. Convert To Decimal From Base K](#211-convert-to-decimal-from-base-k)
+  - [22. GCD and LCM](#22-gcd-and-lcm)
+    - [22.1. Maximum GCD in range [L, R]](#221-maximum-gcd-in-range-l-r)
+    - [22.2. Dirichlet's Convolution](#222-dirichlets-convolution)
+    - [22.3. Euler Totient Function](#223-euler-totient-function)
+  - [23. Geometry](#23-geometry)
+    - [23.1. Point Structure in Geometry](#231-point-structure-in-geometry)
+  - [24. Mathematical Equations](#24-mathematical-equations)
+    - [24.1. Find x and y in a.x + b.y = N](#241-find-x-and-y-in-ax--by--n)
+  - [25. Miscellaneous](#25-miscellaneous)
+    - [25.1. Numeric Limits](#251-numeric-limits)
+    - [25.2. Median of an array](#252-median-of-an-array)
+    - [25.3. Reverse a number](#253-reverse-a-number)
+    - [25.4. Generating Random Numbers in Range](#254-generating-random-numbers-in-range)
 
 ## 1. Array
 
@@ -138,8 +138,7 @@ int maxSumSubarray (vector<int> A) {
 }
 
 
-void solve()
-{ 
+void solve() { 
 	int n;
 	cin >> n;
 	vector<ll> a(n);
@@ -151,6 +150,93 @@ void solve()
 	cout << mx << "\n";
 }
 ```
+### 1.3. Rotate Vector Left or right
+
+```cpp
+// Array - 1 2 3 4 5 6 7 8 9
+
+// Rotate array to left by 3 positions.
+// 4 5 6 7 8 9 1 2 3
+rotate(vec1.begin(), vec1.begin() + 3, vec1.end());
+
+// Rotate array to right by 3 positions.
+// 7 8 9 1 2 3 4 5 6
+rotate(vec1.begin(), vec1.begin() - 3, vec1.end());
+```
+
+### 1.4. Find element in vector and replace it
+```cpp
+auto it = find (V.begin(), V.end(), num);
+// it - V.begin() will given index of given num [0-indexed]
+V[it - V.begin()] = otherNum;
+```
+
+### 1.5. Slicing of Vector in C++
+
+```cpp
+vector<int> slicing(vector<int>& arr, int X, int Y){
+    auto start = arr.begin() + X;
+    auto end = arr.begin() + Y + 1;
+    vector<int> result(Y - X + 1);
+ 
+    copy(start, end, result.begin());
+    return result;
+}
+```
+
+### 1.6. Erase Duplicates in Vector
+```cpp
+unorder_set<int> s;
+for(int i : vec) {
+    s.insert(i);
+}
+
+vec.assign(s.begin(), s.end());
+sort(vec.begin(), vec.end());
+
+Another Method: Slower than the above method
+
+sort(vec.begin(), vec.end());
+vec.erase(unique(vec.begin(), vec.end()), vec.end());
+```
+
+### 1.7. Common Elements in Vector
+```cpp
+int main() {
+	int countCommon = 0;
+	int n = 6;
+	vector<int> vec1 = {1, 3, 5, 7, 8, 9};
+	int m = 7;
+	vector<int> vec2 = {1, 2, 3, 7, 9, 4, 8};
+
+	sort(vec1.begin(), vec1.end());
+	sort(vec2.begin(), vec2.end());
+
+	vector<int> v(vec1.size() + vec2.size());
+
+	auto it = set_intersection(vec1.begin(), vec1.end(),vec2.begin(), vec2.end(),v.begin());
+
+	cout << "Common Elements : " << it - v.begin() << "\n";
+	cout << "The elements are : ";
+
+	for ( auto st = v.begin(); st != it; ++st) {
+		cout << *(st) << " ";
+	}
+}
+```
+
+### 1.8. Convert Vector to Unordered Set
+```cpp
+vector<string> V = {"One", "Two", "Three", "Four", "Five"};
+unordered_set<string> S(V.begin(), V.end());
+
+// Use Cases
+// -> To find any particular element : S.count("word");
+// -> To erase any particular element : S.erase("word");
+
+// 705 LeetCode - Design HashSet
+```
+
 
 ## 2. Bit Manipulation
 
@@ -835,6 +921,51 @@ int query(int i, int l, int r, int L, int R) {
 }
 ```
 
+### 4.8. Trie - Prefix Tree
+
+<details>
+<summary> Code </summary>
+
+```cpp
+
+struct TrieNode {
+    TrieNode *next[26] = {};
+    bool isWord = false;
+};
+
+class Trie {
+    TrieNode root;
+    TrieNode* find(string s) {
+        auto node = &root;
+        for(char c : s) {
+            if(!node->next[c - 'a']) return NULL;
+            node = node->next[c - 'a'];
+        }
+        return node;
+    }
+    
+public:
+    void insert(string word) {
+        auto node = &root;
+        for(char c : word) {
+            if(!node->next[c - 'a']) node->next[c - 'a'] = new TrieNode();
+            node = node->next[c - 'a'];
+        }
+        node->isWord = true;
+    }
+    
+    bool search(string word) {
+        auto wordFind = find(word);
+        return wordFind && wordFind->isWord == true;
+    }
+    
+    bool startsWith(string prefix) {
+        return find(prefix);
+    }
+};
+```
+</details>
+
 ## 5. Grid and Matrix 
 
 ### 5.1. Moving in four directions in grid
@@ -1102,98 +1233,9 @@ int a = get<1>(pq.top());
 int b = get<2>(pq.top());
 ```
 
-## 10. Vector
+## 10. Dynamic Programming
 
-### 10.1. Rotate Vector Left or right
-
-```cpp
-// Array - 1 2 3 4 5 6 7 8 9
-
-// Rotate array to left by 3 positions.
-// 4 5 6 7 8 9 1 2 3
-rotate(vec1.begin(), vec1.begin() + 3, vec1.end());
-
-// Rotate array to right by 3 positions.
-// 7 8 9 1 2 3 4 5 6
-rotate(vec1.begin(), vec1.begin() - 3, vec1.end());
-```
-
-### 10.2. Find element in vector and replace it
-```cpp
-auto it = find (V.begin(), V.end(), num);
-// it - V.begin() will given index of given num [0-indexed]
-V[it - V.begin()] = otherNum;
-```
-
-### 10.3. Slicing of Vector in C++
-
-```cpp
-vector<int> slicing(vector<int>& arr, int X, int Y){
-    auto start = arr.begin() + X;
-    auto end = arr.begin() + Y + 1;
-    vector<int> result(Y - X + 1);
- 
-    copy(start, end, result.begin());
-    return result;
-}
-```
-
-### 10.4. Erase Duplicates in Vector
-```cpp
-unorder_set<int> s;
-for(int i : vec) {
-    s.insert(i);
-}
-
-vec.assign(s.begin(), s.end());
-sort(vec.begin(), vec.end());
-
-Another Method: Slower than the above method
-
-sort(vec.begin(), vec.end());
-vec.erase(unique(vec.begin(), vec.end()), vec.end());
-```
-
-### 10.5. Common Elements in Vector
-```cpp
-int main() {
-	int countCommon = 0;
-	int n = 6;
-	vector<int> vec1 = {1, 3, 5, 7, 8, 9};
-	int m = 7;
-	vector<int> vec2 = {1, 2, 3, 7, 9, 4, 8};
-
-	sort(vec1.begin(), vec1.end());
-	sort(vec2.begin(), vec2.end());
-
-	vector<int> v(vec1.size() + vec2.size());
-
-	auto it = set_intersection(vec1.begin(), vec1.end(),vec2.begin(), vec2.end(),v.begin());
-
-	cout << "Common Elements : " << it - v.begin() << "\n";
-	cout << "The elements are : ";
-
-	for ( auto st = v.begin(); st != it; ++st) {
-		cout << *(st) << " ";
-	}
-}
-```
-
-### 10.6. Convert Vector to Unordered Set
-```cpp
-vector<string> V = {"One", "Two", "Three", "Four", "Five"};
-unordered_set<string> S(V.begin(), V.end());
-
-// Use Cases
-// -> To find any particular element : S.count("word");
-// -> To erase any particular element : S.erase("word");
-
-// 705 LeetCode - Design HashSet
-```
-
-## 11. Dynamic Programming
-
-### 11.1. Longest Increasing Subsequence - LIS
+### 10.1. Longest Increasing Subsequence - LIS
 
 ```cpp
 int LIS(vector<int> &a) {
@@ -1209,7 +1251,7 @@ int LIS(vector<int> &a) {
 }
 ```
 
-### 11.2. Partial Sum
+### 10.2. Partial Sum
 ```cpp
 
 int N = A.size();
@@ -1220,9 +1262,9 @@ for (int i = 0; i < N; ++i) pre[i + 1] = pre[i] + A[i];
 
 ```
 
-## 12. Graphs
+## 11. Graphs
 
-### 12.1. Can We Go From Source To Destination
+### 11.1. Can We Go From Source To Destination
 ```cpp
 vector<int> G[100];
 vector<bool>seen;
@@ -1257,7 +1299,7 @@ void solve() {
 }
 ```
 
-### 12.2. Print Euler Tour
+### 11.2. Print Euler Tour
 ```cpp
 
 vector<int> adj[1000]; 
@@ -1299,7 +1341,7 @@ void solve() {
 }
 ```
 
-### 12.3. Breadth First Search
+### 11.3. Breadth First Search
 ```cpp
 void bfs()
 {
@@ -1358,7 +1400,7 @@ void bfs()
 // Problems
 // LeetCode : 1971. Find if Path Exists in Graph
 ```
-### 12.4. DFS - First and Last Order
+### 11.4. DFS - First and Last Order
 ```cpp
 vector<int> G[100];
 vector<int> first_order;
@@ -1397,7 +1439,7 @@ void solve()
         cout << v << ": " << first_order[v] << ", " << last_order[v] << endl;
 }
 ```
-### 12.5. Dijkstra's Algorithm
+### 11.5. Dijkstra's Algorithm
 ```cpp
 const int N = 3e5 + 9;
 int n, m;
@@ -1475,7 +1517,7 @@ void solve()
 // 8 10 3 2 0 1 5 3 
 // 5 7 2 5 3 4 2 0 
 ```
-### 12.6. Lowest Common Ancestor
+### 11.6. Lowest Common Ancestor
 ```cpp
 const int maxN = 2e5 + 1;
 const int logN = 20;
@@ -1555,7 +1597,7 @@ void solve()
 // 3
 // 4
 ```
-### 12.7. Number of Connected Components
+### 11.7. Number of Connected Components
 ```cpp
 vector<int> G[100];
 
@@ -1591,7 +1633,7 @@ void solve()
 }
 ```
 
-### 12.8. Kruskal Algorithm - Minimum Spanning Tree
+### 11.8. Kruskal Algorithm - Minimum Spanning Tree
 
 ```cpp
 class UnionFind {
@@ -1643,7 +1685,7 @@ Problems
 // LeetCode - K Closest Points To Origin
 ```
 
-### 12.9. Euler path - Heirholzer Algorithm 
+### 11.9. Euler path - Heirholzer Algorithm 
 ```cpp
 // LeetCode Problem - Valid Arrangement of Pairs
 vector<vector<int>> validArrangement(vector<vector<int>>& E) {
@@ -1683,7 +1725,7 @@ vector<vector<int>> validArrangement(vector<vector<int>>& E) {
 }
 ```
 
-### 12.10. Bipartite Graph
+### 11.10. Bipartite Graph
 ```cpp
 bool isBipartite(vector<vector<int>>& G) {
     vector<int> id(G.size());
@@ -1703,7 +1745,7 @@ bool isBipartite(vector<vector<int>>& G) {
 }
 ```
 
-### 12.11. Bellman Ford Algorithm
+### 11.11. Bellman Ford Algorithm
 ```cpp
 vector<int> bellmanFord(vector<vector<int>>& edges, int V, int src) {
     vector<int> dist(N, INT_MAX);
@@ -1719,7 +1761,7 @@ vector<int> bellmanFord(vector<vector<int>>& edges, int V, int src) {
 }
 ```
 
-### 12.12 Topological Sort
+### 11.12. 12.12 Topological Sort
 
 <details>
 <summary>Code</summary>
@@ -1764,9 +1806,9 @@ vector<int> topologicalSort(int k, vector<vector<int>> &A) {
 
 <br>[⬆ Back to top](#dsa-code-snippets)
 
-## 13. Recursion
+## 12. Recursion
 
-### 13.1. Maximum Digit in Number
+### 12.1. Maximum Digit in Number
 ```cpp
 int maxDigitInNumber(int n) {
     if(n < 10) return n;
@@ -1774,9 +1816,9 @@ int maxDigitInNumber(int n) {
 }
 ```
 
-## 14. Binary Trees
+## 13. Binary Trees
 
-### 14.1. Find Path From Root To Target Node
+### 13.1. Find Path From Root To Target Node
 
 ```cpp
 // It will store the path in vector passed to this function.
@@ -1790,9 +1832,9 @@ bool findPath(TreeNode *node, TreeNode *target, vector<TreeNode*> &path) {
 }
 ```
 
-## 15. String
+## 14. String
 
-### 15.1. stringstream Implementation
+### 14.1. stringstream Implementation
 ```cpp
 stringstream ss;
 ss << "Kiranpal Singh";
@@ -1809,7 +1851,7 @@ while(ss >> word) {
 // https://leetcode.com/problems/apply-discount-to-prices/
 ```
 
-### 15.2. Rabin Karp Algorithm
+### 14.2. Rabin Karp Algorithm
 ```cpp
 string s,t;
 //t -> text s-> pattern
@@ -1859,7 +1901,7 @@ void solve()
 // 0 6 11
 ```
 
-### 15.3. Reverse binary string using XOR operator
+### 14.3. Reverse binary string using XOR operator
 
 ```cpp
 string s = "01010011";  
@@ -1874,7 +1916,7 @@ cout << "s: " << s << "\n";
 // CodeChef - K Flip (KLIP)
 ```
 
-### 15.4. Z Function - Prefix Function
+### 14.4. Z Function - Prefix Function
 ```cpp
 vector<int> z_function(string s) {
     int n = (int) s.length();
@@ -1891,7 +1933,7 @@ vector<int> z_function(string s) {
 }
 ```
 
-### 15.5. Adding numbers in string
+### 14.5. Adding numbers in string
 ```cpp
 string addStr(const string& a, const string& b) {
 	int as = (int)a.size() - 1;
@@ -1931,7 +1973,7 @@ void solve()
 // Output
 // 9999
 ```
-### 15.6. Longest Prefix Suffix
+### 14.6. Longest Prefix Suffix
 ```cpp
 // Longest prefix which is also suffix
 // The prefix and suffix should not overlap
@@ -1989,7 +2031,7 @@ void solve()
 
 ```
 
-### 15.7. Euler Phi Function
+### 14.7. Euler Phi Function
 ```cpp
 vector< int > euler_phi_table(int n) {
   vector< int > euler(n + 1);
@@ -2076,9 +2118,9 @@ void solve()
 // The numbers are : 1 3 7 9 11 13 17 19 
 ```
 
-## 16. STL
+## 15. STL
 
-### 16.1. Finding if element inserted in set or not
+### 15.1. Finding if element inserted in set or not
 ```cpp
 set<int> S;
 int N = 6;
@@ -2101,9 +2143,9 @@ for(int i = 0; i < N; i++) {
 // New Element is inserted :)
 ```
 
-## 17. Lambda Function
+## 16. Lambda Function
 
-### 17.1. Definition of Lambda Function
+### 16.1. Definition of Lambda Function
 ```cpp
 // Void Lambda Function
 function<void(int, int)> dfs = [&](int start, int goal) {
@@ -2111,7 +2153,7 @@ function<void(int, int)> dfs = [&](int start, int goal) {
 };
 ```
 
-### 17.2. Lambda Function to Check if Vector is Permutation 
+### 16.2. Lambda Function to Check if Vector is Permutation 
 ```cpp
 int n = 6;
 auto isPermutation = [&](const vector<int> &A)->bool{
@@ -2135,9 +2177,9 @@ if(isPermutation(B)) {
 }
 ```
 
-## 18. Heaps
+## 17. Heaps
 
-### 18.1. Max Heap and Min Heap
+### 17.1. Max Heap and Min Heap
 ```cpp
 // Minimum heap and Maximum heap
 void solve()
@@ -2176,7 +2218,7 @@ void solve()
 // 33 23 19 9 7 5 2 1 
 ```
 
-### 18.2. Convert Vector to Heaps in C++
+### 17.2. Convert Vector to Heaps in C++
 
 ```cpp
 vector<array<int, 3>> E;
@@ -2192,9 +2234,9 @@ E.pop_back()
 Problems
 1. [Min Cost To Connect All Pairs](https://leetcode.com/problems/min-cost-to-connect-all-points/)
 
-## 19. Permutation
+## 18. Permutation
 
-### 19.1. Next Permutation
+### 18.1. Next Permutation
 ```cpp
 void solve()
 {
@@ -2237,9 +2279,9 @@ void solve()
 // dcba
 ```
 
-## 20. Mathematics
+## 19. Mathematics
 
-### 20.1. Chicken McNugget Theorem
+### 19.1. Chicken McNugget Theorem
 ```cpp
 /* The Chicken McNugget Theorem states that for any two relatively prime positive
 integers m and n, the greatest integer that cannot that cannot be written
@@ -2289,7 +2331,7 @@ void solve()
 // NO
 
 ```
-### 20.2. Sum of Two Numbers with Given Base
+### 19.2. Sum of Two Numbers with Given Base
 ```cpp
 // Returns sum of two numbers a and b with given base 
 int sumWithBase(string a, string b, int base)
@@ -2339,7 +2381,7 @@ void solve()
 // 23
 ```
 
-### 20.3. Check if number N if power of X
+### 19.3. Check if number N if power of X
 ```cpp
 // We have to check the log N base to X is integer. We can check that with fmod.
 // We can take X to be any number. For example 2, 3, 4 ...
@@ -2357,9 +2399,9 @@ bool isPowerOfFour(int n) {
 }
 ```
 
-## 21. Prime Numbers
+## 20. Prime Numbers
 
-### 21.1. Prime Numbers in Range
+### 20.1. Prime Numbers in Range
 ```cpp
 const ll MAXN = 1e7;
 bool comp[MAXN + 10];
@@ -2393,9 +2435,9 @@ void solve()
 // Input - > 1 100
 // Output -> 25 (25 Prime numbers between 2 and 100 inclusive)
 ```
-## 22. Base Conversion
+## 21. Base Conversion
 
-### 22.1. Convert To Decimal From Base K
+### 21.1. Convert To Decimal From Base K
 ```cpp
 
 int convertToDecimal(string s, int k) {
@@ -2417,9 +2459,9 @@ int main(){
 }
 ```
 
-## 23. GCD and LCM
+## 22. GCD and LCM
 
-### 23.1. Maximum GCD in range [L, R]
+### 22.1. Maximum GCD in range [L, R]
 ```cpp
 // Finding maximum gcd of two numbers a and b in range [L, R]
 // in O(n) time instead of O(n ^ 2) time.
@@ -2458,7 +2500,7 @@ cout << modifiedOperations << "\n";
 // 141
 ```
 
-### 23.2. Dirichlet's Convolution
+### 22.2. Dirichlet's Convolution
 
 ```cpp
 namespace Dirichlet {
@@ -2511,7 +2553,7 @@ int main() {
 }
 ```
 
-### 23.3. Euler Totient Function
+### 22.3. Euler Totient Function
 
 ```cpp
 #define int long long
@@ -2568,9 +2610,9 @@ signed main() {
 }
 ```
 
-## 24. Geometry
+## 23. Geometry
 
-### 24.1. Point Structure in Geometry
+### 23.1. Point Structure in Geometry
 ```cpp
 typedef double T;
 struct pt {
@@ -2636,9 +2678,9 @@ void solve()
 
 ```
 
-## 25. Mathematical Equations
+## 24. Mathematical Equations
 
-### 25.1. Find x and y in a.x + b.y = N
+### 24.1. Find x and y in a.x + b.y = N
 
 ```cpp
 void equation(int a, int b, int n) {
@@ -2652,15 +2694,15 @@ void equation(int a, int b, int n) {
 }
 ```
 
-## 26. Miscellaneous
+## 25. Miscellaneous
 
-### 26.1. Numeric Limits
+### 25.1. Numeric Limits
 ```cpp
 long long a = numeric_limits<long long>::max();
 int b = numeric_limits<int>::max();
 ```
 
-### 26.2. Median of an array
+### 25.2. Median of an array
 
 ```cpp
 int median(vector<int> &A) {
@@ -2682,7 +2724,7 @@ int median(vector<int> &A) {
 }
 ```
 
-### 26.3. Reverse a number
+### 25.3. Reverse a number
 
 ```cpp
 int rev(int n) {
@@ -2711,7 +2753,7 @@ int main()
 }
 ```
 
-### 26.4. Generating Random Numbers in Range
+### 25.4. Generating Random Numbers in Range
 ```cpp
 mt19937 rng{random_device{}()};
 uniform_real_distribution<double> uni{0, 1};
@@ -2735,6 +2777,3 @@ uniform_real_distribution<double> uni{0, 1};
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=kiranpalsingh1806&label=Views&color=blue&style=plastic" alt="kiranpalsingh" /> </p>
 
 </details>
-
-<br>[⬆ Back to top](#dsa-code-snippets)
-
