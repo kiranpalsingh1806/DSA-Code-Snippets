@@ -65,7 +65,7 @@
     - [11.9. Euler path - Heirholzer Algorithm](#119-euler-path---heirholzer-algorithm)
     - [11.10. Bipartite Graph](#1110-bipartite-graph)
     - [11.11. Bellman Ford Algorithm](#1111-bellman-ford-algorithm)
-    - [11.12. 12.12 Topological Sort](#1112-1212-topological-sort)
+    - [11.12. Topological Sort](#1112-topological-sort)
   - [12. Recursion](#12-recursion)
     - [12.1. Maximum Digit in Number](#121-maximum-digit-in-number)
   - [13. Binary Trees](#13-binary-trees)
@@ -1761,7 +1761,7 @@ vector<int> bellmanFord(vector<vector<int>>& edges, int V, int src) {
 }
 ```
 
-### 11.12. 12.12 Topological Sort
+### 11.12. Topological Sort
 
 <details>
 <summary>Code</summary>
