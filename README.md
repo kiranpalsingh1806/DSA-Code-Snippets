@@ -1,5 +1,7 @@
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=60&pause=1000&center=true&vCenter=true&width=1100&height=200&lines=DSA+Code+Snippets)](https://git.io/typing-svg)
 
+It contains curated list of all data stuctures and algorithm used in various competitive programming websites such as Leetcode, Codechef, Codeforces, AtCoder etc. These data structres are listed topicwise and new problems are added regularly.
+
 # DSA Code Snippets
 - [DSA Code Snippets](#dsa-code-snippets)
   - [1. Array](#1-array)
