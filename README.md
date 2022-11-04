@@ -96,6 +96,7 @@ It contains curated list of all data stuctures and algorithm used in various com
     - [19.1. Chicken McNugget Theorem](#191-chicken-mcnugget-theorem)
     - [19.2. Sum of Two Numbers with Given Base](#192-sum-of-two-numbers-with-given-base)
     - [19.3. Check if number N if power of X](#193-check-if-number-n-if-power-of-x)
+    - [19.4. Base Equivalence](#194-base-equivalence)
   - [20. Prime Numbers](#20-prime-numbers)
     - [20.1. Prime Numbers in Range](#201-prime-numbers-in-range)
   - [21. Base Conversion](#21-base-conversion)
@@ -2402,7 +2403,35 @@ bool isPowerOfFour(int n) {
     return fmod(log10(n) / log10(4), 1) == 0;
 }
 ```
+### 19.4. Base Equivalence
+```cpp
+// Given a number (n) and no. of digits (m) to represent the number, we have to check if we can represent n using exactly m digits in any base from 2 to 32.
 
+	class Solution {
+
+  public:
+
+    string baseEquiv(int n, int m){
+
+        for (int i=2; i<=32; i++){
+
+            if ( pow(i,m-1) > n ) continue;
+
+            if (pow(i,m) > n) return "Yes" ;
+
+        }
+
+        return "No" ;
+
+    }
+
+};
+	
+// Input: n = 8, m = 3
+// Output: No
+// Explanation: Not possible in any base. 
+```
+	
 ## 20. Prime Numbers
 
 ### 20.1. Prime Numbers in Range
