@@ -13,6 +13,7 @@ It contains curated list of all data stuctures and algorithm used in various com
     - [1.6. Erase Duplicates in Vector](#16-erase-duplicates-in-vector)
     - [1.7. Common Elements in Vector](#17-common-elements-in-vector)
     - [1.8. Convert Vector to Unordered Set](#18-convert-vector-to-unordered-set)
+    - [1.9. array removals](#19-array-removals)
   - [2. Bit Manipulation](#2-bit-manipulation)
     - [2.1. Check if ith bit is on](#21-check-if-ith-bit-is-on)
     - [2.2. Number of set bits in number](#22-number-of-set-bits-in-number)
@@ -242,6 +243,38 @@ unordered_set<string> S(V.begin(), V.end());
 // 705 LeetCode - Design HashSet
 ```
 
+### 1.9. Array Removals
+```cpp
+// Given an array arr[] of size N and an integer K. The task is to find the minimum number of elements that should be removed, such that Amax-Amin<=K.
+// After the  removal of elements, Amax and Amin is considered among the remaining elements.
+
+class Solution{
+    public:
+    int removals(vector<int>& arr, int k){
+        //Code here
+        sort(arr.begin(),arr.end());
+       int n=arr.size();
+       int res=INT_MIN;
+       for(int i=0;i<n;i++)
+       {
+           for(int j=i;j<n;j++)
+           {
+               if((arr[j]-arr[i])<=k)
+               {
+                   res=max(res,j-i+1);
+               }
+           }
+       }
+       return n-res;
+    }
+};
+
+// Input: N = 9, K = 4  
+// arr[] = {1,3,4,9,10,11,12,17,20}
+// Output: 5
+// Explanation: Remove 1, 3, 4 from beginning
+// and 17, 20 from the end.
+```
 
 ## 2. Bit Manipulation
 
