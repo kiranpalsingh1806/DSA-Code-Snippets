@@ -58,6 +58,7 @@ It contains curated list of all data stuctures and algorithm used in various com
   - [10. Dynamic Programming](#10-dynamic-programming)
     - [10.1. Longest Increasing Subsequence - LIS](#101-longest-increasing-subsequence---lis)
     - [10.2. Partial Sum](#102-partial-sum)
+    - [10.3. Minimum number of Coins](#103-minimum-number-of-coins)
   - [11. Graphs](#11-graphs)
     - [11.1. Can We Go From Source To Destination](#111-can-we-go-from-source-to-destination)
     - [11.2. Print Euler Tour](#112-print-euler-tour)
@@ -1297,6 +1298,85 @@ vector<int> pre(N + 1);
 partial_sum(begin(A), end(A), begin(pre) + 1);
 // Or simply
 for (int i = 0; i < N; ++i) pre[i + 1] = pre[i] + A[i];
+
+```
+
+## 10.3. Minimum number of Coins
+```CPP
+// Given an infinite supply of each denomination of Indian currency { 1, 2, 5, 10, 20, 50, 100, 200, 500, 2000 } and a target value N.
+// Find the minimum number of coins and/or notes needed to make the change for Rs N. You must return the list containing the value of coins required. 
+
+//{ Driver Code Starts
+// Initial Template for C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+// User function Template for C++
+
+class Solution{
+
+public:
+
+    vector<int> minPartition(int N)
+
+    {
+
+        vector<int> arr = {1,2,5,10,20,50,100,200,500,2000};
+
+        vector<int> ans;
+
+        long long last = arr.size() - 1;
+
+        while(last >= 0){
+
+            if(arr[last] <= N){
+
+                N = N - arr[last];
+
+                ans.push_back(arr[last]);
+
+            }
+
+            else{
+
+                last --;
+
+            }
+
+        }
+
+        return ans;
+
+    }
+
+};
+
+//{ Driver Code Starts.
+
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int N;
+        cin>>N;
+        
+        Solution ob;
+        vector<int> numbers = ob.minPartition(N);
+        for(auto u: numbers)
+            cout<<u<<" ";
+        cout<<"\n";
+    }
+    return 0;
+}
+// } Driver Code Ends
+
+// Input: N = 43
+// Output: 20 20 2 1
+// Explaination: 
+// Minimum number of coins and notes needed 
+// to make 43. 
 
 ```
 
