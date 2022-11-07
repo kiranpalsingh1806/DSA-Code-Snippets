@@ -58,6 +58,7 @@ It contains curated list of all data stuctures and algorithm used in various com
   - [10. Dynamic Programming](#10-dynamic-programming)
     - [10.1. Longest Increasing Subsequence - LIS](#101-longest-increasing-subsequence---lis)
     - [10.2. Partial Sum](#102-partial-sum)
+    - [10.3. floyd warshall](#103-floyd-warshall)
   - [11. Graphs](#11-graphs)
     - [11.1. Can We Go From Source To Destination](#111-can-we-go-from-source-to-destination)
     - [11.2. Print Euler Tour](#112-print-euler-tour)
@@ -1297,6 +1298,50 @@ vector<int> pre(N + 1);
 partial_sum(begin(A), end(A), begin(pre) + 1);
 // Or simply
 for (int i = 0; i < N; ++i) pre[i + 1] = pre[i] + A[i];
+
+```
+### 10.3. Floyd Warshall
+```cpp
+// The problem is to find the shortest distances between every pair of vertices in a given edge-weighted directed graph. 
+//T he graph is represented as an adjacency matrix of size n*n. Matrix[i][j] denotes the weight of the edge from i to j.
+// If Matrix[i][j]=-1, it means there is no edge from i to j.
+
+//{ Driver Code Starts
+//Initial template for C++
+
+#include<bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+//User function template for C++
+
+class Solution {
+
+  public:
+
+ void shortest_distance(vector<vector<int>>&p){
+
+    int n = p.size();
+
+     for(int k=0;k<n;k++) {
+
+         for(int i=0;i<n;i++) {
+
+             for(int j=0;j<n;j++) {
+
+                 if(i==k || j==k || p[i][k]==-1 || p[k][j] == -1) continue;
+
+                 p[i][j] = min(p[i][j]==-1 ? INT_MAX: p[i][j], p[i][k] + p[k][j]);
+
+             }
+
+         }
+
+     }
+
+ }
+
+};
 
 ```
 
