@@ -98,6 +98,7 @@ It contains curated list of all data stuctures and algorithm used in various com
     - [19.2. Sum of Two Numbers with Given Base](#192-sum-of-two-numbers-with-given-base)
     - [19.3. Check if number N if power of X](#193-check-if-number-n-if-power-of-x)
     - [19.4. Base Equivalence](#194-base-equivalence)
+    - [19.5.  two numbers with odd occurrences](#195-two-numbers-with-odd-occurrences)
   - [20. Prime Numbers](#20-prime-numbers)
     - [20.1. Prime Numbers in Range](#201-prime-numbers-in-range)
   - [21. Base Conversion](#21-base-conversion)
@@ -2464,6 +2465,56 @@ bool isPowerOfFour(int n) {
 // Output: No
 // Explanation: Not possible in any base. 
 ```
+	
+### 19.5. Two numbers with odd occurrences
+```cpp
+// Given an unsorted array, Arr[] of size N and that contains even number of occurrences for all numbers except two numbers.
+// Find the two numbers in decreasing order which has odd occurrences.
+
+class Solution{
+    public:
+  vector<long long int> twoOddNum(long long int Arr[], long long int N)  
+    {
+       vector<long long int>res;
+       long long int xorn=0;
+       for(int i=0;i<N;i++)
+       {
+           xorn^=Arr[i];
+       }
+       long long int mask=xorn&(-xorn);//masking
+       long long int x=0,y=0;
+       for(int i=0;i<N;i++)
+       {
+           if((Arr[i]&mask)==0)
+           {
+               x=x^Arr[i];
+           }
+           else
+           {
+               y=y^Arr[i];
+           }
+       }
+       if(x>y)
+       {
+           res.push_back(x);
+           res.push_back(y);
+       }
+       else
+       {
+           res.push_back(y);
+           res.push_back(x);
+       }
+       return res;
+    }
+};
+// Input:
+// N = 8
+// Arr = {4, 2, 4, 5, 2, 3, 3, 1}
+// Output: {5, 1} 	
+```	
+	
+	
+	
 	
 ## 20. Prime Numbers
 
