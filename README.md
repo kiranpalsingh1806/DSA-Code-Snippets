@@ -58,6 +58,7 @@ It contains curated list of all data stuctures and algorithm used in various com
   - [10. Dynamic Programming](#10-dynamic-programming)
     - [10.1. Longest Increasing Subsequence - LIS](#101-longest-increasing-subsequence---lis)
     - [10.2. Partial Sum](#102-partial-sum)
+    - [10.3. minimum sum partition](#103-minimum-sum-partition)
   - [11. Graphs](#11-graphs)
     - [11.1. Can We Go From Source To Destination](#111-can-we-go-from-source-to-destination)
     - [11.2. Print Euler Tour](#112-print-euler-tour)
@@ -1299,6 +1300,73 @@ partial_sum(begin(A), end(A), begin(pre) + 1);
 for (int i = 0; i < N; ++i) pre[i + 1] = pre[i] + A[i];
 
 ```
+### 10.3. Minimum sum partition
+
+```cpp
+// Given an array arr of size n containing non-negative integers, the task is to divide it into two sets S1 and S2 such that the absolute difference between their sums is minimum and find the minimum difference
+
+class Solution{
+
+  public:
+	int minDifference(int arr[], int n)  { 
+	    // Your code goes here
+	    // subset sum problem
+	    // subset sum S is close to sum(arr)/2 will give the min diff 
+	    int sum = 0;
+	    for(int i=0; i<n; ++i){
+	        sum += arr[i];
+	    }
+	    
+	    int ans = solveSubsetSum(arr,n,sum);
+	    return ans;
+	} 
+	int solveSubsetSum(int arr[], int n, int target){
+	    
+	    
+	    vector<vector<bool>> dp(n+1,vector<bool>(target+1,false));
+
+	    for(int i=0; i<=n; ++i){
+	        for(int j=0; j<=target; ++j){
+	            if(j == 0){
+	                dp[i][j] = true; // found targetSum
+	                continue;
+	            }
+	            if(i == 0){
+	                // no search space, could not reach targetSum
+	                dp[i][j] = false;
+	                continue;
+	            }
+	            if(arr[i-1] <= j){
+	                dp[i][j] = dp[i-1][j-arr[i-1]] || dp[i-1][j];
+	            }
+	            else{
+	                dp[i][j] = dp[i-1][j];
+	            }
+	        }
+	    }
+	   // return dp[n][target];
+	   
+	   // search in dp[n] array for sum closer to totalSum/2
+	   int firstHalfSum = 0;
+	   for(int j=target/2; j >= 0; --j){
+	       if(dp[n][j] == true){
+	           firstHalfSum = j;
+	           break;
+	       }
+	   }
+	   int secondHalfSum = target-firstHalfSum;
+	   
+	   int res = abs(firstHalfSum-secondHalfSum);
+	   return res;
+	    
+	}
+};
+
+
+// Input: N = 4, arr[] = {1, 6, 11, 5} 
+/  Output: 1
+```
+
 
 ## 11. Graphs
 
