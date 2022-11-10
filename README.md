@@ -98,6 +98,7 @@ It contains curated list of all data stuctures and algorithm used in various com
     - [19.2. Sum of Two Numbers with Given Base](#192-sum-of-two-numbers-with-given-base)
     - [19.3. Check if number N if power of X](#193-check-if-number-n-if-power-of-x)
     - [19.4. Base Equivalence](#194-base-equivalence)
+    - [19.5. jumping numbers](#195-jumping-numbers)
   - [20. Prime Numbers](#20-prime-numbers)
     - [20.1. Prime Numbers in Range](#201-prime-numbers-in-range)
   - [21. Base Conversion](#21-base-conversion)
@@ -2464,6 +2465,47 @@ bool isPowerOfFour(int n) {
 // Output: No
 // Explanation: Not possible in any base. 
 ```
+	
+### 19.5. Jumping Numbers
+```cpp
+// Given a positive number X. Find the largest Jumping Number which is smaller than or equal to X. 
+
+	class Solution {
+  public:
+   
+    #define ll long long
+    ll ans=0;
+    void fun(ll n, ll x){
+        if(n>x)return ;
+        ans=max(ans, n);
+        int ls=n%10;
+        ll nn=n;
+        if(ls==0){
+            nn=10*n+ls+1;
+            fun(nn, x);
+        }else if(ls==9){
+            nn=10*n+ls-1;
+            fun(nn, x);
+        }else{
+            nn=10*n+ls+1;
+            fun(nn, x);
+            nn=10*n+ls-1;
+            fun(nn, x);
+        }
+    }
+    long long jumpingNums(long long x) {
+        for(int i=0;i<=9;i++){
+            fun(i, x);
+        }
+        return ans;
+    }
+};
+
+//  Input:
+// X = 10
+// Output:
+// 10
+```			      
 	
 ## 20. Prime Numbers
 
