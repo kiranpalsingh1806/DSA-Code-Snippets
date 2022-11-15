@@ -59,6 +59,7 @@ It contains curated list of all data stuctures and algorithm used in various com
     - [10.1. Longest Increasing Subsequence - LIS](#101-longest-increasing-subsequence---lis)
     - [10.2. Partial Sum](#102-partial-sum)
     - [10.3. Minimum number of Coins](#103-minimum-number-of-coins)
+    - [10.4. longest perfect piece](#104-longest-perfect-piece)
   - [11. Graphs](#11-graphs)
     - [11.1. Can We Go From Source To Destination](#111-can-we-go-from-source-to-destination)
     - [11.2. Print Euler Tour](#112-print-euler-tour)
@@ -1380,6 +1381,56 @@ int main(){
 // Minimum number of coins and notes needed 
 // to make 43. 
 
+```
+
+
+### 10.4. Longest Perfect Piece
+```cpp
+// Given an array arr[] of N Numbers. A Perfect Piece is defined as a subarray such that the difference between the minimum and the maximum value in that range is at most 1. Find the Maximal Length Perfect Piece.
+
+class Solution {
+  public:
+    int longestPerfectPiece(int arr[], int n) {
+        // code here
+        int a, b;
+        int i = 0, j = 0, res = 0;
+        while (i < n) {
+            a = arr[i];
+            b = -1;
+            j = i + 1;
+            while(j < n) {
+                if (b == -1 && abs(arr[j] - a) == 1)
+                    b = arr[j++];
+                else if (arr[j] == a || arr[j] == b)
+                    j++;
+                else
+                    break;
+            }
+            // cout << i << " " << j << endl;
+            res = max(res, j - i);
+            if (j >= n)
+                break;
+            i = j;
+            if (abs(arr[j] - arr[j - 1]) == 1) {
+                i = j - 1;
+                a = arr[j];
+                b = arr[i];
+                while (arr[i] == b)
+                    i--;
+                i++;
+            }
+        }
+        return res;
+    }
+};
+
+
+
+// Input:
+// N = 4
+// arr[] = {8, 8, 8, 8}
+// Output:
+// 4
 ```
 
 ## 11. Graphs
