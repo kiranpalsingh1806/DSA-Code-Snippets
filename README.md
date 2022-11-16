@@ -84,6 +84,7 @@ It contains curated list of all data stuctures and algorithm used in various com
     - [14.5. Adding numbers in string](#145-adding-numbers-in-string)
     - [14.6. Longest Prefix Suffix](#146-longest-prefix-suffix)
     - [14.7. Euler Phi Function](#147-euler-phi-function)
+    - [14.8. Sum of Beauty of All Substrings](#148-sum-of-beauty-of-all-substrings)
   - [15. STL](#15-stl)
     - [15.1. Finding if element inserted in set or not](#151-finding-if-element-inserted-in-set-or-not)
   - [16. Lambda Function](#16-lambda-function)
@@ -2237,6 +2238,45 @@ void solve()
 // Euler Phi of 20 : 8
 // The numbers are : 1 3 7 9 11 13 17 19 
 ```
+			       
+### 14.8. Sum of Beauty of All Substrings
+```cpp
+// Given a string S, return the sum of beauty of all its substrings.
+// The beauty of a string is defined as the difference in frequencies between the most frequent and least frequent characters.
+
+			       class Solution {
+  public:
+      int beautySum(string s) {
+        int dp[26];
+        int sum = 0;
+        int n = s.length();
+        for(int i = 0; i < n; i++){
+            memset(dp, 0, sizeof(dp));
+            for(int j = i; j < n; j++){
+                dp[s[j] - 'a']++;
+                int minE = INT_MAX;
+                int maxE = 0;
+                for(int k = 0; k < 26; k++){
+                    if(dp[k]){
+                        minE = min(minE, dp[k]);
+                    }
+                    maxE = max(maxE, dp[k]);
+                }
+                sum += maxE - minE;
+            }
+        }
+        return sum;
+    }
+};
+	
+
+	
+// Input:
+// S = "aaac"
+// Output:
+// 3
+```
+	
 
 ## 15. STL
 
