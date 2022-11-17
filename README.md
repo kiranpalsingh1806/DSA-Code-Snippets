@@ -14,6 +14,7 @@ It contains curated list of all data stuctures and algorithm used in various com
     - [1.7. Common Elements in Vector](#17-common-elements-in-vector)
     - [1.8. Convert Vector to Unordered Set](#18-convert-vector-to-unordered-set)
     - [1.9. array removals](#19-array-removals)
+    - [1.10. count of subarrays](#110-count-of-subarrays)
   - [2. Bit Manipulation](#2-bit-manipulation)
     - [2.1. Check if ith bit is on](#21-check-if-ith-bit-is-on)
     - [2.2. Number of set bits in number](#22-number-of-set-bits-in-number)
@@ -278,6 +279,60 @@ class Solution{
 // Explanation: Remove 1, 3, 4 from beginning
 // and 17, 20 from the end.
 ```
+### 1.10. Count of Subarrays
+```cpp
+// Given an array of N positive integers  Arr1, Arr2 ............ Arrn. The value of each contiguous subarray of given array is the maximum element present in that // subarray. The task is to return the number of subarrays having value strictly greater than K.
+
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define ll long long
+
+
+// } Driver Code Ends
+//User function template for C++
+
+class Solution{
+public:
+
+ll countSubarray(int arr[], int n, int k) {
+
+   ll total = (ll)n*(n+1)/2;
+
+   ll c=0;
+
+   for(int i=0;i<n;i++){
+
+       if(arr[i]<=k){
+
+           c++;
+
+       }else{
+
+           ll temp= c*(c+1)/2;
+
+           total-=temp;
+
+           c=0;
+
+       }
+
+   }
+  total-=(c*(c+1)/2);
+   return total;
+
+ }
+};
+
+// Input:
+// N = 4, K = 1
+// Arr[] = {1, 2, 3, 4}
+// Output: 9
+```
+
+
 
 ## 2. Bit Manipulation
 
