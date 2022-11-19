@@ -118,6 +118,8 @@ It contains curated list of all data stuctures and algorithm used in various com
     - [25.3. Reverse a number](#253-reverse-a-number)
     - [25.4. Generating Random Numbers in Range](#254-generating-random-numbers-in-range)
     - [25.5. grouping of numbers](#255-grouping-of-numbers)
+    - [25.6 Check if all levels of two trees are anagrams or not](#256-check-if-all-levels-of-two-trees-are-anagrams-or-not)
+    
 
 ## 1. Array
 
@@ -3032,8 +3034,61 @@ int main() {
 // Output:
 // 2
 ```
-		
-		
+### 25.6. Check if all levels of two trees are anagrams or not
+```cpp
+// Given two binary trees, the task is to check if each of their levels are anagrams of each other or not. 
+
+		class Solution{
+    public:
+    bool areAnagrams(Node *root1, Node *root2)
+    {
+        
+        queue<Node*> q1;
+        queue<Node*> q2;
+        
+        q1.push(root1);
+        q2.push(root2);
+        
+        while(!q1.empty() && !q2.empty()){
+        
+           
+           int s1=q1.size();
+           int s2=q2.size();
+               
+            if(s1!=s2) return false;
+            
+            unordered_map<int,int> freq;
+            
+            for(int i=0;i<s1;++i){
+                
+                Node* t1=q1.front(); q1.pop();
+                Node* t2=q2.front(); q2.pop();
+                
+                freq[t1->data]++;
+                freq[t2->data]--;
+                
+                if(t1->left)   q1.push(t1->left);
+                if(t1->right)  q1.push(t1->right);
+                
+                if(t2->left)   q2.push(t2->left);
+                if(t2->right)  q2.push(t2->right);
+                
+            }
+            
+            for(auto itr=freq.begin();itr!=freq.end();itr++){
+                if(itr->second!=0) 
+                   return false;
+            }
+            
+          } 
+        
+        if(!q1.empty() || !q2.empty())
+            return false;
+        
+         return true;
+        
+    }
+```
 		
 		
 		
